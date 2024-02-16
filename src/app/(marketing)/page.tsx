@@ -22,7 +22,7 @@ const HomePage = () => {
               beyond!
             </h1>
             <p className='mt-5 font-mono text-sm uppercase'>
-              {'>>'} Chandra.prakash aka Rega
+              {'>>'} Chandraprakash aka Rega
             </p>
           </div>
           <div className='font-sm layout relative mt-auto flex items-center justify-between font-mono'>

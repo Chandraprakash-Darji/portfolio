@@ -11,7 +11,7 @@ export const Navbar = () => {
             className='text-foreground hover:text-primary flex-shrink-0 self-center font-mono capitalize transition-colors'
           >
             <span className='mr-2 inline-block h-2 w-2 rounded-full bg-current'></span>
-            Chandraprakash Darji
+            Chandra
           </UnstyledLink>
           <nav className='flex'>
             {links.map((link) => (
