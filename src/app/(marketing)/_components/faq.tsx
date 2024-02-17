@@ -31,7 +31,7 @@ type FaqProps = {
 
 const Faq = ({ selected, setSelected, q, a }: FaqProps) => {
   return (
-    <div className='border-content/20 bg-card relative z-0 rounded-xl border'>
+    <div className='border-content/20 bg-card relative z-0 rounded-md border'>
       <button
         onClick={() => setSelected()}
         className='flex w-full flex-row items-center justify-between p-5'

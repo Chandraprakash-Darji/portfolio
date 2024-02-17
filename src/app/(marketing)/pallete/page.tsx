@@ -10,13 +10,13 @@ const PalletePage = () => {
     <section className='relative flex flex-col pt-32'>
       <div className='layout relative z-10'>
         <Heading>Website's Design</Heading>
-        <p className='text-muted-foreground mt-1'>
+        <h1 className='h0 text-muted-foreground mt-2 max-w-4xl font-medium leading-tight'>
           {process.env.NEXT_PUBLIC_APP_URL?.startsWith('http://') &&
             process.env.NEXT_PUBLIC_APP_URL.replace('http://', '')}{' '}
           {process.env.NEXT_PUBLIC_APP_URL?.startsWith('https://') &&
             process.env.NEXT_PUBLIC_APP_URL.replace('https://', '')}{' '}
-          color palette
-        </p>
+          Color palette
+        </h1>
         <div className='mt-4 flex w-full flex-col flex-wrap gap-6 rounded-lg border-2 border-dashed p-4'>
           {' '}
           <div className='flex items-end justify-between'>

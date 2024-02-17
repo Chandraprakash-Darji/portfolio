@@ -38,7 +38,10 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
         <Link
           href={href}
           ref={ref}
-          className={className}
+          className={cn(
+            'focus:ring-primary focus:ring-offset-background focus:outline-none focus:ring-2 focus:ring-offset-4',
+            className
+          )}
           onClick={(e) => {
             onClick && onClick(e);
             trackEventTag && trackEvent(trackEventTag);

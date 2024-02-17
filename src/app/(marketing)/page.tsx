@@ -10,7 +10,6 @@ import Marquee from '@/app/(marketing)/_components/marquee';
 import ProjectCard from '@/app/(marketing)/_components/project-card';
 import { Spotlight } from '@/app/(marketing)/_components/spotlight';
 import Time from '@/app/(marketing)/_components/time';
-import { links } from '@/constant/footer-links';
 import { projects } from '@/constant/projects';
 import { social } from '@/constant/social';
 
@@ -34,6 +33,10 @@ const HomePage = () => {
             </h1>
             <p className='mt-5 font-mono text-sm uppercase'>
               {'>>'} Chandraprakash aka Rega
+            </p>
+            <p className='mt-2'>
+              Don't forget to sign my{' '}
+              <UnderlineLink href='/guestbook'>guestbook</UnderlineLink>!
             </p>
           </div>
           <div className='font-sm layout relative mt-auto flex items-center justify-between font-mono'>

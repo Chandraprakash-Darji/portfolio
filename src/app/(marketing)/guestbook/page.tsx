@@ -8,9 +8,9 @@ const GuestBookPage = () => {
     <section className='relative flex flex-col pt-32'>
       <div className='layout relative z-10'>
         <Heading>Guestbook</Heading>
-        <p className='text-muted-foreground mt-1'>
+        <h1 className='h0 text-muted-foreground mt-2 max-w-4xl font-medium leading-tight'>
           Leave whatever you like to say—message, appreciation, suggestions.
-        </p>
+        </h1>
         <div className='mt-4'>
           <Comment />
         </div>
