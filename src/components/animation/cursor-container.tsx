@@ -2,10 +2,12 @@
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import * as React from 'react';
+import { useMediaQuery } from 'usehooks-ts';
 
 import { cn } from '@/lib/utils';
 
 export const CursorContainer = ({ children }: React.PropsWithChildren) => {
+  const isTouchScreen = useMediaQuery('(hover: none)');
   const [mousePosition, setMousePosition] = useState<{
     x: number | string;
     y: number | string;
@@ -34,10 +36,11 @@ export const CursorContainer = ({ children }: React.PropsWithChildren) => {
   return (
     <motion.div ref={containerRef} className={cn('relative')}>
       <motion.div
-        className='bg-foreground hidden sm:block pointer-events-none absolute z-[100] aspect-square w-2 -translate-x-1/2 -translate-y-1/2 rounded-lg mix-blend-difference'
+        className='bg-foreground pointer-events-none absolute z-[100] aspect-square w-2 -translate-x-1/2 -translate-y-1/2 rounded-lg mix-blend-difference'
         animate={{
           left: mousePosition.x,
           top: mousePosition.y,
+          display: isTouchScreen ? 'none' : 'block',
         }}
         transition={{ type: 'tween', ease: 'backOut', duration: 0.1 }}
       ></motion.div>
