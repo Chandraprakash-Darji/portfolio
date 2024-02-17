@@ -10,6 +10,7 @@ import Marquee from '@/app/(marketing)/_components/marquee';
 import ProjectCard from '@/app/(marketing)/_components/project-card';
 import { Spotlight } from '@/app/(marketing)/_components/spotlight';
 import Time from '@/app/(marketing)/_components/time';
+import { links } from '@/constant/footer-links';
 import { projects } from '@/constant/projects';
 import { social } from '@/constant/social';
 
@@ -206,11 +207,6 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-        </section>
-        <section className='relative flex flex-col py-20'>
-          <span className='text-center font-mono tracking-wider'>
-            {new Date().getFullYear()} &copy; Copyright
-          </span>
         </section>
       </CursorContainer>
     </>
