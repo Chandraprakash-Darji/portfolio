@@ -89,7 +89,7 @@ const HomePage = () => {
               About
               {/* FEATURED /<ArrowLink href='/work'>WORK</ArrowLink> */}
             </Heading>
-            <div className='mt-4 grid w-full grid-cols-1 gap-6 lg:grid-cols-5 lg:gap-0'>
+            <div className='mt-4 grid w-full grid-cols-1 gap-6 lg:grid-cols-5'>
               <div className='lg:col-span-2'>
                 <Image
                   width={1000}
@@ -100,7 +100,7 @@ const HomePage = () => {
                 />
               </div>
 
-              <div className='prose prose-invert flex flex-col px-6 py-0 sm:px-10 lg:col-span-3'>
+              <div className='prose prose-invert flex flex-col py-0 lg:col-span-3'>
                 <h2 className='mt-0'>
                   Craft compelling experiences &amp; boost performance -{' '}
                   <strong>you've got your developer in me!</strong>

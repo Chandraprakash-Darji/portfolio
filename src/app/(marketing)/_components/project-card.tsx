@@ -31,7 +31,7 @@ const ProjectCard = ({ alt, description, src, title }: Props) => {
       <p className='h4 after:bg-light after:dark:bg-primary relative mt-2 max-w-max font-normal after:absolute after:bottom-0 after:right-0 after:h-[2px] after:w-0 after:transition-all after:duration-200 group-hover:after:left-0 group-hover:after:right-auto group-hover:after:w-full'>
         {title}
       </p>
-      <p className='text-accent-foreground mt-1 text-xs opacity-0 transition-all group-hover:opacity-100'>
+      <p className='text-accent-foreground [@media(hover:none)]:opacity-100 mt-1 text-xs opacity-0 transition-all group-hover:opacity-100'>
         {description}
       </p>
     </a>
