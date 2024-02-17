@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
+import Script from 'next/script';
 import * as React from 'react';
 
 import '@/styles/globals.css';
@@ -67,6 +68,12 @@ export default async function RootLayout({
 }) {
   return (
     <html lang='en' suppressHydrationWarning className={dm_sans.variable}>
+      <Script
+        async
+        defer
+        src='https://unami-kohl.vercel.app/script.js'
+        data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || ''}
+      ></Script>
       <body>
         <Provider>{children}</Provider>
       </body>

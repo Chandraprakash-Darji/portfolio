@@ -38,7 +38,7 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
+    scroll-padding-top: 56px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -71,8 +71,9 @@
     @apply font-primary text-3xl font-bold md:text-5xl;
     background: linear-gradient(
       121.57deg,
-      #ffffff 18.77%,
-      rgba(255, 255, 255, 0.66) 44%
+      #ffffff,
+      rgba(255, 255, 255, 0.66),
+      rgba(255, 255, 255, 0)
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

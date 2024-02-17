@@ -1,6 +1,8 @@
+'use client';
 import Link, { LinkProps } from 'next/link';
 import * as React from 'react';
 
+import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 
 export type UnstyledLinkProps = {
@@ -9,10 +11,23 @@ export type UnstyledLinkProps = {
   openNewTab?: boolean;
   className?: string;
   nextLinkProps?: Omit<LinkProps, 'href'>;
+  trackEventTag?: string;
 } & React.ComponentPropsWithRef<'a'>;
 
 const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
-  ({ children, href, openNewTab, className, nextLinkProps, ...rest }, ref) => {
+  (
+    {
+      children,
+      href,
+      openNewTab,
+      className,
+      onClick,
+      trackEventTag,
+      nextLinkProps,
+      ...rest
+    },
+    ref
+  ) => {
     const isNewTab =
       openNewTab !== undefined
         ? openNewTab
@@ -24,6 +39,10 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
           href={href}
           ref={ref}
           className={className}
+          onClick={(e) => {
+            onClick && onClick(e);
+            trackEventTag && trackEvent(trackEventTag);
+          }}
           {...rest}
           {...nextLinkProps}
         >
@@ -40,6 +59,10 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
         href={href}
         {...rest}
         className={cn('cursor-newtab', className)}
+        onClick={(e) => {
+          onClick && onClick(e);
+          trackEventTag && trackEvent(trackEventTag);
+        }}
       >
         {children}
       </a>

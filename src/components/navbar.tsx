@@ -4,7 +4,7 @@ import UnstyledLink from '@/components/links/UnstyledLink';
 export const Navbar = () => {
   return (
     <>
-      <header className='bg-background/60 fixed z-10 flex h-14 w-full items-center justify-center overflow-hidden border-b backdrop-blur'>
+      <header className='bg-background/60 fixed z-50 flex h-14 w-full items-center justify-center overflow-hidden border-b backdrop-blur'>
         <div className='layout flex justify-between'>
           <UnstyledLink
             href='/'
@@ -34,11 +34,11 @@ export const Navbar = () => {
 const links = [
   {
     name: 'Work',
-    href: '/work',
+    href: '#sec-work',
   },
-  { name: 'Writing', href: '/writing' },
-  { name: 'Info', href: '/info' },
-  { name: 'Work with me', href: '/work-with-me' },
+  // { name: 'Writing', href: '/writing' },
+  { name: 'Info', href: '#sec-about' },
+  { name: 'Work with me', href: '#sec-contact' },
   // guest book
   // color pallete
   // anyalatics
