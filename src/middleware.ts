@@ -26,7 +26,7 @@ export default auth((req: NextAuthRequest) => {
   }
 
   if (isAuthRoute) {
-    if (isLoggedIn) {
+    if (isLoggedIn && req.auth?.user.role === 'ADMIN') {
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
     return null;
