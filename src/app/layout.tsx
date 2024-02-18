@@ -16,7 +16,6 @@ const dm_sans = DM_Sans({
   display: 'swap',
 });
 
-// !STARTERCONF Change these default meta
 // !STARTERCONF Look at @/constant/config to change them
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -49,17 +48,13 @@ export const metadata: Metadata = {
   //   description: siteConfig.description,
   //   images: [`${siteConfig.url}/images/og.jpg`],
   // },
-  // authors: [
-  //   {
-  //     name: 'Pixelwand',
-  //     url: 'https://pixelwnad.live',
-  //   },
-  // ],
+  authors: [
+    {
+      name: 'Chandraprakash Darji',
+      url: 'https://twitter.com/chandra_7852',
+    },
+  ],
 };
-
-// !STARTERCONF -> Select !STARTERCONF and CMD + SHIFT + F
-// Before you begin editing, follow all comments with `STARTERCONF`,
-// to customize the default configuration.
 
 export default async function RootLayout({
   children,
