@@ -2,8 +2,6 @@
 import Image from 'next/image';
 import React from 'react';
 
-import { trackEvent } from '@/lib/analytics';
-
 import { UnstyledLink } from '@/components/links';
 
 import { IProject } from '@/constant/projects';
@@ -13,7 +11,7 @@ const ProjectCard = ({ alt, description, src, title, href }: IProject) => {
     <UnstyledLink
       href={href}
       className='group p-2 focus-visible:rounded-2xl'
-      onClick={() => trackEvent('Project Card', { title })}
+      trackEventTag={`Project Card - ${title}`}
     >
       <div className='aspect-video overflow-hidden rounded-xl'>
         <Image
