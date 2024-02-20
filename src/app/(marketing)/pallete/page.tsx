@@ -5,6 +5,11 @@ import Heading from '@/components/heading';
 
 import ColorSwatch from '@/app/(marketing)/pallete/_components/color-swatch';
 
+export const metadata = {
+  title: 'Website Color Palette',
+  description: 'Website Color Palette for the project',
+};
+
 const PalletePage = () => {
   return (
     <section className='relative flex flex-col pt-32'>

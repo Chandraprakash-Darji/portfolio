@@ -1,7 +1,12 @@
 import { LogoutButton } from '@/components/auth/logout-button';
 import { Button } from '@/components/ui/button';
 
-const LoginPage = () => {
+export const metadata = {
+  title: 'Dashboard',
+  description: 'Dashboard',
+};
+
+const DasboardPage = () => {
   return (
     <div className='flex min-h-screen items-center justify-center'>
       <LogoutButton>
@@ -13,4 +18,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default DasboardPage;

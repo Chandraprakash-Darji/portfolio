@@ -3,6 +3,11 @@ import React from 'react';
 import Comment from '@/components/comment';
 import Heading from '@/components/heading';
 
+export const metadata = {
+  title: 'Guestbook',
+  description: 'Leave whatever you like to say',
+};
+
 const GuestBookPage = () => {
   return (
     <section className='relative flex flex-col pt-32'>

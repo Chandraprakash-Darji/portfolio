@@ -4,7 +4,7 @@ export type IFAQ = {
   a: string;
 };
 
-export const faqs:IFAQ[] = [
+export const faqs: IFAQ[] = [
   {
     i: 1,
     q: 'What technologies do you specialize in?',
