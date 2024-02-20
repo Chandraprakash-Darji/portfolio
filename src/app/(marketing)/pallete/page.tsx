@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 
 import Heading from '@/components/heading';
@@ -32,7 +31,7 @@ const PalletePage = () => {
               </span>
             </h2>
           </div>
-          <p className='mt-1 text-sm text-gray-600 dark:text-gray-300'>
+          <p className='text-muted-foreground mt-1 text-sm'>
             Font Family: DM Sans
           </p>
           <div className='grid sm:grid-cols-2'>
