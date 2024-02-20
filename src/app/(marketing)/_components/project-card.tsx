@@ -4,18 +4,15 @@ import React from 'react';
 
 import { trackEvent } from '@/lib/analytics';
 
-type Props = {
-  src: string;
-  alt: string;
-  title: string;
-  description: string;
-};
+import { UnstyledLink } from '@/components/links';
 
-const ProjectCard = ({ alt, description, src, title }: Props) => {
+import { IProject } from '@/constant/projects';
+
+const ProjectCard = ({ alt, description, src, title, href }: IProject) => {
   return (
-    <a
-      href='#'
-      className='focus:ring-primary focus:ring-offset-background group rounded-md focus:outline-none focus:ring-2 focus:ring-offset-4'
+    <UnstyledLink
+      href={href}
+      className='group p-2 focus-visible:rounded-2xl'
       onClick={() => trackEvent('Project Card', { title })}
     >
       <div className='aspect-video overflow-hidden rounded-xl'>
@@ -34,7 +31,7 @@ const ProjectCard = ({ alt, description, src, title }: Props) => {
       <p className='text-accent-foreground mt-1 text-xs opacity-0 transition-all group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100'>
         {description}
       </p>
-    </a>
+    </UnstyledLink>
   );
 };
 
