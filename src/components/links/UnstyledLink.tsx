@@ -39,7 +39,7 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
           href={href}
           ref={ref}
           className={cn(
-            'focus:ring-primary focus:ring-offset-background focus:outline-none focus:ring-2 focus:ring-offset-4',
+            'focus-visible:ring-primary focus-visible:ring-offset-background focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4',
             className
           )}
           onClick={(e) => {
@@ -61,7 +61,11 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
         rel='noopener noreferrer'
         href={href}
         {...rest}
-        className={cn('cursor-newtab', className)}
+        className={cn(
+          'cursor-newtab',
+          'focus-visible:ring-primary focus-visible:ring-offset-background focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4',
+          className
+        )}
         onClick={(e) => {
           onClick && onClick(e);
           trackEventTag && trackEvent(trackEventTag);

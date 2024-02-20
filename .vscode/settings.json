@@ -20,5 +20,9 @@
   "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
   // Tailwind CSS Autocomplete, add more if used in projects
   "tailwindCSS.classAttributes": ["class", "className", "classNames"],
-  "typescript.preferences.importModuleSpecifier": "non-relative"
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ]
 }

@@ -18,7 +18,7 @@ export const Navbar = () => {
               <UnderlineLink
                 key={link.href}
                 href={link.href}
-                className='text-foreground hover:text-primary flex h-14 items-center px-3 font-mono text-sm capitalize'
+                className='text-foreground hover:text-primary flex h-14 items-center px-3 font-mono text-sm capitalize focus-visible:ring-0 focus-visible:bg-muted'
               >
                 {link.name}
               </UnderlineLink>

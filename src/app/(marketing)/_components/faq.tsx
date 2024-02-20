@@ -3,6 +3,8 @@ import { ChevronDown } from 'lucide-react';
 import React from 'react';
 import { useState } from 'react';
 
+import { cn } from '@/lib/utils';
+
 import { faqs, IFAQ } from '@/constant/faq';
 
 const Faqs = () => {
@@ -31,10 +33,13 @@ type FaqProps = {
 
 const Faq = ({ selected, setSelected, q, a }: FaqProps) => {
   return (
-    <div className='border-content/20 bg-card relative z-0 rounded-md border'>
+    <div className='border-content/20 bg-card focus-within:ring-primary focus-within:ring-offset-background relative z-0 rounded-md border  focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-4'>
       <button
         onClick={() => setSelected()}
-        className='flex w-full flex-row items-center justify-between p-5'
+        className={cn(
+          'flex w-full flex-row items-center justify-between p-5 focus:outline-none',
+          ''
+        )}
       >
         <h3 className='text-card-foreground text-left text-lg font-medium md:text-2xl'>
           {q}
