@@ -13,7 +13,7 @@ export default function Provider({ children }: React.PropsWithChildren) {
       <Toaster />
       <ProgressBar
         height='4px'
-        color='#ea580c'
+        color='#E11D48'
         options={{ showSpinner: false }}
         shallowRouting
       />
