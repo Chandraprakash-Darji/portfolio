@@ -21,7 +21,10 @@ const Footer = () => {
               <h2 className='h1 font-normal'>Need a developer?</h2>
               <p className='h4 text-muted-foreground mt-4 font-normal'>
                 Shoot me a note with your project details at{' '}
-                <UnstyledLink href='mailto:prakashchandra3786@gmail.com'>
+                <UnstyledLink
+                  href='mailto:prakashchandra3786@gmail.com'
+                  trackEventTag='Work Email'
+                >
                   prakashchandra3786@gmail.com
                 </UnstyledLink>
               </p>
@@ -52,6 +55,7 @@ const Footer = () => {
                 key={link.href}
                 href={link.href}
                 className='text-foreground hover:text-primary flex items-center py-1 font-mono text-sm capitalize'
+                trackEventTag={`Footer Links - ${link.name}`}
               >
                 {link.name}
               </UnderlineLink>
