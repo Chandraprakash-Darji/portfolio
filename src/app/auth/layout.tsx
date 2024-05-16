@@ -1,7 +1,9 @@
+import { Suspense } from 'react';
+
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className='flex min-h-screen items-center justify-center'>
-      {children}
+      <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
     </div>
   );
 };
