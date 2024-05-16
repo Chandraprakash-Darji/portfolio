@@ -34,13 +34,9 @@ export const Navbar = () => {
 const links = [
   {
     name: 'Work',
-    href: '#sec-work',
+    href: '/#sec-work',
   },
   // { name: 'Writing', href: '/writing' },
-  { name: 'Info', href: '#sec-about' },
-  { name: 'Work with me', href: '#sec-contact' },
-  // guest book
-  // color pallete
-  // anyalatics
-  // source -code
+  { name: 'Info', href: '/#sec-about' },
+  { name: 'Work with me', href: '/#sec-contact' },
 ];
