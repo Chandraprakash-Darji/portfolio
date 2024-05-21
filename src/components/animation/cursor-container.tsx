@@ -42,7 +42,7 @@ export const CursorContainer = ({ children }: React.PropsWithChildren) => {
           top: mousePosition.y,
           display: isTouchScreen ? 'none' : 'block',
         }}
-        transition={{ type: 'tween', ease: 'backOut', duration: 0.1 }}
+        transition={{ type: 'tween', ease: 'backOut', duration: 0 }}
       ></motion.div>
       {children}
     </motion.div>
