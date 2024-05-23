@@ -24,5 +24,6 @@
   "tailwindCSS.experimental.classRegex": [
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-  ]
+  ],
+  "cSpell.words": ["Chandraprakash", "Gumroad", "lemonsqueezy", "Squeezy"]
 }
