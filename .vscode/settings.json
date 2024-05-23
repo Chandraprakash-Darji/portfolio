@@ -25,5 +25,11 @@
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
-  "cSpell.words": ["Chandraprakash", "Gumroad", "lemonsqueezy", "Squeezy"]
+  "cSpell.words": [
+    "Chandraprakash",
+    "Gumroad",
+    "lemonsqueezy",
+    "Squeezy",
+    "भारत"
+  ]
 }
