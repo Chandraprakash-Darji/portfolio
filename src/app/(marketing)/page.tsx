@@ -64,7 +64,7 @@ const HomePage = async () => {
           <div className='flex items-center justify-center lg:justify-between'>
             <Heading>
               FEATURED /
-              <ArrowLink href='https://elregaldo.gumroad.com/'>SHOP</ArrowLink>
+              <ArrowLink href='https://rega.lemonsqueezy.com/'>SHOP</ArrowLink>
             </Heading>
           </div>
 
