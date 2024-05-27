@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { Suspense } from 'react';
 
 import { CursorContainer } from '@/components/animation/cursor-container';
 import Heading from '@/components/heading';
@@ -8,9 +7,7 @@ import { ArrowLink, UnderlineLink } from '@/components/links';
 import Faqs from '@/app/(marketing)/_components/faq';
 import Marquee from '@/app/(marketing)/_components/marquee';
 import ProjectCard from '@/app/(marketing)/_components/project-card';
-import ShopSection, {
-  ShopLoading,
-} from '@/app/(marketing)/_components/section/shop';
+import ShopSection from '@/app/(marketing)/_components/section/shop';
 import { Spotlight } from '@/app/(marketing)/_components/spotlight';
 import Time from '@/app/(marketing)/_components/time';
 import { projects } from '@/constant/projects';
@@ -70,9 +67,7 @@ const HomePage = () => {
           </div>
 
           <div className='mt-6 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3'>
-            <Suspense fallback={<ShopLoading />}>
-              <ShopSection />
-            </Suspense>
+            <ShopSection />
           </div>
         </div>
       </section>

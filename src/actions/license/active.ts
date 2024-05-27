@@ -62,7 +62,6 @@ async function validateLicenseKey(licenseKey: string) {
 
   const limit = response.license_key.activation_limit;
   const count = response.license_key.activation_usage;
-  console.log('count', { limit, count });
   if (count >= limit) {
     throw Error(`License key has reached its activation limit`);
   }
@@ -77,8 +76,6 @@ async function inviteUserToRepositories(username: string) {
   if (!owner) {
     throw Error(`No owner found in environment variables`);
   }
-
-  console.log({ repositories });
 
   const requests = repositories.filter(Boolean).map((repository) => {
     return inviteMemberToRepository({

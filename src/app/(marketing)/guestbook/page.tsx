@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import Comment from '@/components/comment';
 import Heading from '@/components/heading';
@@ -17,7 +17,9 @@ const GuestBookPage = () => {
           Leave whatever you like to say—message, appreciation, suggestions.
         </h1>
         <div className='mt-4'>
-          <Comment />
+          <Suspense fallback={<div>loading...</div>}>
+            <Comment />
+          </Suspense>
         </div>
       </div>
     </section>
