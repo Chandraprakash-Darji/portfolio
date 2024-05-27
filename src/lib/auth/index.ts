@@ -1,11 +1,13 @@
-import { PrismaAdapter } from '@auth/prisma-adapter';
-import { UserRole } from '@prisma/client';
+import { DrizzleAdapter } from '@auth/drizzle-adapter';
+import { eq } from 'drizzle-orm';
 import NextAuth from 'next-auth';
 
-import { getAccountByUserId } from '@/lib/auth/account';
 import authConfig from '@/lib/auth/config';
 import { getUserById } from '@/lib/auth/user';
+import { getAccountByUserId } from '@/lib/auth/utils/account';
 import { db } from '@/lib/db';
+import { users } from '@/lib/db/schema';
+import { InferQueryModel } from '@/lib/db/types';
 
 export const {
   handlers: { GET, POST },
@@ -20,37 +22,27 @@ export const {
   },
   events: {
     async linkAccount({ user }) {
-      await db.user.update({
-        where: { id: user.id },
-        data: { emailVerified: new Date() },
-      });
+      await db
+        .update(users)
+        .set({
+          emailVerified: new Date(),
+        })
+        .where(eq(users.id, user.id));
     },
   },
   callbacks: {
-    async signIn({ user, account }) {
-      // Allow OAuth without email verification
-      if (account?.provider !== 'credentials') return true;
-
-      const existingUser = await getUserById(user.id);
-
-      // Prevent sign in without email verification
-      if (!existingUser?.emailVerified) return false;
-
-      return true;
-    },
     async session({ token, session }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
 
       if (token.role && session.user) {
-        session.user.role = token.role as UserRole;
+        session.user.role = token.role as InferQueryModel<'users'>['role'];
       }
 
       if (session.user) {
         session.user.name = token.name;
         session.user.email = token.email;
-        session.user.isOAuth = token.isOAuth as boolean;
       }
 
       return session;
@@ -73,7 +65,7 @@ export const {
     },
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  adapter: PrismaAdapter(db) as any,
+  adapter: DrizzleAdapter(db) as any,
   session: { strategy: 'jwt' },
   ...authConfig,
 });

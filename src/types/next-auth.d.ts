@@ -1,8 +1,9 @@
-import { UserRole } from '@prisma/client';
 import { type DefaultSession } from 'next-auth';
 
+import { InferQueryModel } from '@/lib/db/types';
+
 export type ExtendedUser = DefaultSession['user'] & {
-  role: UserRole;
+  role: InferQueryModel<'users'>['role'];
   isOAuth: boolean;
 };
 
