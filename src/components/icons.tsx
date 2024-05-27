@@ -9,6 +9,7 @@ import {
   Twitter,
   Wand,
 } from 'lucide-react';
+import { FaSpinner } from 'react-icons/fa';
 
 export type IIcon = LucideIcon;
 
@@ -21,4 +22,5 @@ export const Icons = {
   mail: Mail,
   threads: AtSign,
   pixelwand: Wand,
+  loader: FaSpinner,
 } as const;

@@ -1,3 +1,4 @@
+import { lemonSqueezySetup } from '@lemonsqueezy/lemonsqueezy.js';
 import { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
 import Script from 'next/script';
@@ -8,6 +9,11 @@ import '@/styles/globals.css';
 import Provider from '@/components/provider';
 
 import { siteConfig } from '@/constant/config';
+import { isProd } from '@/constant/env';
+
+lemonSqueezySetup({
+  apiKey: process.env.LEMON_SQUEEZY_API_KEY,
+});
 
 // If loading a variable font, you don't need to specify the font weight
 const dm_sans = DM_Sans({
@@ -64,7 +70,7 @@ export default async function RootLayout({
         async
         defer
         src='https://unami-kohl.vercel.app/script.js'
-        data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || ''}
+        data-website-id={isProd ? process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID : ''}
       ></Script>
       <body>
         <Provider>{children}</Provider>

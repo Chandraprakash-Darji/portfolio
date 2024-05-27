@@ -5,11 +5,11 @@ export type IProject = Record<IProjectKey, string>;
 export const projects: IProject[] = [
   {
     src: '/images/uproposalgpt.jpeg',
-    alt: 'uProposalGPT screenshot',
-    title: 'uProposalGPT',
+    alt: 'Drafton screenshot',
+    title: 'Drafton.io',
     description:
-      'AI-powered tool for creating professional proposals in minutes.',
-    href: 'https://uproposalgpt.com/',
+      'Automates proposal creation & manage streamlined workflow. Create business proposals and manage the entire workflow from 0 to 1 using AI by streamlining the proposal process.',
+    href: 'https://drafton.io/',
   },
   {
     src: '/images/buildwithnext.jpeg',

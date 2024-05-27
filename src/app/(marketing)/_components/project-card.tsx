@@ -1,33 +1,36 @@
 'use client';
-import Image from 'next/image';
 import React from 'react';
 
 import { UnstyledLink } from '@/components/links';
+import NextImage from '@/components/NextImage';
 
 import { IProject } from '@/constant/projects';
 
 const ProjectCard = ({ alt, description, src, title, href }: IProject) => {
   return (
-    <UnstyledLink
-      href={href}
-      className='group p-2 focus-visible:rounded-2xl'
-      trackEventTag={`Project Card - ${title}`}
-    >
-      <div className='aspect-video overflow-hidden rounded-xl'>
-        <Image
-          className='h-full w-full object-cover transition-all group-hover:scale-110'
-          width={1000}
-          height={1800}
-          src={src}
-          alt={alt}
-        />
-      </div>
+    <article className='group relative overflow-hidden rounded-2xl border p-2 pb-3'>
+      <NextImage
+        className='mb-3 aspect-video w-full overflow-hidden rounded-xl'
+        width={300}
+        height={300}
+        classNames={{
+          image:
+            'h-full w-full object-cover transition-all group-hover:scale-110',
+        }}
+        src={src}
+        alt={alt}
+      />
 
-      <p className='h4 after:bg-light after:dark:bg-primary relative mt-2 max-w-max font-normal after:absolute after:bottom-0 after:right-0 after:h-[2px] after:w-0 after:transition-all after:duration-200 group-hover:after:left-0 group-hover:after:right-auto group-hover:after:w-full'>
+      <UnstyledLink
+        href={href}
+        className='h3 flash-underline text-secondary-foreground font-medium'
+        trackEventTag={`Project Card - ${title}`}
+      >
         {title}
-      </p>
-      <p className='text-accent-foreground mt-1 text-xs'>{description}</p>
-    </UnstyledLink>
+        <span className='absolute inset-0' aria-hidden='true'></span>
+      </UnstyledLink>
+      <p className='text-muted-foreground mt-3 text-xs'>{description}</p>
+    </article>
   );
 };
 
