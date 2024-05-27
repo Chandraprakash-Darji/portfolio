@@ -67,6 +67,7 @@ const HomePage = () => {
           </div>
 
           <div className='mt-6 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3'>
+            {/* @ts-expect-error Async Server Component */}
             <ShopSection />
           </div>
         </div>
