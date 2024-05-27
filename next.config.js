@@ -8,7 +8,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        domain: 'lemonsqueezy.imgix.net',
+        hostname: 'lemonsqueezy.imgix.net',
       },
     ],
   },
