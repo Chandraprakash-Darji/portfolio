@@ -11,7 +11,6 @@ import {
 } from '@/routes';
 
 const { auth } = NextAuth(authConfig);
-
 export default auth((req: NextAuthRequest) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
@@ -22,14 +21,14 @@ export default auth((req: NextAuthRequest) => {
 
   // Don't invoke Middleware on API Auth routes
   if (isApiAuthRoute) {
-    return null;
+    return;
   }
 
   if (isAuthRoute) {
     if (isLoggedIn && req.auth?.user.role === 'ADMIN') {
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
-    return null;
+    return;
   }
 
   if (!isLoggedIn && !isPublicRoute) {
@@ -45,7 +44,7 @@ export default auth((req: NextAuthRequest) => {
     );
   }
 
-  return null;
+  return;
 });
 
 // Optionally, don't invoke Middleware on some paths

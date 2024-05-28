@@ -21,11 +21,10 @@ export const {
   },
   events: {
     async linkAccount({ user }) {
+      if (!user.id) return;
       await db
         .update(users)
-        .set({
-          emailVerified: new Date(),
-        })
+        .set({ emailVerified: new Date() })
         .where(eq(users.id, user.id));
     },
   },
@@ -39,7 +38,7 @@ export const {
         session.user.role = token.role as InferQueryModel<'users'>['role'];
       }
 
-      if (session.user) {
+      if (session.user && token.name && token.email) {
         session.user.name = token.name;
         session.user.email = token.email;
       }
@@ -55,12 +54,15 @@ export const {
 
       const existingAccount = await getAccountByUserId(existingUser.id);
 
-      token.isOAuth = !!existingAccount;
-      token.name = existingUser.name;
-      token.email = existingUser.email;
-      token.role = existingUser.role;
+      const updatedToken: typeof token = {
+        ...token,
+        isOAuth: !!existingAccount,
+        name: existingUser.name,
+        email: existingUser.email,
+        role: existingUser.role,
+      };
 
-      return token;
+      return updatedToken;
     },
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
