@@ -19,7 +19,7 @@ const HomePage = () => {
     <CursorContainer>
       <section className='relative flex h-[calc(100vh-56px)] flex-col pt-32'>
         <Spotlight />
-        <div className='layout relative'>
+        <div className='layout relative z-10'>
           <Heading>INTRO</Heading>
           <h1 className='h0 mt-2 max-w-4xl font-medium leading-tight'>
             Full-stack dev by day,{' '}
