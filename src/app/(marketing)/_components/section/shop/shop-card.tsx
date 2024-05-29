@@ -18,18 +18,20 @@ const ShopCard = ({
 }: Product['data']) => {
   return (
     <article className='group relative overflow-hidden rounded-2xl border p-2 pb-3'>
-      <NextImage
-        width={300}
-        height={300}
-        className='mb-3 aspect-square w-full overflow-hidden rounded-xl'
-        classNames={{
-          image:
-            'w-full object-center object-cover transition-all group-hover:scale-110',
-        }}
-        useSkeleton
-        src={large_thumb_url}
-        alt={name}
-      />
+      {large_thumb_url && (
+        <NextImage
+          width={300}
+          height={300}
+          className='mb-3 aspect-square w-full overflow-hidden rounded-xl'
+          classNames={{
+            image:
+              'w-full object-center object-cover transition-all group-hover:scale-110',
+          }}
+          useSkeleton
+          src={large_thumb_url}
+          alt={name}
+        />
+      )}
       <UnstyledLink
         href={buy_now_url}
         className='h3 flash-underline text-secondary-foreground font-medium'
@@ -41,7 +43,7 @@ const ShopCard = ({
 
       <div
         dangerouslySetInnerHTML={{ __html: description }}
-        className='text-muted-foreground mt-3 text-xs'
+        className='text-muted-foreground mt-3 line-clamp-3 text-xs'
       ></div>
 
       <p

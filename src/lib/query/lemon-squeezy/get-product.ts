@@ -1,9 +1,17 @@
 import { listProducts } from '@lemonsqueezy/lemonsqueezy.js';
 
-export const getProduct = async (): Promise<
-  ReturnType<typeof listProducts>
-> => {
+type TReturnListProduct = Awaited<ReturnType<typeof listProducts>>;
+
+export const getProduct = async (): Promise<{
+  error: TReturnListProduct['error'];
+  data: NonNullable<TReturnListProduct['data']>['data'] | undefined;
+}> => {
   const res = await listProducts();
 
-  return res;
+  return {
+    error: res.error,
+    data: res?.data?.data.filter(
+      (d) => !d.attributes.price_formatted.includes('/')
+    ),
+  };
 };

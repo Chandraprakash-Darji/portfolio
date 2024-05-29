@@ -12,7 +12,7 @@ const ShopSection = async () => {
     <>
       {!data && !error && <ShopLoading />}
       {error && <div className='text-red-500'>Error: {error.message}</div>}
-      {data && data.data.map((d) => <ShopCard key={d.id} {...d} />)}
+      {data && data.map((d) => <ShopCard key={d.id} {...d} />)}
     </>
   );
 };
