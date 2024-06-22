@@ -39,3 +39,7 @@ yarn-error.log*
 CHANGELOG.md
 
 pnpm-lock.yaml
+
+# Prisma generate
+/src/lib/zod/**/*.ts
+/src/lib/enums.ts

@@ -1,7 +1,6 @@
 'use client';
 import { useSession } from 'next-auth/react';
 
-import { LogoutButton } from '@/components/auth/logout-button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,6 +12,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+
+import { logout } from '@/actions/logout';
 
 export function UserNav() {
   const { data: session } = useSession();
@@ -44,9 +45,13 @@ export function UserNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <LogoutButton>
-            <DropdownMenuItem>Logout</DropdownMenuItem>
-          </LogoutButton>
+          <DropdownMenuItem
+            onClick={() => {
+              logout();
+            }}
+          >
+            Logout
+          </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

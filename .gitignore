@@ -41,4 +41,6 @@ robots.txt
 sitemap.xml
 sitemap-*.xml
 
-/drizzle/**/*
+# Prisma generated files
+/src/lib/zod/**/*.ts
+/src/lib/enums.ts

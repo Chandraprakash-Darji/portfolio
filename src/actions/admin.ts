@@ -1,12 +1,12 @@
 'use server';
 
-import { currentRole } from '@/lib/auth/utils/auth';
-import { userRoleEnum } from '@/lib/db/schema';
+import { currentRole } from '@/lib/auth/queries/current-role';
+import { UserRole } from '@/lib/enums';
 
 export const admin = async () => {
   const role = await currentRole();
 
-  if (role === userRoleEnum.enumValues[0]) {
+  if (role === UserRole.ADMIN) {
     return { success: 'Allowed Server Action!' };
   }
 

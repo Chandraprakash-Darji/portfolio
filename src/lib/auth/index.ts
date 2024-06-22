@@ -1,13 +1,11 @@
-import { DrizzleAdapter } from '@auth/drizzle-adapter';
-import { eq } from 'drizzle-orm';
-import NextAuth from 'next-auth';
-
 import authConfig from '@/lib/auth/config';
-import { getUserById } from '@/lib/auth/user';
-import { getAccountByUserId } from '@/lib/auth/utils/account';
-import { db } from '@/lib/db';
-import { users } from '@/lib/db/schema';
-import { InferQueryModel } from '@/lib/db/types';
+import { getAccountByUserId } from '@/lib/auth/queries/account';
+import { getTwoFactorConfirmationByUserId } from '@/lib/auth/queries/two-factor-confirmation';
+import { getUserById } from '@/lib/auth/queries/user';
+import db from '@/lib/db';
+import { UserRole } from '@/lib/enums';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import NextAuth from 'next-auth';
 
 export const {
   handlers: { GET, POST },
@@ -21,26 +19,49 @@ export const {
   },
   events: {
     async linkAccount({ user }) {
-      if (!user.id) return;
-      await db
-        .update(users)
-        .set({ emailVerified: new Date() })
-        .where(eq(users.id, user.id));
+      await db.user.update({
+        where: { id: user.id },
+        data: { emailVerified: new Date() },
+      });
     },
   },
   callbacks: {
+    async signIn({ user, account }) {
+      // Allow OAuth without email verification
+      if (account?.provider !== 'credentials') return true;
+
+      const existingUser = await getUserById(user.id);
+
+      // Prevent sign in without email verification
+      if (!existingUser?.emailVerified) return false;
+
+      if (existingUser.isTwoFactorEnabled) {
+        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
+          existingUser.id
+        );
+
+        if (!twoFactorConfirmation) return false;
+
+        // Delete two factor confirmation for next sign in
+        await db.twoFactorConfirmation.delete({
+          where: { id: twoFactorConfirmation.id },
+        });
+      }
+
+      return true;
+    },
     async session({ token, session }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
 
       if (token.role && session.user) {
-        session.user.role = token.role as InferQueryModel<'users'>['role'];
+        session.user.role = token.role as UserRole;
       }
 
-      if (session.user && token.name && token.email) {
+      if (session.user) {
         session.user.name = token.name;
-        session.user.email = token.email;
+        session.user.email = token.email as string;
       }
 
       return session;
@@ -54,19 +75,19 @@ export const {
 
       const existingAccount = await getAccountByUserId(existingUser.id);
 
-      const updatedToken: typeof token = {
-        ...token,
-        isOAuth: !!existingAccount,
-        name: existingUser.name,
-        email: existingUser.email,
-        role: existingUser.role,
-      };
+      token.name = existingUser.name;
+      token.email = existingUser.email;
+      token.role = existingUser.role;
 
-      return updatedToken;
+      return token;
     },
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  adapter: DrizzleAdapter(db) as any,
-  session: { strategy: 'jwt' },
+  adapter: PrismaAdapter(db) as any,
+  debug: true,
+
+  session: {
+    strategy: 'jwt',
+  },
   ...authConfig,
 });

@@ -1,59 +1,97 @@
 'use client';
 
-import { Poppins } from 'next/font/google';
-import { useSearchParams } from 'next/navigation';
-import { signIn } from 'next-auth/react';
-import { FcGoogle } from 'react-icons/fc';
+import Link from 'next/link';
 
-import { cn } from '@/lib/utils';
+import { Header } from '@/components/auth/header';
+import { Social } from '@/components/auth/social';
+import { UnstyledLink } from '@/components/links';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from '@/components/ui/card';
 
-import { Button } from '@/components/ui/button';
-import { Card, CardFooter, CardHeader } from '@/components/ui/card';
+import { Button } from '../ui/button';
 
-import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
-
-const font = Poppins({
-  subsets: ['latin'],
-  weight: ['600'],
-});
-interface CardWrapperProps {
+type CardWrapperProps = {
+  children: React.ReactNode;
+  headerLabel: string;
   heroLabel: string;
   showSocial?: boolean;
-  children?: React.ReactNode;
-}
+} & (
+  | {
+      showBackButton: true;
+      backButtonHref: string;
+      backButtonLabel: string;
+    }
+  | {
+      showBackButton: false;
+      backButtonHref?: never;
+      backButtonLabel?: never;
+    }
+);
 
 export const CardWrapper = ({
-  heroLabel,
-  showSocial,
   children,
+  headerLabel,
+  heroLabel,
+  backButtonLabel,
+  backButtonHref,
+  showSocial,
+  showBackButton = true,
 }: CardWrapperProps) => {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl');
-
-  const onClick = (provider: 'google') => {
-    signIn(provider, {
-      callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT,
-    });
-  };
   return (
-    <Card className='w-full max-w-[400px] border-0 shadow-none'>
+    <Card className="w-full max-w-[400px] border-0 shadow-none">
       <CardHeader>
-        <div className='flex w-full flex-col items-center justify-center gap-y-4'>
-          <h1 className={cn('text-3xl font-semibold', font.className)}>
-            {heroLabel}
-          </h1>
-        </div>
+        <Header label={headerLabel} hero={heroLabel} />
       </CardHeader>
-      {children}
+      <CardContent className="pb-0">{children}</CardContent>
       {showSocial && (
-        <CardFooter className='flex w-full items-center'>
+        <>
+          <div className="px-6 py-3">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-card px-2 text-muted-foreground">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+          </div>
+          <CardFooter className="flex-col">
+            <Social />
+            <p className="mt-5 px-8 text-center text-sm text-muted-foreground">
+              By clicking continue, you agree to our{' '}
+              <UnstyledLink
+                href="/terms"
+                className="hover:text-brand underline underline-offset-4"
+              >
+                Terms of Service
+              </UnstyledLink>{' '}
+              and{' '}
+              <UnstyledLink
+                href="/privacy"
+                className="hover:text-brand underline underline-offset-4"
+              >
+                Privacy Policy
+              </UnstyledLink>
+              .
+            </p>
+          </CardFooter>
+        </>
+      )}
+      {showBackButton && backButtonHref && backButtonLabel && (
+        <CardFooter>
           <Button
-            size='lg'
-            className='w-full'
-            variant='outline'
-            onClick={() => onClick('google')}
+            variant="link"
+            className="mx-auto max-w-max font-normal"
+            size="sm"
+            asChild
           >
-            <FcGoogle className='h-5 w-5' />
+            <Link href={backButtonHref}>{backButtonLabel}</Link>
           </Button>
         </CardFooter>
       )}

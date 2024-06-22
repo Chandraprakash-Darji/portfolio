@@ -12,6 +12,12 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
+  ignorePatterns: [
+    '!.*',
+    'prisma/*',
+    '/src/lib/zod/**/*.ts', // prisma generated
+    '/src/lib/enums.ts', // prisma generated
+  ],
   rules: {
     'no-unused-vars': 'off',
     'no-console': 'warn',

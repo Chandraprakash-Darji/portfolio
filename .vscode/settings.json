@@ -26,10 +26,26 @@
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
   "cSpell.words": [
+    "blocknote",
+    "Blurhash",
     "Chandraprakash",
+    "datamodel",
+    "dmmf",
+    "giscus",
     "Gumroad",
+    "hookform",
     "lemonsqueezy",
+    "lucide",
+    "mantine",
+    "postbuild",
+    "shadcn",
+    "Signin",
     "Squeezy",
+    "transpoter",
+    "trivago",
+    "typecheck",
+    "umami",
+    "usehooks",
     "भारत"
   ]
 }

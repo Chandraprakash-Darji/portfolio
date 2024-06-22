@@ -11,3 +11,7 @@ export const showLogger = isLocal
  */
 export const commentFlag =
   isProd || process.env.NEXT_PUBLIC_FLAG_COMMENT === 'true';
+
+export const EMAIL_ADDRESS = process.env.EMAIL_ADDRESS;
+
+export const DOMAIN = process.env.NEXT_PUBLIC_APP_URL;
