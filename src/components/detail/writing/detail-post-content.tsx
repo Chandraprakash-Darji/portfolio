@@ -18,7 +18,7 @@ const DetailPostContent = ({ content }: { content: string }) => {
 
   return (
     <div
-      className="lg:prose-md prose prose-invert relative max-w-none py-4"
+      className="lg:prose-md prose prose-invert relative w-full max-w-none py-4 prose-pre:whitespace-pre-wrap xl:rounded-2xl xl:border-r-2 xl:pr-4"
       dangerouslySetInnerHTML={{ __html: output }}
     />
   );

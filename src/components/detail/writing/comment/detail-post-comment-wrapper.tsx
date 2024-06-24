@@ -10,10 +10,7 @@ const DetailPostCommentWrapper: FC<DetailPostCommentWrapperProps> = ({
   return (
     <div
       id="comments"
-      className="mx-auto w-full rounded-xl bg-muted px-7 py-5"
-      style={{
-        gridColumn: '2/3',
-      }}
+      className="col-span-[2/3] mx-auto w-full rounded-xl bg-muted px-7 py-5"
     >
       <div>{children}</div>
     </div>
