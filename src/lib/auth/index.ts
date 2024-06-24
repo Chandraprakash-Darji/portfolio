@@ -79,10 +79,10 @@ export const {
       return token;
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  adapter: PrismaAdapter(db) as any,
+  adapter: PrismaAdapter(db),
   session: {
     strategy: 'jwt',
   },
+  trustHost: true,
   ...authConfig,
 });
