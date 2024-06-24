@@ -31,7 +31,7 @@ const WritingCard = ({
       <UnstyledLink
         href={`/writing/${slug}`}
         className="h3 flash-underline font-medium text-foreground"
-        trackEventTag={`Shop Card - ${slug}`}
+        trackEventTag={`Writing - ${slug}`}
       >
         {title}
         <span className="absolute inset-0" aria-hidden="true"></span>
