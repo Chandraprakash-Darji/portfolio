@@ -15,7 +15,8 @@ import WritingSection, {
   WritingLoading,
 } from '@/app/(marketing)/_components/section/writing';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 10;
 
 const HomePage = () => {
   return (
