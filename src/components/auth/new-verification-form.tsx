@@ -49,7 +49,7 @@ export const NewVerificationForm = () => {
       showBackButton
     >
       <div className="flex w-full items-center justify-center">
-        {!success && !error && <Loader className="w-4 h-4 animate-spin" />}
+        {!success && !error && <Loader className="h-4 w-4 animate-spin" />}
         <FormSuccess message={success} />
         {!success && <FormError message={error} />}
       </div>

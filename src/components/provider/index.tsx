@@ -1,10 +1,11 @@
 'use client';
-import { SessionProvider } from 'next-auth/react';
-import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
+
 import * as React from 'react';
 
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 import { Toaster } from '@/components/ui/sonner';
+import { SessionProvider } from 'next-auth/react';
+import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 
 export default function Provider({ children }: React.PropsWithChildren) {
   return (
@@ -12,8 +13,8 @@ export default function Provider({ children }: React.PropsWithChildren) {
       {children}
       <Toaster />
       <ProgressBar
-        height='4px'
-        color='#E11D48'
+        height="4px"
+        color="#E11D48"
         options={{ showSpinner: false }}
         shallowRouting
       />

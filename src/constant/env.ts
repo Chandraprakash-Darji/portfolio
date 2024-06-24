@@ -15,3 +15,5 @@ export const commentFlag =
 export const EMAIL_ADDRESS = process.env.EMAIL_ADDRESS;
 
 export const DOMAIN = process.env.NEXT_PUBLIC_APP_URL;
+
+export const ICON_SIZE = 24;

@@ -1,26 +1,26 @@
-import NextAuth from 'next-auth';
-import { NextAuthRequest } from 'next-auth/lib';
-
 import authConfig from '@/lib/auth/config';
-
 import {
-  apiAuthPrefix,
-  authRoutes,
   DEFAULT_LOGIN_REDIRECT,
+  OPENED_PREFIX,
+  authRoutes,
   publicRoutes,
 } from '@/routes';
+import NextAuth from 'next-auth';
+import { NextAuthRequest } from 'next-auth/lib';
 
 const { auth } = NextAuth(authConfig);
 export default auth((req: NextAuthRequest) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
 
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+  const openRoutes = OPENED_PREFIX.some((prefix) =>
+    nextUrl.pathname.startsWith(prefix)
+  );
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   // Don't invoke Middleware on API Auth routes
-  if (isApiAuthRoute) {
+  if (openRoutes) {
     return;
   }
 

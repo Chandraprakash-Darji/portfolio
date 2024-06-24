@@ -10,15 +10,18 @@ const nextConfig = {
       {
         hostname: 'lemonsqueezy.imgix.net',
       },
+      {
+        hostname: 'ik.imagekit.io',
+      },
     ],
   },
-  redirects: async () => [
-    {
-      source: '/admin',
-      destination: '/admin/blog',
-      permanent: true,
-    },
-  ],
+  // redirects: async () => [
+  //   {
+  //     source: '/admin',
+  //     destination: '/admin/blog',
+  //     permanent: true,
+  //   },
+  // ],
 };
 
 module.exports = nextConfig;

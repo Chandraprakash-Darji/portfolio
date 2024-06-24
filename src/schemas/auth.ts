@@ -1,6 +1,5 @@
-import * as z from 'zod';
-
 import { UserRole } from '@/lib/enums';
+import * as z from 'zod';
 
 export const SettingsSchema = z
   .object({
@@ -22,7 +21,7 @@ export const SettingsSchema = z
     {
       message: 'New password is required!',
       path: ['newPassword'],
-    },
+    }
   )
   .refine(
     (data) => {
@@ -35,7 +34,7 @@ export const SettingsSchema = z
     {
       message: 'Password is required!',
       path: ['password'],
-    },
+    }
   );
 
 export const NewPasswordSchema = z.object({

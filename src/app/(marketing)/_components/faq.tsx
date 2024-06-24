@@ -1,11 +1,11 @@
 'use client';
-import { ChevronDown } from 'lucide-react';
+
 import React from 'react';
 import { useState } from 'react';
 
+import { IFAQ, faqs } from '@/constant/faq';
 import { cn } from '@/lib/utils';
-
-import { faqs, IFAQ } from '@/constant/faq';
+import { ChevronDown } from 'lucide-react';
 
 const Faqs = () => {
   const [selected, setSelected] = useState(-1);
@@ -33,7 +33,7 @@ type FaqProps = {
 
 const Faq = ({ selected, setSelected, q, a }: FaqProps) => {
   return (
-    <div className='border-content/20 bg-card focus-within:ring-primary focus-within:ring-offset-background relative z-0 rounded-md border  focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-4'>
+    <div className="border-content/20 relative z-0 rounded-md border bg-card focus-within:outline-none focus-within:ring-2  focus-within:ring-primary focus-within:ring-offset-4 focus-within:ring-offset-background">
       <button
         onClick={() => setSelected()}
         className={cn(
@@ -41,11 +41,11 @@ const Faq = ({ selected, setSelected, q, a }: FaqProps) => {
           ''
         )}
       >
-        <h3 className='text-card-foreground text-left text-lg font-medium md:text-2xl'>
+        <h3 className="text-left text-lg font-medium text-card-foreground md:text-2xl">
           {q}
         </h3>
         <ChevronDown
-          className={`text-muted-foreground shrink-0 origin-center text-xl transition-all duration-300 md:text-3xl ${
+          className={`shrink-0 origin-center text-xl text-muted-foreground transition-all duration-300 md:text-3xl ${
             selected ? 'rotate-180' : ''
           }`}
         />
@@ -55,7 +55,7 @@ const Faq = ({ selected, setSelected, q, a }: FaqProps) => {
         ${selected ? 'grid-rows-[1fr] py-5 pt-0' : 'grid-rows-[0]'}
         `}
       >
-        <p className='text-muted-foreground'>{a}</p>
+        <p className="text-muted-foreground">{a}</p>
       </div>
     </div>
   );

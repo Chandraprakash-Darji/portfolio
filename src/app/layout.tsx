@@ -1,15 +1,14 @@
-import { lemonSqueezySetup } from '@lemonsqueezy/lemonsqueezy.js';
+import * as React from 'react';
+
 import { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
 import Script from 'next/script';
-import * as React from 'react';
-
-import '@/styles/globals.css';
 
 import Provider from '@/components/provider';
-
 import { siteConfig } from '@/constant/config';
 import { isProd } from '@/constant/env';
+import '@/styles/globals.css';
+import { lemonSqueezySetup } from '@lemonsqueezy/lemonsqueezy.js';
 
 lemonSqueezySetup({
   apiKey: process.env.LEMON_SQUEEZY_API_KEY,
@@ -65,11 +64,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' suppressHydrationWarning className={dm_sans.variable}>
+    <html lang="en" suppressHydrationWarning className={dm_sans.variable}>
       <Script
         async
         defer
-        src='https://unami-kohl.vercel.app/script.js'
+        src="https://unami-kohl.vercel.app/script.js"
         data-website-id={isProd ? process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID : ''}
       ></Script>
       <body>

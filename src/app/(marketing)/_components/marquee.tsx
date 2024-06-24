@@ -1,6 +1,8 @@
 'use client';
-import { motion } from 'framer-motion';
+
 import React, { useEffect, useRef, useState } from 'react';
+
+import { motion } from 'framer-motion';
 
 const Marquee: React.FC = () => {
   const [textWidth, setTextWidth] = useState<number>(0);
@@ -31,21 +33,21 @@ const Marquee: React.FC = () => {
   };
 
   return (
-    <div className='flex w-full overflow-hidden whitespace-nowrap'>
+    <div className="flex w-full overflow-hidden whitespace-nowrap">
       <motion.div
-        className='h4 inline-block font-mono font-light'
+        className="h4 inline-block font-mono font-light"
         variants={tickerVariants}
-        initial='animate'
-        animate='animate'
+        initial="animate"
+        animate="animate"
         ref={textRef}
       >
         {repeatedText}
       </motion.div>
       <motion.div
-        className='h4 inline-block font-mono font-light'
+        className="h4 inline-block font-mono font-light"
         variants={tickerVariants}
-        initial='animate'
-        animate='animate'
+        initial="animate"
+        animate="animate"
       >
         {repeatedText}
       </motion.div>

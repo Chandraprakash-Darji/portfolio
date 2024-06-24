@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { currentRole } from '@/lib/auth/queries/current-role';
 import { UserRole } from '@/lib/enums';
 
-import AdminNavbar from './_components/navbar';
+import AdminNavbar from './_components/admin-navbar';
 
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   const role = await currentRole();

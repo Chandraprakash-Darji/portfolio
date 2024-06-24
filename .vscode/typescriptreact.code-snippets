@@ -129,10 +129,12 @@
     "prefix": "sa",
     "body": [
       "'use server';",
-      "import { currentUser } from '@/lib/auth/utils/auth';",
+      "import { currentUser } from '@/lib/auth/queries/current-user';",
       "import { ActionState, createSafeAction } from '@/lib/create-safe-action';",
+      " ",
       "import { z } from 'zod';",
       "const ZInputOptions = z.never().optional();",
+      " ",
       "type InputType = z.infer<typeof ZInputOptions>;",
       "type ReturnType = ActionState<InputType, boolean>;",
       " ",

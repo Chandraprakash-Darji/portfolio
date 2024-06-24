@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import * as React from 'react';
+
+import clsx from 'clsx';
 
 type ColorSwatchProps = {
   title: string;
@@ -25,9 +26,9 @@ export default function ColorSwatch({
           colorClassName
         )}
       />
-      <div className='flex flex-col'>
+      <div className="flex flex-col">
         <p>{title}</p>
-        <p className='text-muted-foreground text-sm tracking-wide'>
+        <p className="text-sm tracking-wide text-muted-foreground">
           {subTitle}
         </p>
       </div>

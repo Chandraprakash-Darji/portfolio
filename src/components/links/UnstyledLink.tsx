@@ -1,6 +1,8 @@
 'use client';
-import Link, { LinkProps } from 'next/link';
+
 import * as React from 'react';
+
+import Link, { LinkProps } from 'next/link';
 
 import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
@@ -38,10 +40,7 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
         <Link
           href={href}
           ref={ref}
-          className={cn(
-            'focus-visible:ring-primary focus-visible:ring-offset-background focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4',
-            className
-          )}
+          className={cn(className)}
           onClick={(e) => {
             onClick && onClick(e);
             trackEventTag && trackEvent(trackEventTag);
@@ -57,15 +56,11 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
     return (
       <a
         ref={ref}
-        target='_blank'
-        rel='noopener noreferrer'
+        target="_blank"
+        rel="noopener noreferrer"
         href={href}
         {...rest}
-        className={cn(
-          'cursor-newtab',
-          'focus-visible:ring-primary focus-visible:ring-offset-background focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4',
-          className
-        )}
+        className={cn('cursor-newtab', className)}
         onClick={(e) => {
           onClick && onClick(e);
           trackEventTag && trackEvent(trackEventTag);

@@ -14,7 +14,8 @@
     "editor.tabSize": 2,
     "editor.codeActionsOnSave": {
       "source.organizeImports": "explicit",
-      "source.fixAll": "explicit"
+      "source.fixAll": "explicit",
+      "eslint.autoFixOnSave": "always"
     }
   },
   "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
@@ -26,14 +27,17 @@
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
   "cSpell.words": [
+    "Autosize",
     "blocknote",
     "Blurhash",
     "Chandraprakash",
     "datamodel",
     "dmmf",
+    "endregion",
     "giscus",
     "Gumroad",
     "hookform",
+    "keymap",
     "lemonsqueezy",
     "lucide",
     "mantine",
@@ -41,6 +45,7 @@
     "shadcn",
     "Signin",
     "Squeezy",
+    "tiptap",
     "transpoter",
     "trivago",
     "typecheck",

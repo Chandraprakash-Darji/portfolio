@@ -2,6 +2,7 @@ import {
   activateLicense,
   validateLicense,
 } from '@lemonsqueezy/lemonsqueezy.js';
+import { Octokit } from 'octokit';
 
 export async function getLicenseKey(params: { licenseKey: string }) {
   const { licenseKey } = params;
@@ -28,8 +29,6 @@ export async function activateLicenseKey(params: {
   }
   return data;
 }
-
-import { Octokit } from 'octokit';
 
 interface Params {
   owner: string;

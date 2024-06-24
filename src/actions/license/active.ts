@@ -1,5 +1,4 @@
 'use server';
-import { z } from 'zod';
 
 import { ActionState, createSafeAction } from '@/lib/create-safe-action';
 import {
@@ -7,6 +6,7 @@ import {
   getLicenseKey,
   inviteMemberToRepository,
 } from '@/lib/query/lemon-squeezy/utils';
+import { z } from 'zod';
 
 const ZActivateLicenseOptions = z.object({
   license_key: z.string(),
@@ -43,10 +43,9 @@ export const handler = async (data: InputType): Promise<ReturnType> => {
     };
   } catch (error) {
     return {
-      error:
-        'message' in (error as Error)
-          ? (error as Error).message
-          : 'An error occurred',
+      error: `Error: ${
+        error instanceof Error ? error.message : 'Unknown error'
+      }`,
     };
   }
 };

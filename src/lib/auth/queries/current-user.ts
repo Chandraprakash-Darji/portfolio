@@ -9,6 +9,12 @@ export const currentUser = async () => {
   return session?.user;
 };
 
+export const currentAdmin = async () => {
+  const session = await auth();
+
+  return session?.user.role === 'ADMIN' ? session?.user : null;
+};
+
 export const currentUserDB = async (id: string) => {
   const user = await db.user.findFirstOrThrow({ where: { id } });
 

@@ -1,8 +1,7 @@
 import React from 'react';
 
-import Heading from '@/components/heading';
-
 import ColorSwatch from '@/app/(marketing)/pallete/_components/color-swatch';
+import Heading from '@/components/heading';
 
 export const metadata = {
   title: 'Website Color Palette',
@@ -11,30 +10,30 @@ export const metadata = {
 
 const PalletePage = () => {
   return (
-    <section className='relative flex flex-col pt-32'>
-      <div className='layout relative z-10'>
+    <section className="relative flex flex-col pt-32">
+      <div className="layout relative z-10">
         <Heading>Website's Design</Heading>
-        <h1 className='h0 text-muted-foreground mt-2 max-w-4xl font-medium leading-tight'>
+        <h1 className="h0 mt-2 max-w-4xl font-medium leading-tight text-muted-foreground">
           {process.env.NEXT_PUBLIC_APP_URL?.startsWith('http://') &&
             process.env.NEXT_PUBLIC_APP_URL.replace('http://', '')}{' '}
           {process.env.NEXT_PUBLIC_APP_URL?.startsWith('https://') &&
             process.env.NEXT_PUBLIC_APP_URL.replace('https://', '')}{' '}
           Color palette
         </h1>
-        <div className='mt-4 flex w-full flex-col flex-wrap gap-6 rounded-lg border-2 border-dashed p-4'>
+        <div className="mt-4 flex w-full flex-col flex-wrap gap-6 rounded-lg border-2 border-dashed p-4">
           {' '}
-          <div className='flex items-end justify-between'>
-            <h2 className='capitalize'>
+          <div className="flex items-end justify-between">
+            <h2 className="capitalize">
               Dark Mode{' '}
-              <span className='text-muted-foreground text-sm'>
+              <span className="text-sm text-muted-foreground">
                 (light mode soon...)
               </span>
             </h2>
           </div>
-          <p className='text-muted-foreground mt-1 text-sm'>
+          <p className="mt-1 text-sm text-muted-foreground">
             Font Family: DM Sans
           </p>
-          <div className='grid sm:grid-cols-2'>
+          <div className="grid sm:grid-cols-2">
             {THEME_COLORS.map((color) => (
               <ColorSwatch key={color.title} {...color} />
             ))}

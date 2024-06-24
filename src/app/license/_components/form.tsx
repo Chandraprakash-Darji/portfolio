@@ -1,15 +1,8 @@
 'use client';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { CheckCircle } from 'lucide-react';
+
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import z from 'zod';
 
-import logger from '@/lib/logger';
-import { cn } from '@/lib/utils';
-import { useAction } from '@/hooks/use-action';
-
+import { activateLicense } from '@/actions/license/active';
 import { Icons } from '@/components/icons';
 import { UnstyledLink } from '@/components/links';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -23,8 +16,14 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-
-import { activateLicense } from '@/actions/license/active';
+import { useAction } from '@/hooks/use-action';
+import logger from '@/lib/logger';
+import { cn } from '@/lib/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CheckCircle } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import z from 'zod';
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -71,20 +70,20 @@ const LicenseForm = ({ license_key = '' }: Props) => {
 
   if (completed) {
     return (
-      <div className='mt-5'>
-        <Alert variant='success'>
-          <CheckCircle className='h-4 w-4' />
+      <div className="mt-5">
+        <Alert variant="success">
+          <CheckCircle className="h-4 w-4" />
           <AlertTitle>You're all set!</AlertTitle>
           <AlertDescription>
             We have added you to the Chandraprakash Org kits. You can now access
             the kits on GitHub. If you didn't receive an invite, please{' '}
-            <UnstyledLink href='mailto:prakashchandra3786@gmail.com'>
+            <UnstyledLink href="mailto:prakashchandra3786@gmail.com">
               contact us
             </UnstyledLink>
             .
           </AlertDescription>
         </Alert>
-        <div className='prose prose-invert mt-4'>
+        <div className="prose prose-invert mt-4">
           <h4>Next steps</h4>
           <ol>
             <li>
@@ -113,11 +112,11 @@ const LicenseForm = ({ license_key = '' }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='mt-5 w-2/3 space-y-6'
+        className="mt-5 w-2/3 space-y-6"
       >
         <FormField
           control={form.control}
-          name='license_key'
+          name="license_key"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Your license key</FormLabel>
@@ -134,7 +133,7 @@ const LicenseForm = ({ license_key = '' }: Props) => {
         />
         <FormField
           control={form.control}
-          name='username'
+          name="username"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Your Github Username</FormLabel>
@@ -150,15 +149,15 @@ const LicenseForm = ({ license_key = '' }: Props) => {
           )}
         />
         <button
-          type='submit'
+          type="submit"
           disabled={isLoading}
           className={cn(
             'group relative flex w-full flex-row items-center justify-center rounded-2xl bg-white/40 px-4 py-3 font-medium shadow-[inset_0_-8px_10px_#8fdfff1f] backdrop-blur-sm transition-shadow duration-500 ease-out [--bg-size:300%] hover:shadow-[inset_0_-5px_10px_#8fdfff3f] dark:bg-black/40'
           )}
         >
-          <div className='animate-gradient absolute inset-0 block h-full w-full bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:var(--bg-size)_100%] p-[1px] ![mask-composite:subtract] [border-radius:inherit] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)]' />
-          {isLoading && <Icons.loader className='mr-2 animate-spin' />}{' '}
-          <span className='animate-gradient inline bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent'>
+          <div className="absolute inset-0 block h-full w-full animate-gradient bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:var(--bg-size)_100%] p-[1px] [border-radius:inherit] ![mask-composite:subtract] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)]" />
+          {isLoading && <Icons.loader className="mr-2 animate-spin" />}{' '}
+          <span className="inline animate-gradient bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
             {isLoading ? 'We are adding you to the Repo' : 'Get your invite'}
           </span>
         </button>

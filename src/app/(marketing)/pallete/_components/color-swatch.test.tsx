@@ -1,6 +1,6 @@
+import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import '@testing-library/jest-dom';
 
 import ColorSwatch from './color-swatch';
 
@@ -12,7 +12,7 @@ describe('ColorSwatch', () => {
       <ColorSwatch
         title={title}
         subTitle={subTitle}
-        colorClassName='color-class'
+        colorClassName="color-class"
       />
     );
 
@@ -24,8 +24,8 @@ describe('ColorSwatch', () => {
     const colorClassName = 'color-class';
     const { container } = render(
       <ColorSwatch
-        title='Color Title'
-        subTitle='Color Subtitle'
+        title="Color Title"
+        subTitle="Color Subtitle"
         colorClassName={colorClassName}
       />
     );

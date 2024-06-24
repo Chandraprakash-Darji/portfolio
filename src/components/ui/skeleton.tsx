@@ -7,11 +7,11 @@ type SkeletonProps = React.ComponentPropsWithoutRef<'div'>;
 export default function Skeleton({ className, ...rest }: SkeletonProps) {
   return (
     <div
-      className={cn('animate-shimmer bg-primary/10 rounded-md', className)}
+      className={cn('animate-shimmer rounded-md bg-primary/10', className)}
       style={{
         backgroundImage:
-          'linear-gradient(to right, hsl(var(--primary)/.1) 0%, hsl(var(--primary)/.1) 20%, hsl(var(--primary)/.1) 40%, hsl(var(--primary)/.1) 100%)',
-        backgroundSize: '700px 100%',
+          'linear-gradient(to right, hsl(var(--primary)/0) 0%, hsl(var(--primary)/.05) 20%, hsl(var(--primary)/.1) 40%,hsl(var(--primary)/.1) 60%,hsl(var(--primary)/.05) 80%, hsl(var(--primary)/0) 100%)',
+        backgroundSize: '1000px 100%',
         backgroundRepeat: 'no-repeat',
       }}
       {...rest}
@@ -25,7 +25,7 @@ export function SkeletonPulse({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn('bg-primary/10 animate-pulse rounded-md', className)}
+      className={cn('animate-pulse rounded-md bg-primary/10', className)}
       {...props}
     />
   );

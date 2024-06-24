@@ -1,10 +1,11 @@
 'use client';
-import { motion } from 'framer-motion';
+
 import { useEffect, useRef, useState } from 'react';
 import * as React from 'react';
-import { useMediaQuery } from 'usehooks-ts';
 
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
+import { useMediaQuery } from 'usehooks-ts';
 
 export const CursorContainer = ({ children }: React.PropsWithChildren) => {
   const isTouchScreen = useMediaQuery('(hover: none)');
@@ -36,7 +37,7 @@ export const CursorContainer = ({ children }: React.PropsWithChildren) => {
   return (
     <motion.div ref={containerRef} className={cn('relative')}>
       <motion.div
-        className='bg-foreground pointer-events-none absolute z-[100] aspect-square w-2 -translate-x-1/2 -translate-y-1/2 rounded-lg mix-blend-difference'
+        className="pointer-events-none absolute z-[100] aspect-square w-2 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-foreground mix-blend-difference"
         animate={{
           left: mousePosition.x,
           top: mousePosition.y,

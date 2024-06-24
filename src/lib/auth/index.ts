@@ -1,5 +1,4 @@
 import authConfig from '@/lib/auth/config';
-import { getAccountByUserId } from '@/lib/auth/queries/account';
 import { getTwoFactorConfirmationByUserId } from '@/lib/auth/queries/two-factor-confirmation';
 import { getUserById } from '@/lib/auth/queries/user';
 import db from '@/lib/db';
@@ -73,8 +72,6 @@ export const {
 
       if (!existingUser) return token;
 
-      const existingAccount = await getAccountByUserId(existingUser.id);
-
       token.name = existingUser.name;
       token.email = existingUser.email;
       token.role = existingUser.role;
@@ -84,8 +81,6 @@ export const {
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   adapter: PrismaAdapter(db) as any,
-  debug: true,
-
   session: {
     strategy: 'jwt',
   },
