@@ -51,7 +51,7 @@ const WritingPage = () => {
         </Suspense>
         <div className="mt-4 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <Suspense fallback={<WritingLoading />}>
-            <Writings type="SNIPPET" />
+            <Writings type="BLOG" />
           </Suspense>
         </div>
       </div>
