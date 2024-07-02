@@ -6,7 +6,6 @@ import SharedError from '@/components/shared/shared-error';
 
 export default function Error({
   error,
-  reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
