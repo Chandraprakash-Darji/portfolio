@@ -156,7 +156,11 @@ export const postColumns: ColumnDef<TGetPosts[number]>[] = [
     accessorKey: 'id',
     header: ({ column }) => <ColumnHeader column={column} title="Actions" />,
     cell: ({ row }) => (
-      <DataTableRowActions id={row.original.id} slug={row.original.slug} />
+      <DataTableRowActions
+        id={row.original.id}
+        slug={row.original.slug}
+        type={row.original.type}
+      />
     ),
     enableHiding: false,
     enableSorting: false,

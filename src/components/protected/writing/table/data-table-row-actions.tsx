@@ -32,13 +32,19 @@ import {
   Trash as TrashIcon,
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { PostType } from '@/lib/enums';
 
 interface DataTableRowActionsProps {
   id: string;
   slug: string;
+  type: PostType;
 }
 
-export function DataTableRowActions({ slug, id }: DataTableRowActionsProps) {
+export function DataTableRowActions({
+  slug,
+  id,
+  type,
+}: DataTableRowActionsProps) {
   const router = useRouter();
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false);
 
@@ -63,12 +69,20 @@ export function DataTableRowActions({ slug, id }: DataTableRowActionsProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="font-sans">
           <DropdownMenuItem asChild>
-            <UnstyledLink href={`/writing/${slug}`} className="flex w-full">
+            <UnstyledLink
+              href={`/${type.toLowerCase()}/${slug}`}
+              className="flex w-full"
+              openNewTab
+            >
               {protectedPostConfig.view}
             </UnstyledLink>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <UnstyledLink href={`/admin/writing/${id}`} className="flex w-full">
+            <UnstyledLink
+              href={`/admin/writing/${id}`}
+              className="flex w-full"
+              openNewTab
+            >
               {protectedPostConfig.edit}
             </UnstyledLink>
           </DropdownMenuItem>

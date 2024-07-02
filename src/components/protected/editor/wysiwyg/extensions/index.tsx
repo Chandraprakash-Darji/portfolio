@@ -12,95 +12,119 @@ import TiptapUnderline from '@tiptap/extension-underline';
 import StarterKit from '@tiptap/starter-kit';
 import { Markdown } from 'tiptap-markdown';
 
+import { common, createLowlight } from 'lowlight';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import CustomKeymap from './custom-keymap';
-import DragAndDrop from './drag-and-drop';
 import SlashCommand from './slash-command';
 import UpdatedImage from './updated-image';
+import { cn } from '@/lib/utils';
+
+import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
+import { ReactNodeViewRenderer } from '@tiptap/react';
+import CodeBlock from '@/components/protected/editor/wysiwyg/extensions/codeblock';
+const starterKit = StarterKit.configure({
+  bulletList: {
+    HTMLAttributes: {
+      class: cn('list-disc list-outside leading-3 -mt-2'),
+    },
+  },
+  orderedList: {
+    HTMLAttributes: {
+      class: cn('list-decimal list-outside leading-3 -mt-2'),
+    },
+  },
+  listItem: {
+    HTMLAttributes: {
+      class: cn('leading-normal -mb-2'),
+    },
+  },
+  blockquote: {
+    HTMLAttributes: {
+      class: cn('border-l-4 border-primary'),
+    },
+  },
+  codeBlock: false,
+  code: {
+    HTMLAttributes: {
+      class: cn('rounded-md bg-muted px-1.5 py-1 font-mono font-medium'),
+      spellcheck: 'false',
+    },
+  },
+  horizontalRule: false,
+  dropcursor: {
+    color: '#DBEAFE',
+    width: 4,
+  },
+  gapcursor: false,
+});
+
+const taskList = TaskList.configure({
+  HTMLAttributes: {
+    class: cn('not-prose pl-2 '),
+  },
+});
+const taskItem = TaskItem.configure({
+  HTMLAttributes: {
+    class: cn('flex gap-2 items-start my-4'),
+  },
+  nested: true,
+});
+
+const horizontalRule = HorizontalRule.extend({
+  addInputRules() {
+    return [
+      new InputRule({
+        find: /^(?:---|—-|___\s|\*\*\*\s)$/u,
+        handler: ({ state, range }) => {
+          const attributes = {};
+
+          const { tr } = state;
+          const start = range.from;
+          const end = range.to;
+
+          tr.insert(start - 1, this.type.create(attributes)).delete(
+            tr.mapping.map(start),
+            tr.mapping.map(end)
+          );
+        },
+      }),
+    ];
+  },
+}).configure({
+  HTMLAttributes: {
+    class: cn('mt-4 mb-6 border-t border-muted-foreground'),
+  },
+});
+
+const codeBlockLowlight = CodeBlockLowlight.extend({
+  addNodeView() {
+    return ReactNodeViewRenderer(CodeBlock);
+  },
+}).configure({
+  lowlight: createLowlight(common),
+  HTMLAttributes: {
+    class: 'not-prose',
+  },
+});
 
 export const defaultExtensions = [
-  StarterKit.configure({
-    bulletList: {
-      HTMLAttributes: {
-        class: 'list-disc list-outside leading-3 -mt-2',
-      },
-    },
-    orderedList: {
-      HTMLAttributes: {
-        class: 'list-decimal list-outside leading-3 -mt-2',
-      },
-    },
-    listItem: {
-      HTMLAttributes: {
-        class: 'leading-normal -mb-2',
-      },
-    },
-    blockquote: {
-      HTMLAttributes: {
-        class: 'border-l-4 border-stone-700',
-      },
-    },
-    codeBlock: {
-      HTMLAttributes: {
-        class:
-          'rounded-sm bg-stone-100 p-5 font-mono font-medium text-stone-800',
-      },
-    },
-    code: {
-      HTMLAttributes: {
-        class:
-          'rounded-md bg-stone-200 px-1.5 py-1 font-mono font-medium text-stone-900',
-        spellcheck: 'false',
-      },
-    },
-    horizontalRule: false,
-    dropcursor: {
-      color: '#DBEAFE',
-      width: 4,
-    },
-    gapcursor: false,
-  }),
-  // patch to fix horizontal rule bug: https://github.com/ueberdosis/tiptap/pull/3859#issuecomment-1536799740
-  HorizontalRule.extend({
-    addInputRules() {
-      return [
-        new InputRule({
-          find: /^(?:---|—-|___\s|\*\*\*\s)$/,
-          handler: ({ state, range }) => {
-            const attributes = {};
-
-            const { tr } = state;
-            const start = range.from;
-            const end = range.to;
-
-            tr.insert(start - 1, this.type.create(attributes)).delete(
-              tr.mapping.map(start),
-              tr.mapping.map(end)
-            );
-          },
-        }),
-      ];
-    },
-  }).configure({
-    HTMLAttributes: {
-      class: 'mt-4 mb-6 border-t border-stone-300',
-    },
-  }),
+  starterKit,
   TiptapLink.configure({
     HTMLAttributes: {
       class:
-        'text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer',
+        'text-muted-foreground underline underline-offset-[3px] hover:text-primary transition-colors cursor-pointer',
     },
   }),
   TiptapImage.configure({
     inline: true,
     allowBase64: true,
     HTMLAttributes: {
-      class: 'rounded-lg border border-stone-200',
+      class: 'rounded-lg border border-muted',
     },
   }),
   UpdatedImage.configure({
     HTMLAttributes: {
-      class: 'rounded-lg border border-stone-200',
+      class: 'rounded-lg border border-muted',
     },
   }),
   Placeholder.configure({
@@ -119,22 +143,15 @@ export const defaultExtensions = [
   Highlight.configure({
     multicolor: true,
   }),
-  TaskList.configure({
-    HTMLAttributes: {
-      class: 'not-prose pl-2',
-    },
-  }),
-  TaskItem.configure({
-    HTMLAttributes: {
-      class: 'flex items-start my-4',
-    },
-    nested: true,
-  }),
+  taskList,
+  taskItem,
+  horizontalRule,
   Markdown.configure({
     html: false,
     transformCopiedText: true,
     transformPastedText: true,
   }),
   CustomKeymap,
-  DragAndDrop,
+  codeBlockLowlight,
+  GlobalDragHandle,
 ];

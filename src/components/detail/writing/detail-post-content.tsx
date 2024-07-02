@@ -2,10 +2,11 @@
 
 import React, { useMemo } from 'react';
 
+import '@/styles/prosemirror.css';
 import { defaultExtensions } from '@/components/protected/editor/wysiwyg/extensions';
 import { isValidJson } from '@/lib/utils';
 import { generateHTML } from '@tiptap/core';
-
+import hljs from 'highlight.js';
 const DetailPostContent = ({ content }: { content: string }) => {
   const json = useMemo(
     () => (isValidJson(content) ? JSON.parse(content) : []),
@@ -13,8 +14,13 @@ const DetailPostContent = ({ content }: { content: string }) => {
   );
 
   const output = useMemo(() => {
-    return generateHTML(json, defaultExtensions);
+    const html = generateHTML(json, defaultExtensions);
+    return html;
   }, [json]);
+
+  React.useEffect(() => {
+    hljs.highlightAll();
+  }, []);
 
   return (
     <div
