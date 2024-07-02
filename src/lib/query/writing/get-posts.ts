@@ -1,4 +1,5 @@
 import db from '@/lib/db';
+import { PostType } from '@/lib/enums';
 
 const getAllPostsAdmin = async (userId?: string) => {
   const post = await db.post.findMany({
@@ -26,10 +27,17 @@ const getAllPostsAdmin = async (userId?: string) => {
 export default getAllPostsAdmin;
 export type TGetPosts = Awaited<ReturnType<typeof getAllPostsAdmin>>;
 
-export const getAllPostSlugs = async (take?: number) => {
+export const getAllPostSlugs = async ({
+  take,
+  type,
+}: {
+  take?: number;
+  type: PostType;
+}) => {
   const post = await db.post.findMany({
     where: {
       published: true,
+      type,
     },
     take,
     select: {
@@ -40,6 +48,7 @@ export const getAllPostSlugs = async (take?: number) => {
       image: true,
       likes: true,
       views: true,
+      type: true,
     },
   });
 

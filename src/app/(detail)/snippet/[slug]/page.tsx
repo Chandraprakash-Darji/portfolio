@@ -21,7 +21,7 @@ export const revalidate = 10;
 
 export async function generateStaticParams() {
   const posts = await getAllPostSlugs({
-    type: 'BLOG',
+    type: 'SNIPPET',
   });
   return posts.map((post) => ({
     slug: post.slug,
@@ -37,7 +37,7 @@ interface PostPageProps {
 export async function generateMetadata({
   params,
 }: PostPageProps): Promise<Metadata> {
-  const post = await getPostBySlug({ slug: params.slug, type: 'BLOG' });
+  const post = await getPostBySlug({ slug: params.slug, type: 'SNIPPET' });
   const truncateDescription =
     post?.description?.slice(0, 100) + ('...' as string);
   const slug = '/writing/' + post?.slug;
@@ -89,7 +89,7 @@ export async function generateMetadata({
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const post = await getPostBySlug({ slug: params.slug, type: 'BLOG' });
+  const post = await getPostBySlug({ slug: params.slug, type: 'SNIPPET' });
   if (!post) return notFound();
   // Get comments
   const comments = await getComments(post.id);
@@ -109,6 +109,7 @@ export default async function PostPage({ params }: PostPageProps) {
         readTime={readTime as ReadTimeResults}
         views={post.views}
         likes={post.likes}
+        type={post.type}
       />
       <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,450px)_1fr] xl:gap-10">
         <div className="mx-auto h-max w-full max-w-lg space-y-4 rounded-2xl border-l-2 border-r-2 p-4 xl:sticky xl:top-16 xl:border-r-0 xl:pr-0">

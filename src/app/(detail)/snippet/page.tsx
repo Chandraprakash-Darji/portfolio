@@ -23,11 +23,10 @@ const WritingPage = () => {
       <Navbar />
       <div className="layout pt-28">
         <h1 className="h0 mt-2 max-w-4xl font-medium leading-tight">
-          My Writings
+          My Snippets
         </h1>
         <p className="h4 mt-2 text-muted-foreground">
-          When I am not building software, I write about my experiences and
-          thoughts.
+          Going to share some snippet of code that I find useful.
         </p>
         <Suspense fallback={<Skeleton className="mt-8 h-9 w-full" />}>
           <Search />

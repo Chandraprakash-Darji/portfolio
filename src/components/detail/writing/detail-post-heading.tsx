@@ -19,7 +19,7 @@ import { z } from 'zod';
 interface DetailPostHeadingProps
   extends Pick<
     z.infer<typeof PostModel>,
-    'title' | 'image' | 'imageBlurhash' | 'views' | 'likes'
+    'title' | 'image' | 'imageBlurhash' | 'views' | 'likes' | 'type'
   > {
   date: string;
   authorImage: CompleteUser['image'];
@@ -39,6 +39,7 @@ const DetailPostHeading: FC<DetailPostHeadingProps> = async ({
   likes,
   views,
   readTime,
+  type,
 }) => {
   return (
     <section className="flex flex-col items-start justify-between gap-5 pt-5">
@@ -131,17 +132,19 @@ const DetailPostHeading: FC<DetailPostHeadingProps> = async ({
           <span className="text-sm">{views}</span>
         </div>
       </div>
-      <div className="relative w-full">
-        <Image
-          src={image}
-          alt={title}
-          width={712}
-          height={788}
-          className="aspect-[1060/400] w-full rounded-2xl bg-muted object-cover object-center ring-1 ring-border"
-          placeholder="blur"
-          blurDataURL={imageBlurhash}
-        />
-      </div>
+      {type === 'BLOG' && (
+        <div className="relative w-full">
+          <Image
+            src={image}
+            alt={title}
+            width={712}
+            height={788}
+            className="aspect-[1060/400] w-full rounded-2xl bg-muted object-cover object-center ring-1 ring-border"
+            placeholder="blur"
+            blurDataURL={imageBlurhash}
+          />
+        </div>
+      )}
     </section>
   );
 };

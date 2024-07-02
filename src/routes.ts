@@ -22,4 +22,4 @@ export const DEFAULT_LOGIN_REDIRECT = '/dashboard';
  * List of routes that are opened
  * @type {string[]}
  */
-export const OPENED_PREFIX = ['/api/auth', '/writing'];
+export const OPENED_PREFIX = ['/api/auth', '/writing', '/snippet'];

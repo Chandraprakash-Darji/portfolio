@@ -97,7 +97,21 @@ const HomePage = () => {
 
           <div className="mt-4 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <Suspense fallback={<WritingLoading />}>
-              <WritingSection />
+              <WritingSection type="BLOG" />
+            </Suspense>
+          </div>
+        </div>
+      </section>
+      {/* Snippet */}
+      <section className="relative flex flex-col pt-32">
+        <div className="layout relative">
+          <Heading>
+            FEATURED / <ArrowLink href="/snippet">SNIPPET</ArrowLink>
+          </Heading>
+
+          <div className="mt-4 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <Suspense fallback={<WritingLoading />}>
+              <WritingSection type="SNIPPET" />
             </Suspense>
           </div>
         </div>

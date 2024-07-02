@@ -1,4 +1,5 @@
 import db from '@/lib/db';
+import { PostType } from '@/lib/enums';
 
 const getPost = async (id: string, userId?: string) => {
   const post = await db.post.findUnique({
@@ -18,11 +19,18 @@ const getPost = async (id: string, userId?: string) => {
 export default getPost;
 export type TGetPost = Awaited<ReturnType<typeof getPost>>;
 
-export const getPostBySlug = async (slug: string) => {
+export const getPostBySlug = async ({
+  slug,
+  type,
+}: {
+  slug: string;
+  type: PostType;
+}) => {
   const post = await db.post.findUnique({
     where: {
       slug,
       published: true,
+      type,
     },
     select: {
       id: true,
@@ -35,6 +43,7 @@ export const getPostBySlug = async (slug: string) => {
       updatedAt: true,
       views: true,
       likes: true,
+      type: true,
       categories: {
         select: {
           slug: true,

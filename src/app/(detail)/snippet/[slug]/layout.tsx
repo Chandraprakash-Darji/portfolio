@@ -13,7 +13,7 @@ export default async function MainLayout({
     slug: string;
   };
 }) {
-  const post = await getPostBySlug({ slug: params.slug, type: 'BLOG' });
+  const post = await getPostBySlug({ slug: params.slug, type: 'SNIPPET' });
 
   if (!post) return notFound();
 

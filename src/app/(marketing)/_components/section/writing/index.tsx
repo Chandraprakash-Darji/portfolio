@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import Skeleton from '@/components/ui/skeleton';
 import WritingCard from './writing-card';
 import { getAllPostSlugs } from '@/lib/query/writing/get-posts';
+import { PostType } from '@/lib/enums';
 
-const WritingSection = async () => {
-  const data = await getAllPostSlugs(3);
+interface Props {
+  type: PostType;
+}
+
+const WritingSection: FC<Props> = async ({ type }) => {
+  const data = await getAllPostSlugs({ take: 3, type });
   return (
     <>
       {data.map((d) => (
