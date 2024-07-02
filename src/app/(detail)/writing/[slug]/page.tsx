@@ -17,7 +17,7 @@ import { format } from 'date-fns';
 import readingTime, { ReadTimeResults } from 'reading-time';
 import updateViews from '@/lib/query/writing/update-views';
 
-export const revalidate = 10;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const posts = await getAllPostSlugs({

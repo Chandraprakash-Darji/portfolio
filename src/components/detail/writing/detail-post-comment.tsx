@@ -10,9 +10,6 @@ import {
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { TGetComments } from '@/lib/query/writing/get-comments';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
 interface DetailPostCommentProps {
   postId: string;
   comments: TGetComments;

@@ -95,7 +95,8 @@ export default function WysiwygEditor({
     if (defaultValue) {
       editor.commands.setContent(defaultValue);
     }
-  }, [editor, defaultValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editor]);
 
   return (
     <div
