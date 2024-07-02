@@ -21,9 +21,9 @@ import {
 } from 'lucide-react';
 
 interface DetailPostShareButtonProps {
-  title?: string;
-  text?: string;
-  url?: string;
+  title: string;
+  text: string;
+  url: string;
 }
 
 const CopyButton = ({ url }: { url: string }) => {
@@ -38,7 +38,7 @@ const CopyButton = ({ url }: { url: string }) => {
 
   const copy = () => {
     setCopied(true);
-    window.navigator.clipboard.writeText(url);
+    typeof window !== 'undefined' && window.navigator.clipboard.writeText(url);
   };
 
   return (
@@ -60,7 +60,7 @@ const CopyButton = ({ url }: { url: string }) => {
 const DetailPostShareButton: React.FC<DetailPostShareButtonProps> = ({
   title = '',
   text = '',
-  url = window.location.href,
+  url,
 }) => {
   return (
     <>

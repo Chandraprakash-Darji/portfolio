@@ -16,7 +16,11 @@ const SharedBackButton: React.FC<BackButtonProps> = () => {
       type="button"
       className="group relative z-10 inline-flex items-center justify-center space-x-3"
       onClick={() => {
-        if (window.history.state && window.history.state.idx > 0) {
+        if (
+          typeof window !== 'undefined' &&
+          window.history.state &&
+          window.history.state.idx > 0
+        ) {
           router.back();
         } else {
           router.push('/');

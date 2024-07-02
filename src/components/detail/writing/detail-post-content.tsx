@@ -5,22 +5,24 @@ import React, { useMemo } from 'react';
 import '@/styles/prosemirror.css';
 import { defaultExtensions } from '@/components/protected/editor/wysiwyg/extensions';
 import { isValidJson } from '@/lib/utils';
-import { generateHTML } from '@tiptap/core';
-import hljs from 'highlight.js';
+import { generateHTML } from '@tiptap/html';
+import highlight from 'highlight.js';
+import { useIsMounted } from 'usehooks-ts';
+
 const DetailPostContent = ({ content }: { content: string }) => {
+  const isMounted = useIsMounted();
   const json = useMemo(
     () => (isValidJson(content) ? JSON.parse(content) : []),
     [content]
   );
 
   const output = useMemo(() => {
-    const html = generateHTML(json, defaultExtensions);
-    return html;
+    return generateHTML(json, defaultExtensions);
   }, [json]);
 
   React.useEffect(() => {
-    hljs.highlightAll();
-  }, []);
+    isMounted() && highlight.highlightAll();
+  }, [isMounted]);
 
   return (
     <div

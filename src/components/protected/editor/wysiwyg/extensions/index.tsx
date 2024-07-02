@@ -22,7 +22,7 @@ import { cn } from '@/lib/utils';
 import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
 import { ReactNodeViewRenderer } from '@tiptap/react';
 import CodeBlock from '@/components/protected/editor/wysiwyg/extensions/codeblock';
-const starterKit = StarterKit.configure({
+export const starterKit = StarterKit.configure({
   bulletList: {
     HTMLAttributes: {
       class: cn('list-disc list-outside leading-3 -mt-2'),
