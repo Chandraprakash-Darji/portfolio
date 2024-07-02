@@ -14,7 +14,6 @@ export const metadata: Metadata = {
     'When I am not building software, I write about my experiences and thoughts.',
 };
 
-export const dynamic = 'force-dynamic';
 export const revalidate = 3600;
 
 const WritingPage = () => {
