@@ -16,7 +16,7 @@ const Search = () => {
         const value = e.target.value;
         const params = new URLSearchParams(searchParams.toString());
         params.set('q', value);
-        window.history.pushState(null, '', `?${params.toString()}`);
+        window && window?.history.pushState(null, '', `?${params.toString()}`);
       }}
     />
   );
