@@ -70,7 +70,10 @@ export function DataTableRowActions({
         <DropdownMenuContent align="end" className="font-sans">
           <DropdownMenuItem asChild>
             <UnstyledLink
-              href={`/${type.toLowerCase()}/${slug}`}
+              href={`/${(type === 'BLOG'
+                ? 'writing'
+                : type
+              ).toLowerCase()}/${slug}`}
               className="flex w-full"
               openNewTab
             >

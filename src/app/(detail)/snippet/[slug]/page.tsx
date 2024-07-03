@@ -117,7 +117,12 @@ export default async function PostPage({ params }: PostPageProps) {
           <DetailPostFloatingBar
             title={post.title as string}
             text={post.description as string}
-            url={`${getUrl()}${encodeURIComponent(`/writing/${post.slug}`)}`}
+            url={`${getUrl()}${encodeURIComponent(
+              `/${(post.type === 'BLOG'
+                ? 'writing'
+                : post.type
+              ).toLowerCase()}/${post.slug}`
+            )}`}
             totalComments={comments?.length}
             id={post.id}
             likes={post.likes || 0}
