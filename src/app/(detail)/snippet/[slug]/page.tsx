@@ -12,12 +12,13 @@ import { seoData } from '@/config/root/seo';
 import getComments from '@/lib/query/writing/get-comments';
 import { getPostBySlug } from '@/lib/query/writing/get-post';
 import { getAllPostSlugs } from '@/lib/query/writing/get-posts';
+import updateViews from '@/lib/query/writing/update-views';
 import { getOgImageUrl, getUrl } from '@/lib/utils';
 import { format } from 'date-fns';
 import readingTime, { ReadTimeResults } from 'reading-time';
-import updateViews from '@/lib/query/writing/update-views';
 
-export const revalidate = 3600;
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const posts = await getAllPostSlugs({
