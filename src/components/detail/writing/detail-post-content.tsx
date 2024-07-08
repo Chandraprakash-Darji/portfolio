@@ -2,15 +2,13 @@
 
 import React, { useMemo } from 'react';
 
-import '@/styles/prosemirror.css';
 import { defaultExtensions } from '@/components/protected/editor/wysiwyg/extensions';
 import { isValidJson } from '@/lib/utils';
+import '@/styles/prosemirror.css';
 import { generateHTML } from '@tiptap/html';
-import highlight from 'highlight.js';
-import { useIsMounted } from 'usehooks-ts';
+import hljs from 'highlight.js';
 
 const DetailPostContent = ({ content }: { content: string }) => {
-  const isMounted = useIsMounted();
   const json = useMemo(
     () => (isValidJson(content) ? JSON.parse(content) : []),
     [content]
@@ -21,8 +19,8 @@ const DetailPostContent = ({ content }: { content: string }) => {
   }, [json]);
 
   React.useEffect(() => {
-    isMounted() && highlight.highlightAll();
-  }, [isMounted]);
+    hljs.highlightAll();
+  }, []);
 
   return (
     <div

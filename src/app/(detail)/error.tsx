@@ -2,9 +2,9 @@
 
 import React from 'react';
 
-import SharedError from '@/components/shared/shared-error';
 import Footer from '@/components/footer';
 import { Navbar } from '@/components/navbar';
+import SharedError from '@/components/shared/shared-error';
 
 export default function Error({
   error,
@@ -21,7 +21,7 @@ export default function Error({
     <>
       <Navbar />
       <div className="layout-wide min-h-full bg-background py-3">
-        <SharedError />;
+        <SharedError />
         <Footer />
       </div>
     </>

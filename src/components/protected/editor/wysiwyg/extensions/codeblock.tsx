@@ -5,9 +5,9 @@ import {
   SelectTrigger,
 } from '@/components/ui/select';
 import {
-  NodeViewWrapper,
   NodeViewContent,
   NodeViewRendererProps,
+  NodeViewWrapper,
 } from '@tiptap/react';
 
 export default function CodeBlock({
