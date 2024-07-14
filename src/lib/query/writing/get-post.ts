@@ -30,7 +30,6 @@ export const getPostBySlug = async ({
     where: {
       slug,
       published: true,
-      type,
     },
     select: {
       id: true,
