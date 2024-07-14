@@ -32,7 +32,7 @@ const WritingCard = ({
       )}
 
       <UnstyledLink
-        href={`/${(type === 'BLOG' ? 'writing' : type).toLowerCase()}/${slug}`}
+        href={`/writing/${slug}`}
         className="h3 flash-underline font-medium text-foreground"
         trackEventTag={`${type} - ${slug}`}
       >

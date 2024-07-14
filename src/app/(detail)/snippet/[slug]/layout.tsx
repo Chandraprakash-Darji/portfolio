@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
 
+import { DetailPostHeader } from '@/components/detail/writing';
 import Footer from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 import { getPostBySlug } from '@/lib/query/writing/get-post';
-import { DetailPostHeader } from '@/components/detail/writing';
 
 export default async function MainLayout({
   children,

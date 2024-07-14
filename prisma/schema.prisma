@@ -95,7 +95,7 @@ model User {
   /// @zod.custom(imports.userMetadataSchema)
   metadata Json?
 
-  posts Post[]
+  posts    Post[]
   comments Comment[]
 }
 
@@ -109,11 +109,11 @@ model Post {
   title         String /// @zod.min(2).max(120)
   description   String? /// @zod.min(2).max(300)
   content       String?
-  slug          String  @unique /// @zod.min(2).max(100)
-  image         String    @default("https://ik.imagekit.io/jrbttakyqa/portfolio/empty.png")
-  imageBlurhash String    @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  slug          String     @unique /// @zod.min(2).max(100)
+  image         String     @default("https://ik.imagekit.io/jrbttakyqa/portfolio/empty.png")
+  imageBlurhash String     @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
   createdAt     DateTime   @default(now()) @db.Timestamp(6)
-  updatedAt     DateTime   @default(now()) @db.Timestamp(6) @updatedAt
+  updatedAt     DateTime   @default(now()) @updatedAt @db.Timestamp(6)
   published     Boolean    @default(false)
   userId        String
   type          PostType   @default(BLOG)
@@ -141,20 +141,20 @@ model Category {
 }
 
 model Comment {
-  id            String    @id @default(cuid()) /// @zod.cuid() 
-  createdAt     DateTime  @default(now()) @db.Timestamp(6)
-  content       String   /// @zod.min(3).max(500)
-  email         String?
-  likes         Int?      @default(0)
-  isApproved    Boolean   @default(false)
-  parentId      String?
+  id         String   @id @default(cuid()) /// @zod.cuid() 
+  createdAt  DateTime @default(now()) @db.Timestamp(6)
+  content    String /// @zod.min(3).max(500)
+  email      String?
+  likes      Int?     @default(0)
+  isApproved Boolean  @default(false)
+  parentId   String?
 
-  postId        String
-  post          Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   replies       Comment[] @relation("CommentReplies")
   parentComment Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
 
-  userId        String?
-  user          User?     @relation(fields: [userId], references: [id])
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
 }
