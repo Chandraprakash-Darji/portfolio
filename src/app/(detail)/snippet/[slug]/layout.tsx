@@ -22,8 +22,8 @@ export default async function MainLayout({
     <>
       <Navbar />
       <DetailPostHeader />
-      <div className="layout-wide min-h-full bg-background py-3">
-        {JSON.stringify(post)}
+      <div className="layout-wide min-h-full whitespace-pre font-mono border p-2 bg-background py-3">
+        {JSON.stringify(post, null, 2)}
       </div>
       <Footer />
     </>
