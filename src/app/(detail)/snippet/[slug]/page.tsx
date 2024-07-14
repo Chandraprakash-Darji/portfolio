@@ -7,6 +7,7 @@ import {
   DetailPostHeading,
 } from '@/components/detail/writing';
 import { DetailPostScrollUpButton } from '@/components/detail/writing/buttons';
+import DetailPostContent from '@/components/detail/writing/detail-post-content';
 import { seoData } from '@/config/root/seo';
 import getComments from '@/lib/query/writing/get-comments';
 import { getPostBySlug } from '@/lib/query/writing/get-post';
@@ -126,7 +127,7 @@ export default async function PostPage({ params }: PostPageProps) {
             likes={post.likes || 0}
           />
         </div>
-        {/* <DetailPostContent content={post.content || '[]'} /> */}
+        <DetailPostContent content={post.content || '[]'} />
         <DetailPostComment postId={post.id} comments={comments} />
       </div>
       <DetailPostScrollUpButton />
