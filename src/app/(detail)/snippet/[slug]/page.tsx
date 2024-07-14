@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import {
   DetailPostComment,
+  DetailPostFloatingBar,
   DetailPostHeading,
 } from '@/components/detail/writing';
 import { DetailPostScrollUpButton } from '@/components/detail/writing/buttons';
@@ -109,7 +110,6 @@ export default async function PostPage({ params }: PostPageProps) {
         type={post.type}
       />
       <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,450px)_1fr] xl:gap-10">
-        {/* 
         <div className="mx-auto h-max w-full max-w-lg space-y-4 rounded-2xl border-l-2 border-r-2 p-4 xl:sticky xl:top-20 xl:border-r-0 xl:pr-0">
           {post.description && <p className="h4">{post?.description}</p>}
           <DetailPostFloatingBar
@@ -126,7 +126,6 @@ export default async function PostPage({ params }: PostPageProps) {
             likes={post.likes || 0}
           />
         </div>
-        */}
         {/* <DetailPostContent content={post.content || '[]'} /> */}
         <DetailPostComment postId={post.id} comments={comments} />
       </div>
