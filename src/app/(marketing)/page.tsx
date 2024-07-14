@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Faqs from '@/app/(marketing)/_components/faq';
 import Marquee from '@/app/(marketing)/_components/marquee';
 import ProjectCard from '@/app/(marketing)/_components/project-card';
-import ShopSection from '@/app/(marketing)/_components/section/shop';
 import WritingSection, {
   WritingLoading,
 } from '@/app/(marketing)/_components/section/writing';
@@ -62,7 +61,7 @@ const HomePage = () => {
         </div>
       </section>
       {/* Shop */}
-      <section id="sec-shop" className="relative flex flex-col pt-32">
+      {/* <section id="sec-shop" className="relative flex flex-col pt-32">
         <div className="layout relative">
           <div className="flex items-center justify-center lg:justify-between">
             <Heading>
@@ -75,7 +74,7 @@ const HomePage = () => {
             <ShopSection />
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Work */}
       <section id="sec-work" className="relative flex flex-col pt-32">
