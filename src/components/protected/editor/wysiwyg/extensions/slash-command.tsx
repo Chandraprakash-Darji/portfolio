@@ -28,6 +28,8 @@ import tippy from 'tippy.js';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 interface CommandItemProps {
   title: string;
   description: string;

@@ -1,19 +1,20 @@
+import { Suspense } from 'react';
+
 import Image from 'next/image';
 
 import Faqs from '@/app/(marketing)/_components/faq';
 import Marquee from '@/app/(marketing)/_components/marquee';
 import ProjectCard from '@/app/(marketing)/_components/project-card';
 import ShopSection from '@/app/(marketing)/_components/section/shop';
+import WritingSection, {
+  WritingLoading,
+} from '@/app/(marketing)/_components/section/writing';
 import { Spotlight } from '@/app/(marketing)/_components/spotlight';
 import Time from '@/app/(marketing)/_components/time';
 import { CursorContainer } from '@/components/animation/cursor-container';
 import Heading from '@/components/heading';
 import { ArrowLink, UnderlineLink } from '@/components/links';
 import { projects } from '@/constant/projects';
-import { Suspense } from 'react';
-import WritingSection, {
-  WritingLoading,
-} from '@/app/(marketing)/_components/section/writing';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 10;

@@ -1,8 +1,9 @@
 'use server';
+
 import { ActionState, createSafeAction } from '@/lib/create-safe-action';
 import db from '@/lib/db';
-
 import { z } from 'zod';
+
 const ZInputOptions = z.object({
   postId: z.string(),
 });

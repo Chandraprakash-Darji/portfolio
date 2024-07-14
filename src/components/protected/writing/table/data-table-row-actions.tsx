@@ -26,13 +26,13 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { protectedPostConfig } from '@/config/protected';
 import { useAction } from '@/hooks/use-action';
+import { PostType } from '@/lib/enums';
 import {
   MoreVertical,
   Loader2 as SpinnerIcon,
   Trash as TrashIcon,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { PostType } from '@/lib/enums';
 
 interface DataTableRowActionsProps {
   id: string;

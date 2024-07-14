@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 
-import { sharedEmptyConfig } from '@/config/shared';
 import { Button } from '@/components/ui/button';
+import { sharedEmptyConfig } from '@/config/shared';
 
 const SharedError = () => {
   const router = useRouter();

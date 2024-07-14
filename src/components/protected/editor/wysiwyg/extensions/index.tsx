@@ -1,4 +1,7 @@
+import CodeBlock from '@/components/protected/editor/wysiwyg/extensions/codeblock';
+import { cn } from '@/lib/utils';
 import { InputRule } from '@tiptap/core';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { Color } from '@tiptap/extension-color';
 import Highlight from '@tiptap/extension-highlight';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
@@ -9,19 +12,16 @@ import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
 import TextStyle from '@tiptap/extension-text-style';
 import TiptapUnderline from '@tiptap/extension-underline';
+import { ReactNodeViewRenderer } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { common, createLowlight } from 'lowlight';
+import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
 import { Markdown } from 'tiptap-markdown';
 
-import { common, createLowlight } from 'lowlight';
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import CustomKeymap from './custom-keymap';
 import SlashCommand from './slash-command';
 import UpdatedImage from './updated-image';
-import { cn } from '@/lib/utils';
 
-import GlobalDragHandle from 'tiptap-extension-global-drag-handle';
-import { ReactNodeViewRenderer } from '@tiptap/react';
-import CodeBlock from '@/components/protected/editor/wysiwyg/extensions/codeblock';
 export const starterKit = StarterKit.configure({
   bulletList: {
     HTMLAttributes: {

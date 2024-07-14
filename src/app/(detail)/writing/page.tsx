@@ -1,3 +1,7 @@
+import React, { Suspense } from 'react';
+
+import { Metadata } from 'next';
+
 import Search from '@/app/(detail)/_components/search';
 import Topics from '@/app/(detail)/_components/topics';
 import Writings from '@/app/(detail)/_components/writings';
@@ -5,8 +9,6 @@ import { WritingLoading } from '@/app/(marketing)/_components/section/writing';
 import Footer from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 import Skeleton from '@/components/ui/skeleton';
-import { Metadata } from 'next';
-import React, { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'My Writings',

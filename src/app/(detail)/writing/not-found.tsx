@@ -2,13 +2,13 @@ import React from 'react';
 
 import Link from 'next/link';
 
-import { sharedNotFoundConfig } from '@/config/shared';
-import { ChevronRightIcon } from 'lucide-react';
-import { nanoid } from 'nanoid';
 import Footer from '@/components/footer';
 import { Navbar } from '@/components/navbar';
+import { sharedNotFoundConfig } from '@/config/shared';
 import getCategories from '@/lib/query/writing/get-categories';
 import { CaretRightIcon } from '@radix-ui/react-icons';
+import { ChevronRightIcon } from 'lucide-react';
+import { nanoid } from 'nanoid';
 
 const NotFound = async () => {
   const topics = await getCategories();

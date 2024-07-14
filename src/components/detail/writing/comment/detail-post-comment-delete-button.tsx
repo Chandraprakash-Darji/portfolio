@@ -18,6 +18,8 @@ import {
 import { detailCommentConfig } from '@/config/detail';
 import { Loader2 as SpinnerIcon, Trash as TrashIcon } from 'lucide-react';
 
+/* eslint-disable unused-imports/no-unused-vars */
+
 interface DetailPostCommentDeleteButtonProps {
   id?: string;
   userId?: string;

@@ -2,14 +2,14 @@
 
 import React from 'react';
 
-import { Button } from '@/components/ui/button';
-import { Heart } from 'lucide-react';
-
 import { useRouter } from 'next/navigation';
 
-import { useAction } from '@/hooks/use-action';
 import { updateLike } from '@/actions/writing/update-like';
+import { Button } from '@/components/ui/button';
+import { useAction } from '@/hooks/use-action';
+import { Heart } from 'lucide-react';
 import { toast } from 'sonner';
+
 interface DetailPostLikeButtonProps {
   likes: number;
   postId: string;

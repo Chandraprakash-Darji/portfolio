@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import Editor from '@/components/protected/editor/editor';
@@ -5,7 +6,6 @@ import { Separator } from '@/components/ui/separator';
 import { protectedEditorConfig } from '@/config/protected';
 import { currentAdmin } from '@/lib/auth/queries/current-user';
 import getPost from '@/lib/query/writing/get-post';
-import { Metadata } from 'next';
 
 export const revalidate = 0;
 

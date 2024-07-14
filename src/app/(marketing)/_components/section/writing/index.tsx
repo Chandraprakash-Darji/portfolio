@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 
 import Skeleton from '@/components/ui/skeleton';
-import WritingCard from './writing-card';
-import { getAllPostSlugs } from '@/lib/query/writing/get-posts';
 import { PostType } from '@/lib/enums';
+import { getAllPostSlugs } from '@/lib/query/writing/get-posts';
+
+import WritingCard from './writing-card';
 
 interface Props {
   type: PostType;

@@ -21,13 +21,13 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { protectedEditorConfig } from '@/config/protected';
 import { useAction } from '@/hooks/use-action';
+import { isValidImageLink } from '@/lib/utils';
 import { PostModel } from '@/lib/zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { isValidImageLink } from '@/lib/utils';
 
 const FormSchema = PostModel.pick({ image: true });
 const PropsSchema = PostModel.pick({
