@@ -22,6 +22,7 @@ export default function Error({
       <Navbar />
       <div className="layout-wide min-h-full bg-background py-3">
         <SharedError />
+        {JSON.stringify(error)}
         <Footer />
       </div>
     </>
