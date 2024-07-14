@@ -6,6 +6,7 @@ import { defaultExtensions } from '@/components/protected/editor/wysiwyg/extensi
 import { isValidJson } from '@/lib/utils';
 import '@/styles/prosemirror.css';
 import { generateHTML } from '@tiptap/html';
+import hljs from 'highlight.js';
 
 const DetailPostContent = ({ content }: { content: string }) => {
   const json = useMemo(
@@ -17,9 +18,9 @@ const DetailPostContent = ({ content }: { content: string }) => {
     return generateHTML(json, defaultExtensions);
   }, [json]);
 
-  // React.useEffect(() => {
-  //   hljs.highlightAll();
-  // }, []);
+  React.useEffect(() => {
+    hljs.highlightAll();
+  }, []);
 
   return (
     <div
