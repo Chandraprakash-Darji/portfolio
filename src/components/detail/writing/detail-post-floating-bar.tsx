@@ -4,11 +4,11 @@ import {
   DetailPostCommentButton,
   DetailPostShareButton,
 } from '@/components/detail/writing/buttons';
+import DetailPostLikeButton from '@/components/detail/writing/buttons/detail-post-like-button';
+import { UnstyledLink } from '@/components/links';
+import { Button } from '@/components/ui/button';
 import { currentRole } from '@/lib/auth/queries/current-role';
 import { UserRole } from '@prisma/client';
-import { Button } from '@/components/ui/button';
-import { UnstyledLink } from '@/components/links';
-import DetailPostLikeButton from '@/components/detail/writing/buttons/detail-post-like-button';
 
 interface DetailPostFloatingBarProps {
   title: string;

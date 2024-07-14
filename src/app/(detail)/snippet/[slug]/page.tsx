@@ -39,8 +39,7 @@ export async function generateMetadata({
   params,
 }: PostPageProps): Promise<Metadata> {
   const post = await getPostBySlug({ slug: params.slug, type: 'SNIPPET' });
-  const truncateDescription =
-    post?.description?.slice(0, 100) + ('...' as string);
+  const truncateDescription = post?.description?.slice(0, 100) + '...';
   const slug = '/writing/' + post?.slug;
 
   if (!post) {
@@ -49,40 +48,40 @@ export async function generateMetadata({
 
   return {
     title: post.title,
-    description: post.description,
+    description: post?.description,
     authors: {
       name: seoData.author.name,
       url: seoData.author.twitterUrl,
     },
     openGraph: {
-      title: post.title as string,
-      description: post.description as string,
+      title: post.title,
+      description: post?.description || '',
       type: 'article',
       url: getUrl() + slug,
       images: [
         {
           url: getOgImageUrl(
-            post.title as string,
-            truncateDescription as string,
+            post.title,
+            truncateDescription,
             post.categories.map((category) => category.name),
-            slug as string
+            slug
           ),
           width: 1200,
           height: 630,
-          alt: post.title as string,
+          alt: post.title,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title as string,
-      description: post.description as string,
+      title: post.title,
+      description: post?.description || '',
       images: [
         getOgImageUrl(
-          post.title as string,
-          truncateDescription as string,
+          post.title,
+          truncateDescription,
           post.categories.map((category) => category.name),
-          slug as string
+          slug
         ),
       ],
     },
@@ -114,10 +113,10 @@ export default async function PostPage({ params }: PostPageProps) {
       />
       <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,450px)_1fr] xl:gap-10">
         <div className="mx-auto h-max w-full max-w-lg space-y-4 rounded-2xl border-l-2 border-r-2 p-4 xl:sticky xl:top-20 xl:border-r-0 xl:pr-0">
-          {post.description && <p className="h4">{post.description}</p>}
+          {post.description && <p className="h4">{post?.description}</p>}
           <DetailPostFloatingBar
-            title={post.title as string}
-            text={post.description as string}
+            title={post.title}
+            text={post?.description || ''}
             url={`${getUrl()}${encodeURIComponent(
               `/${(post.type === 'BLOG'
                 ? 'writing'
@@ -130,7 +129,7 @@ export default async function PostPage({ params }: PostPageProps) {
           />
         </div>
         <DetailPostContent content={post.content || '[]'} />
-        <DetailPostComment postId={post.id as string} comments={comments} />
+        <DetailPostComment postId={post.id} comments={comments} />
       </div>
       <DetailPostScrollUpButton />
     </>
