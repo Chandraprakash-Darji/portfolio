@@ -1,26 +1,25 @@
 import {
-  AtSign,
-  GithubIcon,
-  Instagram,
-  Linkedin,
-  LucideIcon,
-  Mail,
-  ScrollText,
-  Twitter,
-  Wand,
-} from 'lucide-react';
-import { FaSpinner } from 'react-icons/fa';
+  At,
+  Envelope,
+  GithubLogo,
+  InstagramLogo,
+  LinkedinLogo,
+  MagicWand,
+  Scroll,
+  SpinnerGap,
+  XLogo,
+} from '@phosphor-icons/react/dist/ssr';
 
-export type IIcon = LucideIcon;
+export type IIcon = typeof XLogo;
 
 export const Icons = {
-  gitHub: GithubIcon,
-  twitter: Twitter,
-  linkedIn: Linkedin,
-  instagram: Instagram,
-  cv: ScrollText,
-  mail: Mail,
-  threads: AtSign,
-  pixelwand: Wand,
-  loader: FaSpinner,
+  gitHub: GithubLogo,
+  twitter: XLogo,
+  linkedIn: LinkedinLogo,
+  instagram: InstagramLogo,
+  cv: Scroll,
+  mail: Envelope,
+  threads: At,
+  pixelwand: MagicWand,
+  loader: SpinnerGap,
 } as const;

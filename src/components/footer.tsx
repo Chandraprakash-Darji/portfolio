@@ -5,6 +5,7 @@ import { Icons } from '@/components/icons';
 import { UnderlineLink, UnstyledLink } from '@/components/links';
 import { links } from '@/constant/footer-links';
 import { social } from '@/constant/social';
+import { Copyright } from '@phosphor-icons/react/dist/ssr';
 
 const Footer = () => {
   return (
@@ -38,7 +39,7 @@ const Footer = () => {
                     key={index}
                     trackEventTag={`Contact - ${item.name}`}
                   >
-                    <Icon {...item} /> {item.name}
+                    <Icon className="w-6 h-6" {...item} /> {item.name}
                   </UnderlineLink>
                 );
               })}
@@ -62,7 +63,8 @@ const Footer = () => {
           </div>
         </div>
         <span className="mt-10 text-center font-mono tracking-wider">
-          &copy; Chandra Prakash {new Date().getFullYear()}
+          <Copyright className="inline-block" /> Chandra Prakash{' '}
+          {new Date().getFullYear()}
         </span>
       </section>
     </>

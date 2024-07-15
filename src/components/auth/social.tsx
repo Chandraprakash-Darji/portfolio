@@ -7,8 +7,6 @@ import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { signIn } from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc';
 
-// import { Icons } from '../ui/icons';
-
 export const Social = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams?.get('callbackUrl');
