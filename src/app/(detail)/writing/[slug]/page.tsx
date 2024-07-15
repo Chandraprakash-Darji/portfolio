@@ -38,7 +38,7 @@ interface PostPageProps {
 export async function generateMetadata({
   params,
 }: PostPageProps): Promise<Metadata> {
-  const post = await getPostBySlug({ slug: params.slug, type: 'BLOG' });
+  const post = await getPostBySlug({ slug: params.slug });
   const truncateDescription =
     post?.description?.slice(0, 100) + ('...' as string);
   const slug = '/writing/' + post?.slug;
@@ -90,7 +90,7 @@ export async function generateMetadata({
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const post = await getPostBySlug({ slug: params.slug, type: 'BLOG' });
+  const post = await getPostBySlug({ slug: params.slug });
   if (!post) return notFound();
   // Get comments
   const comments = await getComments(post.id);
@@ -109,7 +109,7 @@ export default async function PostPage({ params }: PostPageProps) {
         categories={post.categories}
         readTime={readTime as ReadTimeResults}
         views={post.views}
-        likes={post.likes}
+        likes={post._count.likes}
         type={post.type}
       />
       <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,450px)_1fr] xl:gap-10">
@@ -121,10 +121,11 @@ export default async function PostPage({ params }: PostPageProps) {
             url={`${getUrl()}${encodeURIComponent(`/writing/${post.slug}`)}`}
             totalComments={comments?.length}
             id={post.id}
-            likes={post.likes || 0}
+            likes={post._count.likes || 0}
+            shares={post._count.shares || 0}
           />
         </div>
-        <DetailPostContent content={post.content || '[]'} />
+        <DetailPostContent source={post.mdxSource} />
         <DetailPostComment postId={post.id as string} comments={comments} />
       </div>
       <DetailPostScrollUpButton />

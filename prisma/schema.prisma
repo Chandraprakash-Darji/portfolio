@@ -97,6 +97,8 @@ model User {
 
   posts    Post[]
   comments Comment[]
+  likedPost Like[]
+  shared  Share[]
 }
 
 enum UserRole {
@@ -118,9 +120,10 @@ model Post {
   userId        String
   type          PostType   @default(BLOG)
   views         Int?       @default(0)
-  likes         Int?       @default(0)
+  likes         Like[]
   categories    Category[]
   comments      Comment[]
+  shares        Share[]
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -157,4 +160,32 @@ model Comment {
 
   userId String?
   user   User?   @relation(fields: [userId], references: [id])
+}
+
+model Like {
+  id     String @id @default(cuid()) /// @zod.cuid()
+  userId String?
+  postId String
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+enum ShareType {
+  FACEBOOK
+  X
+  LINKEDIN
+  EMAIL
+  COPY
+}
+
+model Share {
+  id        String    @id @default(cuid()) /// @zod.cuid()
+  type      ShareType
+  postId    String
+  userId    String?
+  createdAt DateTime  @default(now()) @db.Timestamp(6)
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 }

@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
+import { sharePost } from '@/actions/writing/count-share';
 import { Button } from '@/components/ui/button';
 import {
   Drawer,
@@ -10,23 +11,28 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 import { detailShareConfig } from '@/config/detail';
+import { useAction } from '@/hooks/use-action';
+import { ShareType } from '@/lib/enums';
 import {
-  CheckIcon,
-  CopyIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  MailIcon,
-  Share2,
-  X,
-} from 'lucide-react';
+  Check,
+  Copy,
+  Envelope,
+  FacebookLogo,
+  LinkedinLogo,
+  ShareNetwork,
+  XLogo,
+} from '@phosphor-icons/react/dist/ssr';
+import { useRouter } from 'next-nprogress-bar';
 
 interface DetailPostShareButtonProps {
   title: string;
   text: string;
   url: string;
+  id: string;
+  shares: number;
 }
 
-const CopyButton = ({ url }: { url: string }) => {
+const CopyButton = ({ url, onClick }: { url: string; onClick: () => void }) => {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -38,6 +44,7 @@ const CopyButton = ({ url }: { url: string }) => {
 
   const copy = () => {
     setCopied(true);
+    onClick();
     typeof window !== 'undefined' && window.navigator.clipboard.writeText(url);
   };
 
@@ -49,9 +56,9 @@ const CopyButton = ({ url }: { url: string }) => {
       className="focus-me rounded-lg border-[1.75px] border-border bg-muted  p-5 shadow-sm transition-all hover:-translate-y-1 hover:bg-transparent hover:shadow-md"
     >
       {copied ? (
-        <CheckIcon className="h-8 w-8 stroke-[1.5px] text-muted-foreground" />
+        <Check className="h-8 w-8 stroke-[1.5px] text-muted-foreground" />
       ) : (
-        <CopyIcon className="h-8 w-8 stroke-[1.5px] text-muted-foreground" />
+        <Copy className="h-8 w-8 stroke-[1.5px] text-muted-foreground" />
       )}
     </button>
   );
@@ -61,14 +68,44 @@ const DetailPostShareButton: React.FC<DetailPostShareButtonProps> = ({
   title = '',
   text = '',
   url,
+  id,
+  shares,
 }) => {
+  const router = useRouter();
+  const { execute } = useAction(sharePost, {
+    onSuccess: () => {
+      router.refresh();
+    },
+  });
+
+  const share = useCallback(
+    (type: ShareType, href: string) => {
+      execute({ postId: id, type });
+      const anchor = document.createElement('a');
+      anchor.style.display = 'none';
+      anchor.target = '_blank';
+      anchor.rel = 'noopener noreferrer';
+      anchor.href = href;
+      anchor.click();
+    },
+    [execute, id]
+  );
+
   return (
     <>
       <Drawer>
         <DrawerTrigger asChild>
-          <Button type="button" variant="outline" className="w-full" size="lg">
-            <Share2 className="mr-2 h-4 w-4" />
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full relative"
+            size="lg"
+          >
+            <ShareNetwork className="mr-2 h-5 w-5" />
             {detailShareConfig.title}
+            <span className="absolute -right-[5px] -top-[10px] rounded-full bg-foreground px-[4px] text-xs font-semibold text-background shadow-sm ring-1">
+              {shares}
+            </span>
           </Button>
         </DrawerTrigger>
         <DrawerContent>
@@ -78,57 +115,72 @@ const DetailPostShareButton: React.FC<DetailPostShareButtonProps> = ({
             </DrawerTitle>
             <div className="mx-auto my-6 grid grid-cols-3 justify-center gap-8">
               <div className="mx-auto flex ">
-                <a
+                <button
                   title={title}
-                  target="_blank"
-                  href={`https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent(
-                    title
-                  )}`}
-                  rel="noopener noreferrer"
                   className="focus-me rounded-lg border-[1.75px] border-border bg-muted p-5 shadow-sm transition-all hover:-translate-y-1 hover:bg-transparent hover:shadow-md"
+                  onClick={() =>
+                    share(
+                      'X',
+                      `https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent(
+                        title
+                      )}`
+                    )
+                  }
                 >
-                  <X className="h-8 w-8 stroke-[1.5px] text-muted-foreground" />
-                </a>
+                  <XLogo className="h-8 w-8 stroke-[1.5px] text-muted-foreground" />
+                </button>
               </div>
               <div className="mx-auto flex ">
-                <a
+                <button
                   title={title}
-                  target="_blank"
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
-                  rel="noopener noreferrer"
                   className="focus-me rounded-lg border-[1.75px] border-border bg-muted p-5 shadow-sm transition-all hover:-translate-y-1 hover:bg-transparent hover:shadow-md"
+                  onClick={() =>
+                    share(
+                      'FACEBOOK',
+                      `https://www.facebook.com/sharer/sharer.php?u=${url}`
+                    )
+                  }
                 >
-                  <FacebookIcon className="h-8 w-8 stroke-[1.5px] text-muted-foreground" />
-                </a>
+                  <FacebookLogo className="h-8 w-8 stroke-[1.5px] text-muted-foreground" />
+                </button>
               </div>
               <div className="mx-auto flex ">
-                <a
+                <button
                   title={title}
-                  target="_blank"
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${url}`}
-                  rel="noopener noreferrer"
                   className="focus-me rounded-lg border-[1.75px] border-border bg-muted p-5 shadow-sm transition-all hover:-translate-y-1 hover:bg-transparent hover:shadow-md"
+                  onClick={() =>
+                    share(
+                      'LINKEDIN',
+                      `https://www.linkedin.com/sharing/share-offsite/?url=${url}`
+                    )
+                  }
                 >
-                  <LinkedinIcon className="h-8 w-8 stroke-[1.5px] text-muted-foreground" />
-                </a>
-              </div>
-
-              <div className="mx-auto flex ">
-                <a
-                  title={title}
-                  target="_blank"
-                  href={`mailto:?subject=${encodeURIComponent(
-                    title
-                  )}&body=${encodeURIComponent(text + '\n\n')}${url}`}
-                  rel="noopener noreferrer"
-                  className="focus-me rounded-lg border-[1.75px] border-border bg-muted p-5 shadow-sm transition-all hover:-translate-y-1 hover:bg-transparent hover:shadow-md"
-                >
-                  <MailIcon className="h-8 w-8 stroke-[1.5px] text-muted-foreground" />
-                </a>
+                  <LinkedinLogo className="h-8 w-8 stroke-[1.5px] text-muted-foreground" />
+                </button>
               </div>
 
               <div className="mx-auto flex ">
-                <CopyButton url={url} />
+                <button
+                  title={title}
+                  className="focus-me rounded-lg border-[1.75px] border-border bg-muted p-5 shadow-sm transition-all hover:-translate-y-1 hover:bg-transparent hover:shadow-md"
+                  onClick={() =>
+                    share(
+                      'EMAIL',
+                      `mailto:?subject=${encodeURIComponent(title)}&body=${
+                        text ? encodeURIComponent(text + '\n\n') : ''
+                      }${url}`
+                    )
+                  }
+                >
+                  <Envelope className="h-8 w-8 stroke-[1.5px] text-muted-foreground" />
+                </button>
+              </div>
+
+              <div className="mx-auto flex ">
+                <CopyButton
+                  url={url}
+                  onClick={() => execute({ postId: id, type: 'COPY' })}
+                />
               </div>
             </div>
           </div>

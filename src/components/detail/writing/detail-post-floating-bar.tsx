@@ -17,6 +17,7 @@ interface DetailPostFloatingBarProps {
   totalComments: number;
   id: string;
   likes: number;
+  shares: number;
 }
 
 const DetailPostFloatingBar: React.FC<DetailPostFloatingBarProps> = async ({
@@ -26,6 +27,7 @@ const DetailPostFloatingBar: React.FC<DetailPostFloatingBarProps> = async ({
   url,
   totalComments = 0,
   id,
+  shares,
 }) => {
   const role = await currentRole();
   return (
@@ -33,7 +35,13 @@ const DetailPostFloatingBar: React.FC<DetailPostFloatingBarProps> = async ({
       <div className="grid w-full grid-cols-3 justify-start gap-4 rounded-md">
         <DetailPostLikeButton likes={likes} postId={id} />
         <DetailPostCommentButton totalComments={totalComments} />
-        <DetailPostShareButton title={title} text={text} url={url} />
+        <DetailPostShareButton
+          title={title}
+          text={text}
+          url={url}
+          id={id}
+          shares={shares}
+        />
         {role === UserRole.ADMIN && (
           <Button variant="outline" asChild>
             <UnstyledLink href={`/admin/writing/${id}`}>Edit</UnstyledLink>

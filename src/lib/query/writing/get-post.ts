@@ -1,5 +1,9 @@
 import db from '@/lib/db';
-import { PostType } from '@/lib/enums';
+import { replaceTweets } from '@/lib/remark-plugins';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeSlug from 'rehype-slug';
+import { serialize } from 'remote-mdx/serialize';
 
 const getPost = async (id: string, userId?: string) => {
   const post = await db.post.findUnique({
@@ -19,13 +23,7 @@ const getPost = async (id: string, userId?: string) => {
 export default getPost;
 export type TGetPost = Awaited<ReturnType<typeof getPost>>;
 
-export const getPostBySlug = async ({
-  slug,
-  type,
-}: {
-  slug: string;
-  type: PostType;
-}) => {
+export const getPostBySlug = async ({ slug }: { slug: string }) => {
   const post = await db.post.findUnique({
     where: {
       slug,
@@ -41,7 +39,6 @@ export const getPostBySlug = async ({
       imageBlurhash: true,
       updatedAt: true,
       views: true,
-      likes: true,
       type: true,
       categories: {
         select: {
@@ -58,9 +55,51 @@ export const getPostBySlug = async ({
           image: true,
         },
       },
+      _count: {
+        select: {
+          likes: true,
+          shares: true,
+        },
+      },
     },
   });
 
-  return post;
+  const mdxSource = await getMdxSource(post?.content || '## No content');
+
+  if (!post) return null;
+  return { ...post, mdxSource };
 };
 export type TGetPostBySlug = Awaited<ReturnType<typeof getPostBySlug>>;
+
+async function getMdxSource(postContents: string) {
+  // transforms links like <link> to [link](link) as MDX doesn't support <link> syntax
+  // https://mdxjs.com/docs/what-is-mdx/#markdown
+  const content =
+    postContents?.replaceAll(/<(https?:\/\/\S+)>/g, '[$1]($1)') ?? '';
+  // Serialize the content string into MDX
+  const mdxSource = await serialize(content, {
+    mdxOptions: {
+      remarkPlugins: [replaceTweets],
+      rehypePlugins: [
+        rehypeSlug,
+        // @ts-expect-error - rehypePrettyCode types are incorrect
+        () =>
+          rehypePrettyCode({
+            theme: 'one-dark-pro',
+          }),
+        [
+          rehypeAutolinkHeadings,
+          {
+            properties: {
+              className: ['hash-anchor'],
+            },
+          },
+        ],
+      ],
+    },
+  });
+
+  return mdxSource;
+}
+
+export type TGetMdxSource = Awaited<ReturnType<typeof getMdxSource>>;

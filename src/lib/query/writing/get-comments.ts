@@ -20,6 +20,7 @@ const getComments = async (postId: string) => {
           image: true,
         },
       },
+      email: true,
     },
   });
 

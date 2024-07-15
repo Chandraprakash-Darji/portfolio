@@ -19,13 +19,14 @@ import { z } from 'zod';
 interface DetailPostHeadingProps
   extends Pick<
     z.infer<typeof PostModel>,
-    'title' | 'image' | 'imageBlurhash' | 'views' | 'likes' | 'type'
+    'title' | 'image' | 'imageBlurhash' | 'views' | 'type'
   > {
   date: string;
   authorImage: CompleteUser['image'];
   authorName: CompleteUser['name'];
   categories: z.infer<typeof CategoryModel>[];
   readTime: ReadTimeResults;
+  likes: number;
 }
 
 const DetailPostHeading: FC<DetailPostHeadingProps> = async ({

@@ -3,19 +3,22 @@
 import { currentUser } from '@/lib/auth/queries/current-user';
 import { ActionState, createSafeAction } from '@/lib/create-safe-action';
 import db from '@/lib/db';
+import { ShareModel } from '@/lib/zod';
 import { z } from 'zod';
 
-const ZInputOptions = z.object({
-  postId: z.string(),
+const ZInputOptions = ShareModel.pick({
+  postId: true,
+  type: true,
 });
 
 type InputType = z.infer<typeof ZInputOptions>;
 type ReturnType = ActionState<InputType, boolean>;
 
-export const updateLike = createSafeAction(
+export const sharePost = createSafeAction(
   ZInputOptions,
-  async ({ postId }): Promise<ReturnType> => {
+  async ({ postId, type }): Promise<ReturnType> => {
     const user = await currentUser();
+
     const post = await db.post.findUnique({
       where: {
         id: postId,
@@ -26,10 +29,11 @@ export const updateLike = createSafeAction(
       throw new Error('Post not found');
     }
 
-    await db.like.create({
+    await db.share.create({
       data: {
         postId: post.id,
         userId: user?.id,
+        type,
       },
     });
 
