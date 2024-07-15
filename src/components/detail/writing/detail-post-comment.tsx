@@ -32,6 +32,7 @@ const DetailPostComment: React.FC<DetailPostCommentProps> = ({
             image={comment.user?.image}
             comment={comment.content}
             date={comment.createdAt}
+            email={comment?.email}
           />
         ))}
       </div>

@@ -9,6 +9,7 @@ interface DetailPostCommentItemProps {
   image?: string | null;
   comment: string;
   date: Date;
+  email?: string | null;
 }
 
 const DetailPostCommentItem: React.FC<DetailPostCommentItemProps> = ({
@@ -16,6 +17,7 @@ const DetailPostCommentItem: React.FC<DetailPostCommentItemProps> = ({
   image = '',
   comment,
   date,
+  email,
 }) => {
   return (
     <div className="my-6 flex flex-col rounded-md bg-background p-4 text-sm text-foreground">
@@ -38,13 +40,12 @@ const DetailPostCommentItem: React.FC<DetailPostCommentItemProps> = ({
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-semibold text-foreground">
-            {name || 'Anonymous User'}
+            {name || email?.split('@')[0] || 'Anonymous User'}
           </p>
           <p className="text-sm text-muted-foreground">
             {formatDistanceToNow(date)}
           </p>
         </div>
-        {/* <DetailPostCommentDeleteButton id={id} userId={userId} /> */}
       </div>
       <Separator className="mb-4 mt-2" />
       <div className="prose prose-sm max-w-none whitespace-pre-wrap text-muted-foreground">

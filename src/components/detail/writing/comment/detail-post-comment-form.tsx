@@ -75,7 +75,7 @@ const DetailPostCommentForm: React.FC<DetailPostCommentFormProps> = ({
     await execute({
       postId: postId,
       content: data.content,
-      email: userId,
+      email: data.email,
     });
   }
 
