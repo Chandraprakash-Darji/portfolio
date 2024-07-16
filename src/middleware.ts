@@ -6,7 +6,7 @@ import {
   publicRoutes,
 } from '@/routes';
 import NextAuth from 'next-auth';
-import { NextAuthRequest } from 'next-auth/lib';
+import { NextAuthRequest } from 'node_modules/next-auth/lib';
 
 const { auth } = NextAuth(authConfig);
 export default auth((req: NextAuthRequest) => {
