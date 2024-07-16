@@ -6,6 +6,7 @@ import Link, { LinkProps } from 'next/link';
 
 import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
+import { ArrowUpRightIcon } from 'lucide-react';
 
 export type UnstyledLinkProps = {
   href: string;
@@ -60,13 +61,14 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
         rel="noopener noreferrer"
         href={href}
         {...rest}
-        className={cn('cursor-newtab', className)}
+        className={cn('cursor-newtab relative', className)}
         onClick={(e) => {
           onClick && onClick(e);
           trackEventTag && trackEvent(trackEventTag);
         }}
       >
-        {children}
+        {children}{' '}
+        <ArrowUpRightIcon className="inline-block w-3 absolute top-0 translate-x-full right-0 h-3 ml-1 text-primary" />
       </a>
     );
   }

@@ -29,11 +29,6 @@ const HomePage = () => {
             Full-stack dev by day,{' '}
             <span className="border-b-2 border-primary">story weaver</span> by
             night. Building elegant solutions with Next.js, Prisma, & more.
-            Let's craft pixels to{' '}
-            <span className="group z-20 border-b-2 border-primary">
-              proposals
-            </span>{' '}
-            & beyond!
           </h1>
           <p className="mt-5 font-mono text-sm uppercase">
             {'>>'} Chandraprakash aka Rega
@@ -60,22 +55,6 @@ const HomePage = () => {
           <Marquee />
         </div>
       </section>
-      {/* Shop */}
-      {/* <section id="sec-shop" className="relative flex flex-col pt-32">
-        <div className="layout relative">
-          <div className="flex items-center justify-center lg:justify-between">
-            <Heading>
-              FEATURED /
-              <ArrowLink href="https://rega.lemonsqueezy.com/">SHOP</ArrowLink>
-            </Heading>
-          </div>
-
-          <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
-            <ShopSection />
-          </div>
-        </div>
-      </section> */}
-
       {/* Work */}
       <section id="sec-work" className="relative flex flex-col pt-32">
         <div className="layout relative">
@@ -188,7 +167,7 @@ const HomePage = () => {
             {/* FEATURED /<ArrowLink href='/work'>WORK</ArrowLink> */}
           </Heading>
           <ul className="mt-4 flex w-full flex-wrap gap-6 *:rounded-full *:border *:p-2 *:px-3">
-            <li>Solution Architecting</li>
+            <li>Solution Architecture</li>
             <li>Full-Stack Development</li>
             <li>Website Optimization</li>
             <li>Code Review</li>

@@ -13,11 +13,11 @@ export default function CustomLink({
       className={cn(
         'animated-underline custom-link inline-flex items-center font-medium',
         'focus:outline-none focus-visible:ring focus-visible:ring-primary/80',
-        'border-dark border-b border-dotted hover:border-black/0',
+        'border-b border-dotted hover:border-black/0',
         className
       )}
     >
-      <span className="dark:bg-gradient-to-tr dark:from-primary/80 dark:to-primary dark:bg-clip-text dark:text-transparent">
+      <span className="bg-gradient-to-tr from-primary/60 to-primary bg-clip-text text-transparent">
         {children}
       </span>
     </UnstyledLink>

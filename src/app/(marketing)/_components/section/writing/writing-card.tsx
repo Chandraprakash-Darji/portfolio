@@ -2,20 +2,29 @@ import React from 'react';
 
 import NextImage from '@/components/NextImage';
 import { UnstyledLink } from '@/components/links';
+import { Card } from '@/components/ui/card';
 import { TGetAllPostSlugs } from '@/lib/query/writing/get-posts';
-import { BarChart, HeartIcon } from 'lucide-react';
+import {
+  ChartLine,
+  ChatTeardrop,
+  Heart,
+  ShareNetwork,
+} from '@phosphor-icons/react/dist/ssr';
 
 const WritingCard = ({
   description,
   image,
   slug,
   title,
-  likes,
   views,
   type,
+  _count: { comments, likes, shares },
 }: TGetAllPostSlugs[number]) => {
   return (
-    <article className="group relative overflow-hidden rounded-2xl border bg-card p-2 pb-3">
+    <Card
+      spotlight
+      className="max-w-sm w-full mx-auto p-2 rounded-2xl border bg-card shadow-[2px_4px_16px_0px_hsl(var(--muted-foreground)/.1)_inset] group relative"
+    >
       {type === 'BLOG' && (
         <NextImage
           width={300}
@@ -25,7 +34,6 @@ const WritingCard = ({
             image:
               'w-full object-center object-cover transition-all group-hover:scale-110',
           }}
-          useSkeleton
           src={image}
           alt={title}
         />
@@ -33,7 +41,7 @@ const WritingCard = ({
 
       <UnstyledLink
         href={`/writing/${slug}`}
-        className="h3 flash-underline font-medium text-foreground"
+        className="h3 font-medium text-foreground"
         trackEventTag={`${type} - ${slug}`}
       >
         {title}
@@ -44,15 +52,21 @@ const WritingCard = ({
         dangerouslySetInnerHTML={{ __html: description || '' }}
         className="mt-3 line-clamp-3 text-xs text-muted-foreground"
       ></div>
-      <div className="flex items-center gap-2 pt-2">
-        <HeartIcon className="inline-block h-3 w-3" />
-        <span className="mr-3 text-sm text-muted-foreground">
-          {likes} Likes
+      <div className="flex items-center pt-2">
+        <Heart className="inline-block h-3 w-3" />
+        <span className="ml-1 text-sm text-muted-foreground">
+          {likes} Likes{' '}
         </span>
-        <BarChart className="inline-block h-3 w-3" />
-        <span className="text-sm text-muted-foreground">{views} Views</span>
+        <ChartLine className="ml-2 inline-block h-3 w-3" />
+        <span className="ml-1 text-sm text-muted-foreground">
+          {views} Views
+        </span>
+        <ChatTeardrop className="ml-2 inline-block h-3 w-3" />
+        <span className="ml-1 text-sm text-muted-foreground">{comments}</span>
+        <ShareNetwork className="ml-2 inline-block h-3 w-3" />
+        <span className="ml-1 text-sm text-muted-foreground">{shares}</span>
       </div>
-    </article>
+    </Card>
   );
 };
 

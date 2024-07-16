@@ -1,33 +1,24 @@
 'use client';
 
-import React, { useMemo } from 'react';
-
-import { defaultExtensions } from '@/components/protected/editor/wysiwyg/extensions';
-import { isValidJson } from '@/lib/utils';
+import { Pre } from '@/components/detail/writing/content/pre';
+import CustomLink from '@/components/links/CustomLink';
+import { TGetMdxSource } from '@/lib/query/writing/get-post';
 import '@/styles/prosemirror.css';
-import { generateHTML } from '@tiptap/html';
-import hljs from 'highlight.js';
+import { MDXRemote } from 'remote-mdx';
 
-const DetailPostContent = ({ content }: { content: string }) => {
-  const json = useMemo(
-    () => (isValidJson(content) ? JSON.parse(content) : []),
-    [content]
-  );
-
-  const output = useMemo(() => {
-    return generateHTML(json, defaultExtensions);
-  }, [json]);
-
-  React.useEffect(() => {
-    hljs.highlightAll();
-  }, []);
+export default function MDX({ source }: { source: TGetMdxSource }) {
+  const components = {
+    pre: Pre,
+    a: CustomLink,
+  };
 
   return (
-    <div
+    <article
       className="lg:prose-md prose prose-invert relative w-full max-w-none py-4 prose-pre:whitespace-pre-wrap xl:rounded-2xl xl:border-r-2 xl:pr-4"
-      dangerouslySetInnerHTML={{ __html: output }}
-    />
+      suppressHydrationWarning={true}
+    >
+      {/* @ts-expect-error component type is not required */}
+      <MDXRemote {...source} components={components} />
+    </article>
   );
-};
-
-export default DetailPostContent;
+}

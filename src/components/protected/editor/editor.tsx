@@ -101,9 +101,9 @@ const Editor: FC<EditorProps> = ({ post, userId }) => {
         />
 
         <WysiwygEditor
-          defaultValue={content ? JSON.parse(content) : defaultEditorContent}
+          defaultValue={content || defaultEditorContent}
           onDebouncedUpdate={(editor) => {
-            setContent(JSON.stringify(editor?.getJSON()));
+            setContent(editor?.storage.markdown.getMarkdown());
           }}
         />
 

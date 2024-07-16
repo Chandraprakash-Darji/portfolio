@@ -13,7 +13,7 @@ const DetailPostScrollUpButton = () => {
           width: '40px',
           borderRadius: '50%',
         }}
-        className="rounded-full bg-slate-50 p-2.5 !shadow-sm !ring-1 !ring-slate-300"
+        className="rounded-full !bg-primary p-2.5 shadow-lg shadow-primary-foreground hover:scale-110 transition-all"
         smooth
         component={
           <svg
@@ -23,7 +23,7 @@ const DetailPostScrollUpButton = () => {
             strokeWidth="2"
             stroke="currentColor"
             aria-hidden="true"
-            className="h-5 w-5 rotate-90 text-slate-500 group-hover:text-slate-700"
+            className="h-5 w-5 rotate-90 text-foreground"
           >
             <path
               strokeLinecap="round"

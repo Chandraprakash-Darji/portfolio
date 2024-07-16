@@ -46,9 +46,15 @@ export const getAllPostSlugs = async ({
       title: true,
       description: true,
       image: true,
-      likes: true,
       views: true,
       type: true,
+      _count: {
+        select: {
+          likes: true,
+          shares: true,
+          comments: true,
+        },
+      },
     },
   });
 

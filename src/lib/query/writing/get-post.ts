@@ -76,6 +76,7 @@ async function getMdxSource(postContents: string) {
   // https://mdxjs.com/docs/what-is-mdx/#markdown
   const content =
     postContents?.replaceAll(/<(https?:\/\/\S+)>/g, '[$1]($1)') ?? '';
+
   // Serialize the content string into MDX
   const mdxSource = await serialize(content, {
     mdxOptions: {
@@ -85,7 +86,7 @@ async function getMdxSource(postContents: string) {
         // @ts-expect-error - rehypePrettyCode types are incorrect
         () =>
           rehypePrettyCode({
-            theme: 'one-dark-pro',
+            theme: 'poimandres',
           }),
         [
           rehypeAutolinkHeadings,

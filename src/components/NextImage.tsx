@@ -7,10 +7,8 @@ import Image, { ImageProps } from 'next/image';
 import { cn } from '@/lib/utils';
 
 type NextImageProps = {
-  useSkeleton?: boolean;
   classNames?: {
     image?: string;
-    blur?: string;
   };
   alt: string;
 } & (
@@ -22,10 +20,8 @@ type NextImageProps = {
 /**
  *
  * @description Must set width using `w-` className
- * @param useSkeleton add background with pulse animation, don't use it if image is transparent
  */
 export default function NextImage({
-  useSkeleton = false,
   src,
   width,
   height,
@@ -34,9 +30,7 @@ export default function NextImage({
   classNames,
   ...rest
 }: NextImageProps) {
-  const [status, setStatus] = React.useState(
-    useSkeleton ? 'loading' : 'complete'
-  );
+  const [status, setStatus] = React.useState('loading');
   const widthIsSet = className?.includes('w-') ?? false;
 
   return (
@@ -47,7 +41,7 @@ export default function NextImage({
       <Image
         className={cn(
           classNames?.image,
-          status === 'loading' && cn('animate-pulse', classNames?.blur)
+          status === 'loading' ? 'scale-105 blur-lg' : 'scale-100 blur-0'
         )}
         src={src}
         width={width}

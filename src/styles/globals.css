@@ -136,8 +136,8 @@
     @apply bg-background py-20 xl:py-24;
   }
 
-  .bg-dark a.custom-link {
-    @apply border-gray-200 hover:border-gray-200/0;
+  a.custom-link {
+    @apply border-b-muted-foreground hover:border-gray-200/0;
   }
 
   /* Class to adjust with sticky footer*/
@@ -166,6 +166,6 @@
   }
 
   .flash-underline {
-    @apply max-w-max after:absolute after:bottom-0 after:right-0 after:h-[2px] after:w-0 after:transition-all after:duration-200 group-hover:after:left-0 group-hover:after:right-auto group-hover:after:w-full after:dark:bg-primary;
+    @apply max-w-max after:absolute after:bottom-0 after:right-0 after:h-[2px] after:w-0 after:transition-all after:duration-200 group-hover:after:left-0 group-hover:after:right-auto group-hover:after:w-full after:bg-primary;
   }
 }
