@@ -36,7 +36,6 @@ type FormValues = z.infer<typeof commentFormSchema>;
 
 interface DetailPostCommentFormProps {
   postId: string;
-  userId?: string;
 }
 
 // This can come from your database or API.
@@ -46,7 +45,6 @@ const defaultValues: Partial<FormValues> = {
 
 const DetailPostCommentForm: React.FC<DetailPostCommentFormProps> = ({
   postId,
-  userId,
 }) => {
   const router = useRouter();
   const user = useCurrentUser();

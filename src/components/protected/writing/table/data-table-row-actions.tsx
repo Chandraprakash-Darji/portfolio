@@ -26,7 +26,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { protectedPostConfig } from '@/config/protected';
 import { useAction } from '@/hooks/use-action';
-import { PostType } from '@/lib/enums';
 import {
   MoreVertical,
   Loader2 as SpinnerIcon,
@@ -37,14 +36,9 @@ import { toast } from 'sonner';
 interface DataTableRowActionsProps {
   id: string;
   slug: string;
-  type: PostType;
 }
 
-export function DataTableRowActions({
-  slug,
-  id,
-  type,
-}: DataTableRowActionsProps) {
+export function DataTableRowActions({ slug, id }: DataTableRowActionsProps) {
   const router = useRouter();
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false);
 

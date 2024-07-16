@@ -15,6 +15,7 @@ const getAllPostsAdmin = async (userId?: string) => {
         select: {
           categories: true,
           comments: true,
+          likes: true,
         },
       },
     },

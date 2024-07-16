@@ -7,7 +7,6 @@ import {
   DetailPostCommentItem,
   DetailPostCommentWrapper,
 } from '@/components/detail/writing/comment';
-import { useCurrentUser } from '@/hooks/use-current-user';
 import { TGetComments } from '@/lib/query/writing/get-comments';
 
 interface DetailPostCommentProps {
@@ -19,11 +18,9 @@ const DetailPostComment: React.FC<DetailPostCommentProps> = ({
   postId = '',
   comments = [],
 }) => {
-  const user = useCurrentUser();
-
   return (
     <DetailPostCommentWrapper>
-      <DetailPostCommentForm postId={postId} userId={user?.id} />
+      <DetailPostCommentForm postId={postId} />
       <div className="pt-5">
         {comments?.map((comment) => (
           <DetailPostCommentItem

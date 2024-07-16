@@ -26,7 +26,6 @@ const ShopCard = ({
             image:
               'w-full object-center object-cover transition-all group-hover:scale-110',
           }}
-          useSkeleton
           src={large_thumb_url}
           alt={name}
         />

@@ -127,7 +127,7 @@ export const postColumns: ColumnDef<TGetPosts[number]>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex w-[100px] items-center">
-          <span>{row.original.likes}</span>
+          <span>{row.original._count.likes}</span>
         </div>
       );
     },
@@ -156,11 +156,7 @@ export const postColumns: ColumnDef<TGetPosts[number]>[] = [
     accessorKey: 'id',
     header: ({ column }) => <ColumnHeader column={column} title="Actions" />,
     cell: ({ row }) => (
-      <DataTableRowActions
-        id={row.original.id}
-        slug={row.original.slug}
-        type={row.original.type}
-      />
+      <DataTableRowActions id={row.original.id} slug={row.original.slug} />
     ),
     enableHiding: false,
     enableSorting: false,
