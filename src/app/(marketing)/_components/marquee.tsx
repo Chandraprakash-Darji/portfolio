@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 const Marquee: React.FC = () => {
   const [textWidth, setTextWidth] = useState<number>(0);
-  const text = `Code Whisperer ✦ Storyteller at Heart! ✦ Open for Remote Work ✦ Let's Craft Magic Together ✦`;
+  const text = ` ✦ Few Spot Available for Feb `;
   const repeatTimes = 50;
   const repeatedText = Array(repeatTimes).fill(text).join(' ');
 

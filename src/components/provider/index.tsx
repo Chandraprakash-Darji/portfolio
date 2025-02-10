@@ -4,21 +4,24 @@ import * as React from 'react';
 
 import { TailwindIndicator } from '@/components/tailwind-indicator';
 import { Toaster } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { SessionProvider } from 'next-auth/react';
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 
 export default function Provider({ children }: React.PropsWithChildren) {
   return (
     <SessionProvider>
-      {children}
-      <Toaster />
-      <ProgressBar
-        height="4px"
-        color="#E11D48"
-        options={{ showSpinner: false }}
-        shallowRouting
-      />
-      <TailwindIndicator />
+      <TooltipProvider delayDuration={0}>
+        {children}
+        <Toaster />
+        <ProgressBar
+          height="4px"
+          color="#E11D48"
+          options={{ showSpinner: false }}
+          shallowRouting
+        />
+        <TailwindIndicator />
+      </TooltipProvider>
     </SessionProvider>
   );
 }

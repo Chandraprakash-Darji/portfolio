@@ -15,7 +15,9 @@ const Time = ({ time }: { time: Date }) => {
   }, []);
 
   return (
-    <div>{isMounted() ? currentTime.toLocaleTimeString() : '--:--:--'}</div>
+    <div className="uppercase">
+      {isMounted() ? currentTime.toLocaleTimeString() : '--:--:--'}
+    </div>
   );
 };
 

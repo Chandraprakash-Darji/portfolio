@@ -23,6 +23,7 @@
   "dependencies": {
     "@auth/drizzle-adapter": "^1.1.0",
     "@auth/prisma-adapter": "^2.4.1",
+    "@calcom/embed-react": "^1.5.2",
     "@giscus/react": "^2.4.0",
     "@hookform/resolvers": "^3.4.2",
     "@lemonsqueezy/lemonsqueezy.js": "^3.0.0",
@@ -43,6 +44,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.0",
+    "@radix-ui/react-tooltip": "^1.1.8",
     "@tailwindcss/typography": "^0.5.13",
     "@tanstack/react-table": "^8.17.3",
     "@testing-library/jest-dom": "^6.4.5",
