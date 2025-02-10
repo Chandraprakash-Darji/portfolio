@@ -9,7 +9,7 @@ import AdminNavbar from './_components/admin-navbar';
 
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   const role = await currentRole();
-  if (role && role !== UserRole.ADMIN) {
+  if (!role || role !== UserRole.ADMIN) {
     return notFound();
   }
   return (
