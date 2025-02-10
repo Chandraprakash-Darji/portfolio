@@ -246,7 +246,7 @@ const plans = [
       'Project Management',
       'Async Communication',
     ],
-    price: '$X,XXX',
+    price: '$1,987',
     btn: "Let's Discuss Your Website",
     button: {
       text: "Let's Discuss Your Website",
@@ -270,7 +270,7 @@ const plans = [
       'Consistent Updates',
       'Async Communication',
     ],
-    price: '$X,XXX',
+    price: '$3,987',
     btn: "Let's Discuss Your Software",
     button: {
       text: "Let's Discuss Your Software",
