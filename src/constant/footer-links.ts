@@ -1,7 +1,7 @@
 export const links = [
   {
     name: 'Source Code',
-    href: 'https://rega.lemonsqueezy.com/buy/8ffb3e31-3d6e-481d-9318-3b36f471e037',
+    href: 'https://rega.lemonsqueezy.com/buy/dac6f612-bbe7-453d-90b7-c37214025fa5',
   },
   {
     name: 'Analytics',
