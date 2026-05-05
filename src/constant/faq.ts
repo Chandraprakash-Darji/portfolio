@@ -7,32 +7,52 @@ export type IFAQ = {
 export const faqs: IFAQ[] = [
   {
     i: 1,
-    q: 'What technologies do you specialize in?',
-    a: 'As a full-stack developer, I specialize in a range of technologies including Next.js, Prisma, MongoDB, Typescript, TailwindCSS, and Figma. I am proficient in both frontend and backend development, allowing me to create cohesive and feature-rich web applications.',
+    q: 'Who is this service best for?',
+    a: 'I primarily work with startups, SaaS founders, and businesses looking to develop high-performing web applications. If you need a developer who can handle end-to-end development—design, frontend, backend, and deployment—this service is a great fit.',
   },
   {
     i: 2,
-    q: 'How do you ensure the performance of websites and web applications?',
-    a: 'I prioritize performance optimization through code optimization techniques, leveraging modern tools, and staying updated with the latest industry trends. By continuously monitoring and refining the performance of websites and applications, I ensure they deliver a seamless user experience.',
+    q: 'How do you communicate and collaborate on projects?',
+    a: 'I keep communication clear and efficient through async updates on Slack or Notion. Additionally, I offer bi-weekly check-ins via Zoom or Google Meet to discuss progress, gather feedback, and ensure alignment.',
   },
   {
     i: 3,
-    q: 'Do you offer custom development services?',
-    a: "Yes, I specialize in custom development services tailored to the unique needs and objectives of each project. Whether it's creating custom features, integrating third-party APIs, or building from scratch, I work closely with clients to deliver solutions that align with their vision and requirements.",
+    q: 'What’s included in the development process?',
+    a: 'The process includes planning, UI/UX design, development, testing, and deployment. I focus on building scalable, high-performance applications with modern technologies.',
   },
   {
     i: 4,
-    q: 'Can you work on projects with existing codebases or systems?',
-    a: "Absolutely, I have experience working on projects with existing codebases and systems. Whether it's making enhancements, refactoring code, or integrating new functionalities, I adapt to the existing environment and ensure seamless integration with minimal disruption.",
+    q: 'Can you work with my existing codebase or team?',
+    a: "Absolutely! Whether it's improving an existing system, fixing bugs, or scaling your application, I can seamlessly integrate with your team and workflow.",
   },
   {
     i: 5,
-    q: 'What support and maintenance services do you provide?',
-    a: 'I offer comprehensive support and maintenance services to ensure the continued smooth operation of websites and applications. This includes troubleshooting, bug fixes, performance monitoring, security updates, and ongoing enhancements to keep the digital assets up-to-date and optimized.',
+    q: 'How fast will my project be completed?',
+    a: 'Timelines vary based on project complexity. Smaller projects can take a few weeks, while full SaaS development may take a couple of months. I always set clear milestones and provide regular updates.',
   },
   {
     i: 6,
-    q: 'How do you collaborate with clients throughout the development process?',
-    a: 'I believe in transparent and collaborative communication with clients throughout the development process. I provide regular updates, seek feedback at key milestones, and involve clients in decision-making to ensure that the final deliverables meet their expectations and objectives.',
+    q: 'Do you provide ongoing support and maintenance?',
+    a: 'Yes, I offer ongoing maintenance, bug fixes, security updates, and performance optimizations to ensure your product remains stable and efficient after launch.',
+  },
+  {
+    i: 7,
+    q: 'What if I need urgent changes or have a hard deadline?',
+    a: 'I accommodate urgent requests based on availability. If you have a hard deadline, we’ll discuss feasibility upfront and ensure everything is planned for a smooth delivery.',
+  },
+  {
+    i: 8,
+    q: 'What’s the difference between a one-time project and a monthly subscription?',
+    a: 'One-time projects are ideal for specific deliverables like a new website or MVP. The subscription model is for ongoing development needs, offering flexibility and continuous improvements.',
+  },
+  {
+    i: 9,
+    q: 'Can you help with UI/UX design, or do I need to provide designs?',
+    a: 'I handle both development and UI/UX design using Figma. If you have existing designs, I can implement them, or I can design from scratch based on your brand guidelines.',
+  },
+  {
+    i: 10,
+    q: 'How do payments and contracts work?',
+    a: 'Payments are structured as milestones for fixed projects or a monthly retainer for ongoing work. I provide clear contracts to ensure transparency and alignment on deliverables.',
   },
 ];

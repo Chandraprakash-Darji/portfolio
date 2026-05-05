@@ -4,7 +4,6 @@ import Marquee from '@/app/(marketing)/_components/marquee';
 import ProjectCard from '@/app/(marketing)/_components/project-card';
 import { Spotlight } from '@/app/(marketing)/_components/spotlight';
 import { CursorContainer } from '@/components/animation/cursor-container';
-import Heading from '@/components/heading';
 import CalBtn from '@/components/ui/CalBtn';
 import {
   Card,
@@ -76,9 +75,11 @@ const HomePage = () => {
       {/* Work */}
       <section id="sec-work" className="section relative flex flex-col pt-20">
         <div className="layout relative">
-          <Heading>FEATURED / WORK</Heading>
+          <h2 className="h0 mt-2 mx-auto text-center text-3xl sm:text-4xl md:text-5xl font-bold leading-tight lg:text-5xl">
+            Work that Drives Results
+          </h2>
 
-          <div className="mt-4 grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="mt-10 grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
             {projects.map((project) => (
               <ProjectCard {...project} key={project.title} />
             ))}
@@ -151,7 +152,7 @@ const HomePage = () => {
             >
               <CardHeader className="space-y-3 border-b block">
                 <div className="text-4xl font-bold">{plan.price}</div>
-                <CardTitle className="text-sm text-muted-foreground">
+                <CardTitle className="text-xl text-foreground">
                   {plan.name}
                 </CardTitle>
                 <CardDescription className="text-base text-foreground">
@@ -189,11 +190,11 @@ const HomePage = () => {
       </section>
       <section id="faq" className="relative flex flex-col pt-32">
         <div className="layout relative z-10">
-          <Heading>
-            FAQs
+          <h2 className="h0 mt-2 mx-auto text-center text-3xl sm:text-4xl md:text-5xl font-bold leading-tight lg:text-5xl">
+            Have Questions?
             {/* FEATURED /<ArrowLink href='/work'>WORK</ArrowLink> */}
-          </Heading>
-          <div className="mt-4 flex w-full flex-wrap gap-6 *:rounded-[45px] *:border">
+          </h2>
+          <div className="mt-10 flex w-full flex-wrap gap-6 *:rounded-[45px] *:border">
             <Faqs />
           </div>
         </div>
@@ -230,7 +231,7 @@ const features = [
 
 const plans = [
   {
-    name: 'Website Development Plan',
+    name: '🎨 Custom Website Package',
     description:
       'Ideal for businesses looking to create a professional, high-performing website that captures attention and drives conversions.',
     features: [
@@ -254,7 +255,7 @@ const plans = [
     },
   },
   {
-    name: 'Full Software Development Plan',
+    name: '🚀 SaaS Growth Package ',
     description:
       'Comprehensive software development for businesses looking to build robust, scalable solutions with custom features and ongoing support.',
     features: [

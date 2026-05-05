@@ -14,8 +14,8 @@ const Footer = () => {
           <Heading className="mx-auto w-max md:mx-0">Contact</Heading>
           <div className="flex flex-col md:flex-row w-full pt-4 pb-12 items-center gap-4 justify-between">
             <span className="text-center font-mono tracking-wider">
-              <Copyright className="inline-block w-4 h-4" /> Chandrarakash{' '}
-              {new Date().getFullYear()}
+              <Copyright className="inline-block w-4 h-4" />{' '}
+              {new Date().getFullYear()} Chandraprakash | All Rights Reserved
             </span>
             <div className="flex w-max gap-6">
               {social.map((item, index) => {
