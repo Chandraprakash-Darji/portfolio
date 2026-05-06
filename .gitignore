@@ -36,11 +36,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# next-sitemap
-robots.txt
-sitemap.xml
-sitemap-*.xml
-
 # Prisma generated files
 /src/lib/zod/**/*.ts
-/src/lib/enums.ts
+
+.agents
+.claude
+
+dist
+.astro

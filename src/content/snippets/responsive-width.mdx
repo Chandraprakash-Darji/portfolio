@@ -1,0 +1,71 @@
+---
+title: "Responsive Width"
+description: "A utility CSS class pattern to make all containers consistently responsive across screen sizes."
+image: ""
+imageBlurhash: ""
+publishedAt: "2024-01-10"
+updatedAt: "2024-01-10"
+type: "SNIPPET"
+published: true
+categories:
+  - name: "CSS"
+    color: "200 80% 55%"
+    slug: "css"
+  - name: "UI/UX"
+    color: "280 70% 60%"
+    slug: "ui-ux"
+author:
+  name: "Chandraprakash Darji"
+  image: null
+---
+
+## Responsive width
+
+Every website should have the same width as all the parent containers and be responsive to all the screen sizes.
+
+Suppose we have the container with a width of 1440px then all the parent containers should have the same width.
+
+### Why the same width?
+
+Due to UI/UX when we see all the containers with same width it looks good and eye-pleasing.
+
+### What is the Solution?
+
+For all the projects I have one utility class for this and all good to go.
+
+```css
+  /* #region  /**=========== Container Width =========== */
+  .layout {
+    max-width: 85rem;
+    width: 95%;
+    margin-inline: auto;
+  }
+
+  .layout-sm {
+    max-width: 75rem;
+    width: 95%;
+    margin-inline: auto;
+  }
+
+  .layout-xl {
+    max-width: 95rem;
+    width: 95%;
+    margin-inline: auto;
+  }
+  /* #endregion  /**======== Container Width =========== */
+```
+
+That is pretty much I need to make it responsive.
+
+### Breakdown:
+
+1. Max-Width: It will limit the the container width for ultra-wide monitors so it doesn't spread the content and disturb the readability.
+2. Width: when the max width is to 85rem then when we open the website in screen size less than 85rem it will stick to the size of screen. so we say it will have 95% width of it so It will have some good spacing inline spacing.
+3. Margin-Inline: `margin-inline: auto` will center align the container as is it not full width.
+
+### Let's Wrap it.
+
+That was all you need to build responsive containers.
+
+Credit: [ts-nextjs-tailwind-starter](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter/blob/main/src/styles/globals.css#L79)
+Give a star to the creator on GitHub repo &lt;3.

@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 
-import UnstyledLink, { UnstyledLinkProps } from './UnstyledLink';
+import UnstyledLink, { type UnstyledLinkProps } from './UnstyledLink';
 
 export default function CustomLink({
   children,

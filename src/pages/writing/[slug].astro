@@ -1,0 +1,98 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TableOfContents from '../../components/TableOfContents';
+import ReadingProgress from '../../components/ReadingProgress';
+import CustomLink from '../../components/links/CustomLink';
+import { Pre } from '../../components/content/Pre';
+import type { THeading } from '../../lib/headings';
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('blog');
+  const snippetPosts = await getCollection('snippets');
+  const all = [...blogPosts, ...snippetPosts];
+  return all
+    .filter((p) => p.data.published !== false)
+    .map((entry) => ({
+      params: { slug: entry.id.replace(/\.mdx$/, '') },
+    }));
+}
+
+const { slug } = Astro.params;
+const blogPosts = await getCollection('blog');
+const snippetPosts = await getCollection('snippets');
+const entry = [...blogPosts, ...snippetPosts].find(
+  (p) => p.id.replace(/\.mdx$/, '') === slug
+);
+
+if (!entry) {
+  return Astro.redirect('/404');
+}
+
+const { Content, headings:pageHeadings } = await render(entry);
+
+const { title, description, publishedAt, updatedAt, categories = [] } = entry.data;
+const date = updatedAt ?? publishedAt ?? '';
+const readingTime = Math.max(1, Math.round((entry.body?.split(/\s+/).length ?? 0) / 200));
+const isSnippet = entry.collection === 'snippets';
+const backHref = isSnippet ? '/snippet' : '/writing';
+const backLabel = isSnippet ? 'snippets' : 'writing';
+ 
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={`writing/${slug}`}
+>
+  <ReadingProgress client:load />
+  <div class="mx-auto w-11/12 max-w-2xl py-10">
+    <a href={backHref} class="mb-8 flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground">
+      <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5m7-7-7 7 7 7" />
+      </svg>
+      {backLabel}
+    </a>
+
+    <section class="flex flex-col gap-3 pt-4">
+      <h1 class="text-2xl font-medium leading-snug tracking-tight">{title}</h1>
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-xs text-muted-foreground">
+        <span class="flex items-center gap-1">
+          <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" />
+          </svg>
+          {date}
+        </span>
+        <span aria-hidden="true">·</span>
+        <span class="flex items-center gap-1">
+          <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
+          </svg>
+          {readingTime} min
+        </span>
+        {categories.length > 0 && (
+          <>
+            <span aria-hidden="true">·</span>
+            <div class="flex flex-wrap gap-1.5">
+              {categories.map((c) => (
+                <span class="rounded border border-border px-1.5 py-0.5 text-xs text-muted-foreground">
+                  {c.name}
+                </span>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </section>
+
+    {description && (
+      <p class="mt-4 text-muted-foreground">{description}</p>
+    )}
+
+    <TableOfContents headings={pageHeadings} client:load />
+
+    <article class="lg:prose-md prose prose-invert relative w-full max-w-none py-4 prose-pre:whitespace-pre-wrap prose-a:no-underline">
+      <Content components={{ pre: Pre, a: CustomLink }} />
+    </article>
+  </div>
+</BaseLayout>

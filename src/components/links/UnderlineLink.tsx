@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import UnstyledLink, {
-  UnstyledLinkProps,
+  type UnstyledLinkProps,
 } from '@/components/links/UnstyledLink';
 import { cn } from '@/lib/utils';
 

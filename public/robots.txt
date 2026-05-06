@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://chandraprakash.vercel.app/sitemap-index.xml

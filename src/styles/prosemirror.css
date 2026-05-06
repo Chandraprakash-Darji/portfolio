@@ -247,24 +247,24 @@ div[data-youtube-video] > iframe {
 }
 
 /* #region  /**=========== Hash Anchor =========== */
-.hash-anchor {
-  @apply inset-y-0 w-full;
+.prose :where(h1, h2, h3, h4) > a {
+  @apply inset-y-0 w-full left-0;
   position: absolute;
   background-image: none;
   transition: none;
 }
 
-.hash-anchor:hover {
+.prose :where(h1, h2, h3, h4) > a:hover {
   background-image: linear-gradient(to right, #00ff94, #00e0f3, #00c4fd);
   background-size: 100% 2px;
 }
 
-.hash-anchor:hover:after,
-.hash-anchor:focus:after {
+.prose :where(h1, h2, h3, h4) > a:hover:after,
+.prose :where(h1, h2, h3, h4) > a:focus:after {
   visibility: visible;
 }
 
-.hash-anchor:after {
+.prose :where(h1, h2, h3, h4) > a:after {
   @apply invisible absolute -right-5 top-1/2 -translate-y-1/2 text-lg text-primary;
   content: '#';
 }

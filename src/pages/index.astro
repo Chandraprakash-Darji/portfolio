@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WritingSection from '../components/WritingSection.astro';
+import ArrowLink from '../components/links/ArrowLink';
+import { siteConfig } from '../site.config';
+---
+
+<BaseLayout
+  ogImage="home"
+>
+  <div class="layout space-y-16 py-20">
+    <!-- Hero -->
+    <section>
+      <img
+        src="https://github.com/Chandraprakash-Darji.png"
+        alt="Chandraprakash Darji"
+        width="80"
+        height="80"
+        class="mb-4 rounded-full"
+      />
+      <h1 class="text-2xl font-medium tracking-tight">
+        {siteConfig.author.name}
+      </h1>
+      <p class="mt-2 max-w-xl text-muted-foreground">
+        I&apos;m a passionate full-stack developer with a drive to turn ideas
+        into pixel-perfect realities. I build things with Next.js, TypeScript,
+        and TailwindCSS. By night, I explore storytelling through filmmaking.
+      </p>
+      <ul class="mt-4 space-y-1 text-sm text-muted-foreground">
+        <li>
+          <strong class="text-foreground">Full-Stack Mastery</strong>
+          &mdash; From frontend finesse to backend muscle, I handle it all.
+        </li>
+        <li>
+          <strong class="text-foreground">Performance Wizard</strong>
+          &mdash; I optimize code and leverage modern tools to keep things
+          fast.
+        </li>
+        <li>
+          <strong class="text-foreground">Storytelling Mindset</strong>
+          &mdash; Every line of code tells a story. I craft experiences that
+          resonate.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Writing -->
+    <section>
+      <div class="mb-1 flex items-center justify-between">
+        <span class="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          Writing
+        </span>
+        <ArrowLink href="/writing" className="font-mono text-xs text-muted-foreground hover:text-foreground">
+          all posts
+        </ArrowLink>
+      </div>
+      <WritingSection collection="blog" />
+    </section>
+
+    <!-- Snippets -->
+    <section>
+      <div class="mb-1 flex items-center justify-between">
+        <span class="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          Snippets
+        </span>
+        <ArrowLink href="/snippet" className="font-mono text-xs text-muted-foreground hover:text-foreground">
+          all snippets
+        </ArrowLink>
+      </div>
+      <WritingSection collection="snippets" />
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,180 @@
+---
+title: "How to Use Server Actions in Your Application"
+description: "Learn how server actions can simplify and secure your application's interaction with the server using createSafeAction and useAction."
+image: "https://ik.imagekit.io/jrbttakyqa/portfolio/IMG_20240618_084326_941%20(2).jpg"
+imageBlurhash: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+publishedAt: "2024-06-01"
+updatedAt: "2024-06-01"
+type: "BLOG"
+published: true
+categories:
+  - name: "Next.js"
+    color: "0 0% 80%"
+    slug: "nextjs"
+  - name: "TypeScript"
+    color: "210 100% 56%"
+    slug: "typescript"
+author:
+  name: "Chandraprakash Darji"
+  image: null
+---
+
+## How to Use Server Actions in Your Application
+
+Server actions can simplify and secure your application's interaction with the server. In this blog, we'll walk through creating a server action, using it in a React component, and understanding the helper functions that make it all work seamlessly. Additionally, we'll explore the benefits of this approach.
+
+## Creating an Action
+
+First, let's create a server action. This action will check if the current user is authenticated before proceeding.
+
+### create-post.ts
+
+```typescript
+'use server';
+import { currentUser } from '@/lib/auth/queries/current-user';
+import { ActionState, createSafeAction } from '@/lib/create-safe-action';
+import { z } from 'zod';
+
+const ZInputOptions = z.never().optional();
+
+type InputType = z.infer<typeof ZInputOptions>;
+type ReturnType = ActionState<InputType, boolean>;
+
+export const update = createSafeAction(
+  ZInputOptions,
+  async (): Promise<ReturnType> => {
+    const user = await currentUser();
+    if (!user) throw new Error('Unauthorized');
+
+    return { data: true };
+  }
+);
+```
+
+In the above code, we define an action `update` which uses `createSafeAction` to validate the input and ensure the user is authenticated.
+
+## Using the Action in a Component
+
+To use the action in a React component, we can utilize a custom hook.
+
+### Example Component
+
+```typescript
+const { isLoading, execute } = useAction(update, {
+  onSuccess: (post) => {
+    router.refresh();
+    router.push(`/admin/posts/${post.id}`);
+  },
+  onError: () => {},
+});
+```
+
+Here, `useAction` is used to execute the action and handle the response accordingly.
+
+## Helper Functions
+
+Two important helper functions make this process smooth: `useAction` and `createSafeAction`.
+
+### use-action.ts
+
+```typescript
+import { useCallback, useState } from 'react';
+import { ActionState, FieldErrors } from '@/lib/create-safe-action';
+
+type Action<TInput, TOutput> = (data: TInput) => Promise<ActionState<TInput, TOutput>>;
+
+interface UseActionOptions<TOutput> {
+  onSuccess?: (data: TOutput) => void;
+  onError?: (error: string) => void;
+  onComplete?: () => void;
+}
+
+export const useAction = <TInput, TOutput>(
+  action: Action<TInput, TOutput>,
+  options: UseActionOptions<TOutput> = {}
+) => {
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors<TInput> | undefined>(undefined);
+  const [error, setError] = useState<string | undefined>(undefined);
+  const [data, setData] = useState<TOutput | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const execute = useCallback(
+    async (input: TInput) => {
+      setIsLoading(true);
+
+      try {
+        const result = await action(input);
+
+        if (!result) return;
+
+        setFieldErrors(result.fieldErrors);
+
+        if (result.error) {
+          setError(result.error);
+          options.onError?.(result.error);
+        }
+
+        if (result.data) {
+          setData(result.data);
+          options.onSuccess?.(result.data);
+        }
+      } finally {
+        setIsLoading(false);
+        options.onComplete?.();
+      }
+    },
+    [action, options]
+  );
+
+  return {
+    execute,
+    fieldErrors,
+    error,
+    data,
+    isLoading,
+  };
+};
+```
+
+`useAction` is a React hook that manages the state of an asynchronous action. It handles loading states, errors, and success callbacks.
+
+### create-safe-action.ts
+
+```typescript
+import { z } from 'zod';
+
+export type FieldErrors<T> = { [K in keyof T]?: string[] };
+
+export type ActionState<TInput, TOutput> = {
+  fieldErrors?: FieldErrors<TInput>;
+  error?: string | null;
+  data?: TOutput;
+};
+
+export const createSafeAction = <TInput, TOutput>(
+  schema: z.Schema<TInput>,
+  handler: (validatedData: TInput) => Promise<ActionState<TInput, TOutput>>
+) => {
+  return async (data: TInput): Promise<ActionState<TInput, TOutput>> => {
+    const validationResult = schema.safeParse(data);
+    if (!validationResult.success) {
+      return {
+        fieldErrors: validationResult.error.flatten().fieldErrors as FieldErrors<TInput>,
+      };
+    }
+
+    return handler(validationResult.data);
+  };
+};
+```
+
+`createSafeAction` ensures that the input data is validated before being processed by the action handler. It leverages the power of the Zod library for validation.
+
+## Benefits of This Approach
+
+1. **Improved Security**: By validating inputs on the server, we reduce the risk of malicious data being processed.
+2. **Simplified Error Handling**: The structure of `ActionState` provides a consistent way to handle field errors and general errors.
+3. **Better State Management**: The `useAction` hook manages loading, success, and error states, simplifying the component logic.
+4. **Reusability**: Actions and hooks can be reused across different parts of the application, promoting DRY (Don't Repeat Yourself) principles.
+
+This approach not only enhances the security and reliability of your server interactions but also streamlines your codebase, making it easier to maintain and extend.

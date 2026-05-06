@@ -1,0 +1,65 @@
+---
+title: "Your TS Server Is Fine. Give the Heavy Work to Go."
+description: "One year. Same stack. Every project. API, workers, file processing, all TypeScript. I wasn't stuck because TypeScript is bad. I was stuck because I forgot what other options even feel like."
+image: ""
+imageBlurhash: ""
+publishedAt: "2026-05-07"
+updatedAt: "2026-05-07"
+type: "BLOG"
+published: true
+categories:
+  - name: "Go"
+    color: "200 80% 60%"
+    slug: "go"
+  - name: "TypeScript"
+    color: "210 100% 56%"
+    slug: "typescript"
+---
+
+One year. Same stack. Every project. API server, background job, file processor, all TypeScript, all the time. After a while you stop seeing the walls of your own tech choices.
+
+So I started learning Go. Not because TypeScript is bad. Because I needed something that felt different. Something that made me write code differently.
+
+## Most people pitch Go wrong
+
+Every Go post for web devs starts with goroutines. "Look how easy concurrency is!" Sure. But that's not the real reason to learn Go.
+
+The real reason: Go forces you to think about what actually matters in your server. No magic. No framework hiding the request lifecycle. You write the handler, you handle the error, you move on. It makes you a better TypeScript developer because you finally understand what those frameworks were abstracting away.
+
+## The architecture that actually makes sense
+
+Here's what I landed on after being locked in with Go for a few weeks:
+
+| Layer | Language | Why |
+|-------|----------|-----|
+| API server | TypeScript (Bun) | AI knows TS better than anything. Bun is fast enough. |
+| Background workers | Go | Single binary. No runtime. Handles concurrency like it's nothing. |
+| DB / Cache / Storage | Managed services | Let them scale themselves. |
+
+Your web server isn't the bottleneck. If the DB isn't killing you, Bun handles API requests just fine. Most endpoints are "validate this, query that, return JSON." AI writes that code better in TypeScript than any other language.
+
+The heavy stuff, video processing, PDF generation after a proposal is signed, GitHub Actions style job queues, that's where Go shines. Not because of goroutines. Because of one thing: single static binary. Zero dependencies to ship. CI/CD becomes `go build && scp binary server:/app/`. That's it.
+
+## "But two languages means more complexity"
+
+Damm, I thought the same thing. But here's what I found:
+
+The Go parts are tiny. A video processing worker is 200 lines. A PDF generator, 150 lines. These aren't microservices. They're single files, a `main.go` and maybe a `handler.go`. The complexity doesn't scale with how many languages you use. It scales with how much code you have in each language.
+
+And here's the thing about AI: it writes Go just fine. Just because TypeScript is AI's favorite doesn't mean Go is bad for it. My Go workers are small enough that AI handles them easily. The TypeScript part stays where AI is fastest. The Go part stays where it barely needs AI anyway.
+
+## Go feels closer to TypeScript than you'd think
+
+If you write TypeScript, Go isn't alien. Typed structs, interfaces, explicit error handling. You already do this with `try/catch`. Go just makes you do it with `if err != nil`. The syntax is lighter than Java. The compiler catches more than `tsc`.
+
+The uncomfortable part isn't the language. It's the ecosystem. No NPM. No `create-next-app`. Go expects you to structure things yourself. But for a worker that does one thing? That's freedom, not friction. Write a `main()` function and you're done.
+
+## Try it where it actually matters
+
+Don't rewrite your TypeScript API in Go. Don't even think about it. Do this instead:
+
+Find one job in your app that takes more than 2 seconds. Extract it into a Go worker. Ship it as a binary. Watch your API response times not change, because the heavy work isn't in the API anymore.
+
+That's the unlock. Not learning Go for the résumé. Learning it for the one job it does better than everything else in your stack.
+
+Anyone else learning Go just because TS felt too comfortable?

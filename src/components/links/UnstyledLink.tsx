@@ -2,8 +2,6 @@
 
 import * as React from 'react';
 
-import Link, { LinkProps } from 'next/link';
-
 import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 import { ArrowUpRightIcon } from 'lucide-react';
@@ -13,7 +11,6 @@ export type UnstyledLinkProps = {
   children: React.ReactNode;
   openNewTab?: boolean;
   className?: string;
-  nextLinkProps?: Omit<LinkProps, 'href'>;
   trackEventTag?: string;
 } & React.ComponentPropsWithRef<'a'>;
 
@@ -26,7 +23,6 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
       className,
       onClick,
       trackEventTag,
-      nextLinkProps,
       ...rest
     },
     ref
@@ -38,7 +34,7 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
 
     if (!isNewTab) {
       return (
-        <Link
+        <a
           href={href}
           ref={ref}
           className={cn(className)}
@@ -47,10 +43,9 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
             trackEventTag && trackEvent(trackEventTag);
           }}
           {...rest}
-          {...nextLinkProps}
         >
           {children}
-        </Link>
+        </a>
       );
     }
 
@@ -61,14 +56,14 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
         rel="noopener noreferrer"
         href={href}
         {...rest}
-        className={cn('cursor-newtab relative', className)}
+        className={cn('cursor-newtab pr-2 relative', className)}
         onClick={(e) => {
           onClick && onClick(e);
           trackEventTag && trackEvent(trackEventTag);
         }}
       >
         {children}{' '}
-        <ArrowUpRightIcon className="inline-block w-3 absolute top-0 translate-x-full right-0 h-3 ml-1 text-primary" />
+        <ArrowUpRightIcon className="inline-block w-3 absolute top-0 translate-x-full h-3 right-2 text-primary" />
       </a>
     );
   }
