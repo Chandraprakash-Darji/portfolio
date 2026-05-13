@@ -18,6 +18,7 @@
         "@tailwindcss/typography": "^0.5.19",
         "@testing-library/jest-dom": "^6.4.5",
         "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+        "@yeskunall/astro-umami": "0.0.8",
         "astro": "^6.2.2",
         "astro-og-canvas": "^0.11.1",
         "class-variance-authority": "^0.7.0",
@@ -534,6 +535,8 @@
     "@vitest/utils": ["@vitest/utils@1.6.1", "", { "dependencies": { "diff-sequences": "^29.6.3", "estree-walker": "^3.0.3", "loupe": "^2.3.7", "pretty-format": "^29.7.0" } }, "sha512-jOrrUvXM4Av9ZWiG1EajNto0u96kWAhJ1LmPmJhXXQx/32MecEKd10pOLYgS2BQx1TgkGhloPU1ArDW2vvaY6g=="],
 
     "@webgpu/types": ["@webgpu/types@0.1.21", "", {}, "sha512-pUrWq3V5PiSGFLeLxoGqReTZmiiXwY3jRkIG5sLLKjyqNxrwm/04b4nw7LSmGWJcKk59XOM/YRTUwOzo4MMlow=="],
+
+    "@yeskunall/astro-umami": ["@yeskunall/astro-umami@0.0.8", "", { "peerDependencies": { "astro": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0" } }, "sha512-oupVTypq4zubEn2LNS3NxaHNA/Kh4sokL4hUNa4UIe/MPGOE/8S6W9mwqdeWUx8c+eboeg7vuh9fqJi7L926Dw=="],
 
     "abbrev": ["abbrev@3.0.1", "", {}, "sha512-AO2ac6pjRB3SJmGJo+v5/aK6Omggp6fsLrs6wN9bd35ulu4cCwaAU9+7ZhXjeqHVkaHThLuzH0nZr0YpCDhygg=="],
 
