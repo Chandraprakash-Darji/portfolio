@@ -38,7 +38,7 @@ const readingTime = Math.max(1, Math.round((entry.body?.split(/\s+/).length ?? 0
 const isSnippet = entry.collection === 'snippets';
 const backHref = isSnippet ? '/snippet' : '/writing';
 const backLabel = isSnippet ? 'snippets' : 'writing';
- 
+
 ---
 
 <BaseLayout
@@ -92,8 +92,48 @@ const backLabel = isSnippet ? 'snippets' : 'writing';
 
     <TableOfContents headings={pageHeadings} client:load />
 
-    <article class="lg:prose-md prose prose-invert relative w-full max-w-none py-4 prose-pre:whitespace-pre-wrap prose-a:no-underline">
+    <article class="lg:prose-md prose prose-invert relative w-full max-w-none py-4 prose-a:no-underline">
       <Content components={{ pre: Pre, a: CustomLink }} />
     </article>
   </div>
 </BaseLayout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll('article pre').forEach((pre) => {
+      if (pre.querySelector('.code-actions')) return;
+
+      const actions = document.createElement('div');
+      actions.className = 'code-actions absolute right-2 top-2 z-20 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity';
+
+      const wrapBtn = document.createElement('button');
+      wrapBtn.className = 'rounded border border-border bg-background p-1 text-xs text-muted-foreground hover:text-foreground transition-colors md:hidden';
+      let wrapped = false;
+      wrapBtn.textContent = 'wrap';
+      wrapBtn.addEventListener('click', () => {
+        wrapped = !wrapped;
+        if (wrapped) {
+          pre.classList.add('!whitespace-pre-wrap');
+          pre.classList.remove('!whitespace-pre');
+          wrapBtn.textContent = 'unwrap';
+        } else {
+          pre.classList.remove('!whitespace-pre-wrap');
+          wrapBtn.textContent = 'wrap';
+        }
+      });
+
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'rounded border border-border bg-background p-1 text-xs text-muted-foreground hover:text-foreground transition-colors';
+      copyBtn.textContent = 'copy';
+      copyBtn.addEventListener('click', async () => {
+        await navigator.clipboard.writeText(pre.querySelector('code')?.textContent ?? '');
+        copyBtn.textContent = 'copied';
+        setTimeout(() => (copyBtn.textContent = 'copy'), 1500);
+      });
+
+      actions.appendChild(wrapBtn);
+      actions.appendChild(copyBtn);
+      pre.appendChild(actions);
+    });
+  });
+</script>
