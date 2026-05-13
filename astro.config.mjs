@@ -6,7 +6,6 @@ import tailwind from '@astrojs/tailwind';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-
 import { siteConfig } from './src/site.config';
 
 import vercel from '@astrojs/vercel';
@@ -19,7 +18,7 @@ export default defineConfig({
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
         rehypeSlug,
-        [rehypeAutolinkHeadings, { behavior: 'append'  }],
+        [rehypeAutolinkHeadings, { behavior: 'append' }],
       ]
     }),
     react(),
