@@ -7,6 +7,7 @@ import CustomLink from '../../components/links/CustomLink';
 import { Pre } from '../../components/content/Pre';
 import type { THeading } from '../../lib/headings';
 import { postTransitionName } from '../../lib/transition';
+import { siteConfig } from '../../site.config';
 
 export async function getStaticPaths() {
   const blogPosts = await getCollection('blog');
@@ -95,13 +96,23 @@ const backLabel = isSnippet ? 'snippets' : 'writing';
     <article class="lg:prose-md prose prose-invert relative w-full max-w-none py-4 prose-a:no-underline">
       <Content components={{ pre: Pre, a: CustomLink }} />
     </article>
+
+    <footer class="mt-10 pt-6 text-right font-mono text-sm text-muted-foreground">
+      — {siteConfig.author.name}
+    </footer>
   </div>
 </BaseLayout>
 
 <script>
   document.addEventListener('astro:page-load', () => {
     document.querySelectorAll('article pre').forEach((pre) => {
-      if (pre.querySelector('.code-actions')) return;
+      if (pre.closest('.code-block-wrapper')) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper group relative';
+
+      pre.parentNode!.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
 
       const actions = document.createElement('div');
       actions.className = 'code-actions absolute right-2 top-2 z-20 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity';
@@ -133,7 +144,7 @@ const backLabel = isSnippet ? 'snippets' : 'writing';
 
       actions.appendChild(wrapBtn);
       actions.appendChild(copyBtn);
-      pre.appendChild(actions);
+      wrapper.appendChild(actions);
     });
   });
 </script>

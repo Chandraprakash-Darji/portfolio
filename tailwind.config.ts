@@ -15,6 +15,7 @@ export default {
     extend: {
       fontFamily: {
         primary: ['var(--font-dm-sans)', ...defaultTheme.fontFamily.sans],
+        mono: ['FiraCodeNerdFont', ...defaultTheme.fontFamily.mono],
       },
       colors: {
         border: 'hsl(var(--border))',
