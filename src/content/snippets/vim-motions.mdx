@@ -73,16 +73,62 @@ this is the thing that makes vim actually click. every command is:
 [operator] + [count] + [motion]
 ```
 
-examples:
+the operators you'll use daily:
+
+```
+d              — delete
+c              — change (delete then enter insert mode)
+y              — yank (copy)
+v              — visual select
+```
+
+now combine them with motions:
+
+### delete + motion
 ```
 d$             — delete from cursor to end of line
-d2f)           — delete up to 2nd occurrence of )
-yt"            — yank (copy) from cursor to before "
-ci(            — change inside parentheses
+d0             — delete from cursor to start of line
+dw             — delete one word forward
+db             — delete one word backward
+d3w            — delete 3 words forward
+d2j            — delete current line + 2 below
+dt)            — delete until before )
+df)            — delete up to and including )
+d/foo          — delete until first occurrence of "foo"
+dap            — delete around paragraph
+di{            — delete inside curly braces
 da{            — delete a block including braces
 ```
 
-once you get this pattern you stop memorizing commands and start composing them. `d` is delete. `c` is change. `y` is yank. then you just pick the motion.
+### change + motion
+```
+cw             — change one word forward
+c3w            — change 3 words forward
+ciw            — change inner word (works anywhere in the word)
+ci"            — change inside double quotes
+ci(            — change inside parentheses
+ca(            — change around parentheses (removes them too)
+ct,            — change until before comma
+cf,            — change up to and including comma
+c$             — change from cursor to end of line
+C              — same as c$ (built-in shortcut)
+cc             — change entire line
+```
+
+### yank + motion
+```
+yw             — yank one word
+y3w            — yank 3 words
+yt"            — yank until before "
+yf"            — yank up to and including "
+yi(            — yank inside parentheses
+ya{            — yank around braces (includes the braces)
+yap            — yank around paragraph
+y$             — yank from cursor to end of line
+yy             — yank entire line
+```
+
+once you get this pattern you stop memorizing commands and start composing them. `d` is delete. `c` is change. `y` is yank. then you just pick the motion. the same motions work with all three operators — `dw` deletes a word, `cw` changes it, `yw` copies it. same motion, different outcome.
 
 ## text objects
 
