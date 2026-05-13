@@ -42,6 +42,10 @@ if you arent using it 24/7, if you arent running pipelines for multiple repos, i
 
 sst. one file. thats it.
 
+sst is a framework for deploying full-stack apps on your own AWS account. it sits on top of Pulumi and Terraform, but instead of making you define raw cloud resources, it gives you high-level components — `sst.aws.Vpc`, `sst.aws.Cluster`, `sst.aws.Service` — that handle the boilerplate. you write TypeScript, not YAML. you describe your app, not your cloud.
+
+it supports next.js, astro, remix, nuxt, sveltekit, express, hono — basically every framework. for our use case (containerized node services), we used the cluster + service pattern. if you're deploying a next.js app, there's a dedicated `sst.aws.Nextjs` component that handles the whole thing.
+
 ```ts
 export default $config({
   app(input) {
@@ -68,7 +72,7 @@ no clicking through the AWS console. no remembering which security group was for
 
 ### infra as code without the pain
 
-terraform needs modules, state files, providers, backends. its powerful. its also a part-time job.
+terraform needs modules, state files, providers, backends. its powerful. its also a part-time job for a small team. pulumi is similar — more flexible but still expects you to think in cloud resources.
 
 sst is one config file. one command:
 
@@ -77,6 +81,8 @@ pnpm sst deploy --stage staging
 ```
 
 need a staging env? `--stage staging`. production? `--stage production`. need the same infra in a different AWS account? swap the keys and run the same command.
+
+during development, `sst dev` runs your infra in AWS while your app code runs locally — real cloud resources linked to localhost. no "works on my machine" because it literally works against real AWS.
 
 the deploy is triggered by a github actions workflow. push to main → build → deploy. OIDC auth so there's no access key to leak. manual dispatch for when you need to target a specific stage:
 
@@ -93,6 +99,8 @@ on:
 ```
 
 no jenkins. no idle EC2. no stopping and starting instances.
+
+read more at [sst.dev/docs](https://sst.dev/docs/).
 
 ## what actually changed
 
