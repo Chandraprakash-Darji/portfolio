@@ -1,5 +1,6 @@
 import { OGImageRoute } from 'astro-og-canvas';
 import { getCollection } from 'astro:content';
+
 import { siteConfig } from '../../site.config';
 
 const blogPosts = await getCollection('blog');
@@ -14,7 +15,8 @@ const pages: Record<string, { title: string; description?: string }> = {
   },
   writing: {
     title: 'Writing',
-    description: 'Notes on software, systems, and the craft of building things.',
+    description:
+      'Notes on software, systems, and the craft of building things.',
   },
   snippet: {
     title: 'Snippets',
@@ -26,7 +28,7 @@ for (const post of blogPosts) {
   const slug = ['writing', post.id.replace(/\.mdx$/, '')].join('/');
   pages[slug] = {
     title: post.data.title,
-    description: post.data.description ? `${post.data.description}\n\n${signature}` : signature,
+    description: post.data.description || signature,
   };
 }
 
@@ -34,7 +36,7 @@ for (const post of snippetPosts) {
   const slug = ['writing', post.id.replace(/\.mdx$/, '')].join('/');
   pages[slug] = {
     title: post.data.title,
-    description: post.data.description ? `${post.data.description}\n\n${signature}` : signature,
+    description: post.data.description || signature,
   };
 }
 
