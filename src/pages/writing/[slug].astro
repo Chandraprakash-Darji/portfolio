@@ -6,6 +6,7 @@ import ReadingProgress from '../../components/ReadingProgress';
 import CustomLink from '../../components/links/CustomLink';
 import { Pre } from '../../components/content/Pre';
 import type { THeading } from '../../lib/headings';
+import { postTransitionName } from '../../lib/transition';
 
 export async function getStaticPaths() {
   const blogPosts = await getCollection('blog');
@@ -55,7 +56,7 @@ const backLabel = isSnippet ? 'snippets' : 'writing';
     </a>
 
     <section class="flex flex-col gap-3 pt-4">
-      <h1 class="text-2xl font-medium leading-snug tracking-tight">{title}</h1>
+      <h1 transition:name={postTransitionName(title)} class="text-2xl font-medium leading-snug tracking-tight">{title}</h1>
       <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-xs text-muted-foreground">
         <span class="flex items-center gap-1">
           <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

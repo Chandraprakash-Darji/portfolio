@@ -1,22 +1,22 @@
 ---
-title: "Kafka is not a job queue"
+title: 'Kafka is not a job queue'
 description: "We were paying $1000/month for AWS MSK to process under 4000 messages a day. Replaced it with BullMQ in a week. Bill dropped to $180. Here's why Kafka was the wrong tool the whole time."
-image: ""
-imageBlurhash: ""
-publishedAt: "2026-05-13"
-updatedAt: "2026-05-13"
-type: "BLOG"
+image: ''
+imageBlurhash: ''
+publishedAt: '2026-05-13'
+updatedAt: '2026-05-13'
+type: 'BLOG'
 published: true
 categories:
-  - name: "Infrastructure"
-    color: "20 80% 55%"
-    slug: "infrastructure"
-  - name: "BullMQ"
-    color: "0 70% 55%"
-    slug: "bullmq"
-  - name: "Kafka"
-    color: "30 90% 50%"
-    slug: "kafka"
+  - name: 'Infrastructure'
+    color: '20 80% 55%'
+    slug: 'infrastructure'
+  - name: 'BullMQ'
+    color: '0 70% 55%'
+    slug: 'bullmq'
+  - name: 'Kafka'
+    color: '30 90% 50%'
+    slug: 'kafka'
 ---
 
 $1000/month. AWS MSK. ten users.
@@ -69,13 +69,13 @@ you can throw more consumers at this. more consumers means more MSK throughput, 
 
 and the numbers:
 
-| metric | our scale |
-|---|---|
-| active users | ~10 |
-| campaigns in flight | ~100 |
-| total contacts | 100,000 |
-| messages per day | 1,000–4,000 |
-| peak msgs/sec | < 1 |
+| metric              | our scale   |
+| ------------------- | ----------- |
+| active users        | ~10         |
+| campaigns in flight | ~100        |
+| total contacts      | 100,000     |
+| messages per day    | 1,000–4,000 |
+| peak msgs/sec       | < 1         |
 
 under one message per second at peak. a single redis instance doesnt even blink at that. kafka's pricing model is built around brokers running 24/7, replicating partitions across availability zones, holding data for days. you pay for all of that whether you use a byte of it or not.
 
@@ -110,8 +110,8 @@ voicemail is 1 because twilio rate limits and burning voice minutes in parallel 
 the api now adds jobs directly to redis. no broker in between:
 
 ```ts
-const queue = QueueManager.getInstance().getQueue<CampaignJob>("CAMPAIGN");
-await queue.add("launch", { campaignId, userId }, { jobId: idempotencyKey });
+const queue = QueueManager.getInstance().getQueue<CampaignJob>('CAMPAIGN');
+await queue.add('launch', { campaignId, userId }, { jobId: idempotencyKey });
 ```
 
 the worker picks it up in milliseconds. the api and worker are owned by the same team, deployed together, change together. the broker wasnt decoupling two organizations — it was just latency and money between two processes that wanted to talk.
@@ -120,11 +120,11 @@ the worker picks it up in milliseconds. the api and worker are owned by the same
 
 cost breakdown:
 
-| | monthly |
-|---|---|
-| before (AWS MSK) | ~$1,000 |
-| after (Redis) | ~$180 |
-| saved | **$820/mo** |
+|                  | monthly     |
+| ---------------- | ----------- |
+| before (AWS MSK) | ~$1,000     |
+| after (Redis)    | ~$180       |
+| saved            | **$820/mo** |
 
 $10,000/year. the migration took a week. we had ten users so we scheduled an hour of downtime and cut over. the migration was cheaper than one month of MSK.
 
@@ -141,12 +141,12 @@ for replay we integrated [Bull Board](https://github.com/felixmosh/bull-board) �
 ```ts
 createBullBoard({
   queues: [
-    new BullMQAdapter(createQueueMQ("EMAIL", redisConnection)),
-    new BullMQAdapter(createQueueMQ("VOICEMAIL", redisConnection)),
-    new BullMQAdapter(createQueueMQ("WATCH", redisConnection)),
-    new BullMQAdapter(createQueueMQ("CAMPAIGN", redisConnection)),
-    new BullMQAdapter(createQueueMQ("CAMPAIGN_STEP", redisConnection)),
-    new BullMQAdapter(createQueueMQ("SMS", redisConnection)),
+    new BullMQAdapter(createQueueMQ('EMAIL', redisConnection)),
+    new BullMQAdapter(createQueueMQ('VOICEMAIL', redisConnection)),
+    new BullMQAdapter(createQueueMQ('WATCH', redisConnection)),
+    new BullMQAdapter(createQueueMQ('CAMPAIGN', redisConnection)),
+    new BullMQAdapter(createQueueMQ('CAMPAIGN_STEP', redisConnection)),
+    new BullMQAdapter(createQueueMQ('SMS', redisConnection)),
   ],
   serverAdapter,
 });
