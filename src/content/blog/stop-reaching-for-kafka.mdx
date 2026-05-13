@@ -1,10 +1,10 @@
 ---
 title: 'Kafka is not a job queue'
-description: "We were paying $1000/month for AWS MSK to process under 4000 messages a day. Replaced it with BullMQ in a week. Bill dropped to $180. Here's why Kafka was the wrong tool the whole time."
+description: "A client was paying $1000/month for AWS MSK to process under 4000 messages a day. We replaced it with BullMQ in a week. Bill dropped to $180."
 image: ''
 imageBlurhash: ''
-publishedAt: '2026-05-13'
-updatedAt: '2026-05-13'
+publishedAt: '2026-05-09'
+updatedAt: '2026-05-09'
 type: 'BLOG'
 published: true
 categories:
@@ -23,11 +23,11 @@ $1000/month. AWS MSK. ten users.
 
 thats not a scaling problem. thats a miscalculation.
 
-we were running outbound campaigns for sales teams — emails, sms, voicemail. a few thousand messages a day, spread across 9am to 8pm EST. and we had kafka sitting in the middle of it all. a distributed log built to handle trillions of events at linkedin, doing the job that redis was born to do.
+a client was running outbound campaigns for sales teams — emails, sms, voicemail. a few thousand messages a day, spread across 9am to 8pm EST. and they had kafka sitting in the middle of it all. a distributed log built to handle trillions of events at linkedin, doing the job that redis was born to do.
 
-a week later, kafka was gone. bill dropped to $180. nothing broke. campaigns actually got faster.
+i got called in to look at their infra. a week later, kafka was gone. bill dropped to $180. nothing broke. campaigns actually got faster.
 
-## what we were building
+## what they were building
 
 the product is simple. a user creates a campaign — a sequence of touches across email, sms, voicemail — targeted at a contact list. they hit launch. between 9am and 8pm, the system fans it out to every contact, respects step delays, and delivers through the right channel.
 
@@ -39,17 +39,17 @@ kafka was the bridge between them:
 
 decoupled services. durable log. the whole "event-driven architecture" pitch. on paper, fine.
 
-in reality, two things were quietly killing us.
+in reality, two things were quietly killing them.
 
 ## why kafka in the first place
 
 honest answer: it felt like the serious choice.
 
-we were building a system that sends messages at scale — campaigns, sequences, multi-channel delivery. every architecture post you read for something like this says "use an event-driven system." kafka is the name that keeps coming up. it's what the big companies use. it looked like the right foundation to grow into.
+they were building a system that sends messages at scale — campaigns, sequences, multi-channel delivery. every architecture post you read for something like this says "use an event-driven system." kafka is the name that keeps coming up. it's what the big companies use. it looked like the right foundation to grow into.
 
-there was also a real technical reason. the api and worker are separate services. we needed something in between to handle the handoff — take a launch request, queue the work, let the worker pick it up asynchronously. kafka fit that description. it gave us decoupling, async processing, and the ability to replay events if something went wrong.
+there was also a real technical reason. the api and worker are separate services. they needed something in between to handle the handoff — take a launch request, queue the work, let the worker pick it up asynchronously. kafka fit that description. it gave decoupling, async processing, and replay if something went wrong.
 
-what we didnt think hard enough about: kafka solves those problems at a scale we didnt have, with guarantees we didnt need, at a cost that made no sense for where we were. we reached for it because it was familiar from blog posts, not because we had the problems it was built for.
+what they didnt think hard enough about: kafka solves those problems at a scale they didnt have, with guarantees they didnt need, at a cost that made no sense for where they were. they reached for it because it was familiar from blog posts, not because they had the problems it was built for.
 
 thats the trap. kafka is well-documented, heavily discussed, and genuinely impressive engineering. so it feels responsible to use it. it isnt, until you actually need it.
 
@@ -59,17 +59,17 @@ thats the trap. kafka is well-documented, heavily discussed, and genuinely impre
 
 one topic. one consumer group. campaigns processed in order.
 
-that's the kafka model — and its the right model when ordering matters across related events. but our jobs werent related. campaign A has nothing to do with campaign B. there's no reason campaign B should wait for campaign A's 500 contacts to finish before it even starts.
+that's the kafka model — and its the right model when ordering matters across related events. but their jobs werent related. campaign A has nothing to do with campaign B. there's no reason campaign B should wait for campaign A's 500 contacts to finish before it even starts.
 
 but thats exactly what happened. a user launched a big campaign. the worker chewed through it. another user launched theirs. it sat there. completely blocked until the first one was done.
 
-you can throw more consumers at this. more consumers means more MSK throughput, which means more brokers, which means a bigger bill. we were already on the smallest possible MSK cluster and it was $1000/month. scaling up wasnt an option — scaling up was the problem.
+you can throw more consumers at this. more consumers means more MSK throughput, which means more brokers, which means a bigger bill. they were already on the smallest possible MSK cluster and it was $1000/month. scaling up wasnt an option — scaling up was the problem.
 
 ### the bill made no sense
 
 and the numbers:
 
-| metric              | our scale   |
+| metric              | their scale |
 | ------------------- | ----------- |
 | active users        | ~10         |
 | campaigns in flight | ~100        |
@@ -79,7 +79,7 @@ and the numbers:
 
 under one message per second at peak. a single redis instance doesnt even blink at that. kafka's pricing model is built around brokers running 24/7, replicating partitions across availability zones, holding data for days. you pay for all of that whether you use a byte of it or not.
 
-we had a job queue. we just kept calling it an event stream.
+they had a job queue. they just kept calling it an event stream.
 
 ## what replaced it
 
@@ -126,13 +126,13 @@ cost breakdown:
 | after (Redis)    | ~$180       |
 | saved            | **$820/mo** |
 
-$10,000/year. the migration took a week. we had ten users so we scheduled an hour of downtime and cut over. the migration was cheaper than one month of MSK.
+$10,000/year. the migration took a week. ten users, so we scheduled an hour of downtime and cut over. the migration was cheaper than one month of MSK.
 
 ## "but what about durability"
 
 ### durability
 
-Redis with AOF persistence covers durability for job state. BullMQ stores every job — its data, attempts, failures, result. if a worker crashes mid-job, BullMQ marks it stalled and another worker picks it up. we havent lost a job.
+Redis with AOF persistence covers durability for job state. BullMQ stores every job — its data, attempts, failures, result. if a worker crashes mid-job, BullMQ marks it stalled and another worker picks it up. they havent lost a job since the migration.
 
 ### replay
 
@@ -152,7 +152,7 @@ createBullBoard({
 });
 ```
 
-what we did lose: completed jobs get cleaned up after 24 hours. if you need a permanent audit trail you log to a database — which we already do anyway. kafka wasnt replacing that. it was sitting on top of it.
+what they lost: completed jobs get cleaned up after 24 hours. if you need a permanent audit trail you log to a database — which they already do anyway. kafka wasnt replacing that. it was sitting on top of it.
 
 the assumption most people make is that kafka's log is the audit trail. its not. its a buffer with a retention window. if you need history, you need a database. if you need replay, you need a dashboard. kafka gives you neither — it gives you a stream you have to build both of those things on top of.
 
@@ -166,10 +166,10 @@ or when youre moving thousands of events per second sustained — not thousands 
 
 or when separate teams own separate services and need a contract between them that isnt a synchronous API.
 
-none of those described us. so we didnt need kafka. we needed a job queue. BullMQ, Sidekiq, RQ, Celery, SQS — all valid answers. all cost a fraction of what kafka costs. all easier to operate. all give you the things you actually want without the broker fleets, partition math, and consumer group rebalancing you dont.
+none of those described this client. they didnt need kafka. they needed a job queue. BullMQ, Sidekiq, RQ, Celery, SQS — all valid answers. all cost a fraction of what kafka costs. all easier to operate. all give you the things you actually want without the broker fleets, partition math, and consumer group rebalancing you dont.
 
 why is this even a debate?? kafka has a specific job. a job queue has a different specific job. using kafka as a job queue at early scale is just paying for complexity you dont need.
 
-if you outgrow BullMQ, the migration will be a real engineering project — and by then youll have the revenue to pay for it. until then, every "future-proof" choice is a tax you pay every month for a future that hasnt arrived.
+if they outgrow BullMQ, the migration will be a real engineering project — and by then theyll have the revenue to pay for it. until then, every "future-proof" choice is a tax you pay every month for a future that hasnt arrived.
 
-we paid $820/month for a year before we fixed it. damm.
+they paid $820/month for over a year before we fixed it. damm.
