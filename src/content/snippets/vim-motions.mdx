@@ -1,17 +1,17 @@
 ---
-title: "vim motions i actually use"
-description: "the vim keybindings that made me stop reaching for the mouse. no fluff, just the ones that stuck."
-image: ""
-imageBlurhash: ""
-publishedAt: "2026-05-14"
-updatedAt: "2026-05-14"
-type: "SNIPPET"
+title: 'Vim motions i actually use'
+description: 'the vim keybindings that made me stop reaching for the mouse. no fluff, just the ones that stuck.'
+image: ''
+imageBlurhash: ''
+publishedAt: '2026-05-14'
+updatedAt: '2026-05-14'
+type: 'SNIPPET'
 published: true
 categories:
-  - name: "Vim"
-    slug: "vim"
-  - name: "Productivity"
-    slug: "productivity"
+  - name: 'Vim'
+    slug: 'vim'
+  - name: 'Productivity'
+    slug: 'productivity'
 ---
 
 vimmers love giving you a list of 200 keybindings. most of them you'll never use. these are the ones that actually live in my muscle memory.
@@ -19,6 +19,7 @@ vimmers love giving you a list of 200 keybindings. most of them you'll never use
 ## navigation
 
 ### basic movement
+
 ```
 h  j  k  l     — left, down, up, right
 w  b           — forward/backward by word
@@ -28,6 +29,7 @@ gg  G          — top of file, bottom of file
 ```
 
 ### half-page jumps
+
 ```
 ctrl+d         — half page down
 ctrl+u         — half page up
@@ -36,6 +38,7 @@ ctrl+u         — half page up
 when you don't have a specific target, these are faster than counting lines.
 
 ### paragraph jumping
+
 ```
 {  }           — up/down by paragraph
 ```
@@ -43,6 +46,7 @@ when you don't have a specific target, these are faster than counting lines.
 paragraph = block of text separated by blank lines. works surprisingly well in code.
 
 ### relative line jumps
+
 ```
 [count]j       — down 8 lines (8j)
 [count]k       — up 5 lines (5k)
@@ -85,6 +89,7 @@ v              — visual select
 now combine them with motions:
 
 ### delete + motion
+
 ```
 d$             — delete from cursor to end of line
 d0             — delete from cursor to start of line
@@ -101,6 +106,7 @@ da{            — delete a block including braces
 ```
 
 ### change + motion
+
 ```
 cw             — change one word forward
 c3w            — change 3 words forward
@@ -116,6 +122,7 @@ cc             — change entire line
 ```
 
 ### yank + motion
+
 ```
 yw             — yank one word
 y3w            — yank 3 words
