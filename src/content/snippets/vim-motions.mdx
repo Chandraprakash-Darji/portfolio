@@ -1,0 +1,175 @@
+---
+title: "vim motions i actually use"
+description: "the vim keybindings that made me stop reaching for the mouse. no fluff, just the ones that stuck."
+image: ""
+imageBlurhash: ""
+publishedAt: "2026-05-14"
+updatedAt: "2026-05-14"
+type: "SNIPPET"
+published: true
+categories:
+  - name: "Vim"
+    slug: "vim"
+  - name: "Productivity"
+    slug: "productivity"
+---
+
+vimmers love giving you a list of 200 keybindings. most of them you'll never use. these are the ones that actually live in my muscle memory.
+
+## navigation
+
+### basic movement
+```
+h  j  k  l     — left, down, up, right
+w  b           — forward/backward by word
+0  _  $        — start of line, first char, end of line
+gg  G          — top of file, bottom of file
+:[line]        — jump to line number
+```
+
+### half-page jumps
+```
+ctrl+d         — half page down
+ctrl+u         — half page up
+```
+
+when you don't have a specific target, these are faster than counting lines.
+
+### paragraph jumping
+```
+{  }           — up/down by paragraph
+```
+
+paragraph = block of text separated by blank lines. works surprisingly well in code.
+
+### relative line jumps
+```
+[count]j       — down 8 lines (8j)
+[count]k       — up 5 lines (5k)
+```
+
+turn on `relativenumber`. the line numbers tell you exactly how many lines to jump. no mental math. tree-sitter context makes this even better — `18k` lands you on the function definition directly.
+
+## horizontal motion
+
+the real speed comes from moving on the same line without reaching for `w` or `b`.
+
+```
+f[char]        — jump forward TO the character
+t[char]        — jump forward BEFORE the character
+F[char]        — jump backward TO the character
+T[char]        — jump backward BEFORE the character
+;              — repeat last f/t forward
+,              — repeat last f/t backward
+```
+
+example: you're on a line and need to delete everything up to a closing quote. `dt"` — delete till `"`. done.
+
+## the operator + motion language
+
+this is the thing that makes vim actually click. every command is:
+
+```
+[operator] + [count] + [motion]
+```
+
+examples:
+```
+d$             — delete from cursor to end of line
+d2f)           — delete up to 2nd occurrence of )
+yt"            — yank (copy) from cursor to before "
+ci(            — change inside parentheses
+da{            — delete a block including braces
+```
+
+once you get this pattern you stop memorizing commands and start composing them. `d` is delete. `c` is change. `y` is yank. then you just pick the motion.
+
+## text objects
+
+```
+iw             — inner word
+i(  i{  i[    — inside parentheses, braces, brackets
+i'  i"         — inside quotes
+a(  a{  a[    — around (includes the brackets)
+ip  ap         — inner/around paragraph
+```
+
+combine with operators: `ci(` changes everything inside parentheses. `da{` deletes the whole block with braces. `yap` yanks the whole paragraph.
+
+the trick: `vi{` then escape jumps you to the bottom of the block. select inside braces, exit visual — cursor is at the end of the function. way faster than scrolling.
+
+## editing
+
+```
+dd             — delete line
+D              — delete from cursor to end of line
+yy             — yank (copy) line
+p              — paste after cursor
+u              — undo
+ctrl+r         — redo
+==             — auto-indent line
+=ap            — auto-indent paragraph
+```
+
+## modes
+
+```
+i              — insert before cursor
+a              — insert after cursor
+I              — insert at start of line
+A              — insert at end of line
+o              — open new line below
+O              — open new line above
+v              — visual mode (char selection)
+V              — visual line mode
+ctrl+v         — visual block mode
+esc / ctrl+c   — back to normal mode
+```
+
+## replace without clobbering your register
+
+```
+leader + p     — paste without overwriting clipboard
+```
+
+in visual mode, this deletes the selection into the void register and pastes. your yanked text stays untouched. i remapped this and never looked back.
+
+## search
+
+```
+/[pattern]     — forward search
+?[pattern]     — backward search
+n  N           — next / previous match
+*              — search word under cursor forward
+#              — search word under cursor backward
+```
+
+## increments
+
+```
+ctrl+a         — increment number under cursor
+ctrl+x         — decrement
+```
+
+works on dates, hex, everything. `gaa` increments all numbers in a selection if you need to renumber a list.
+
+## bracket hopping
+
+```
+%              — jump between matching bracket
+```
+
+cursor on `{`, press `%`, you're on `}`. works for `()`, `[]`, `{}`.
+
+## netrw / file tree
+
+```
+:Lex           — open file explorer
+vim .          — open current directory
+```
+
+no plugin needed. netrw ships with vim and it's fine. but honestly i just use a fuzzy finder most of the time.
+
+---
+
+that's it. not 200 commands. maybe 40 that actually matter. learn these and you'll stop reaching for the mouse. the rest is just showing off.
