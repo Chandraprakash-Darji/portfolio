@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About — Chandraprakash Darji"
+  description="software systems designer. architecture, devops & distributed systems."
+  ogImage="about"
+>
+  <div class="layout space-y-12 py-20">
+    <section class="space-y-6">
+      <img
+        src="https://github.com/Chandraprakash-Darji.png"
+        alt="Chandraprakash Darji"
+        width="72"
+        height="72"
+        class="rounded-full"
+      />
+      <div>
+        <h1 class="text-2xl font-medium tracking-tight">Chandraprakash Darji</h1>
+        <p class="mt-1 font-mono text-sm text-muted-foreground">software systems designer. architecture, devops & distributed systems.</p>
+      </div>
+    </section>
+
+    <section class="prose prose-invert max-w-none space-y-4 text-muted-foreground">
+      <blockquote class="not-italic">
+        <p class="font-mono text-sm">"Simplicity is prerequisite for reliability." — Edsger W. Dijkstra</p>
+      </blockquote>
+
+      <p>
+        infrastructure is binary. it scales, or it breaks. there's no middle ground that doesn't eventually collapse under its own weight.
+        i don't chase what's trending. i build boring, grounded systems — the kind that are still running three engineers later, in a codebase nobody remembers writing.
+      </p>
+
+      <p>
+        the hype cycle is predictable. new tool drops, everyone rewrites, half the teams regret it six months later. i skip that part.
+        boring tech is reliable tech. postgres over the exotic store. queues before microservices. observability before scale.
+      </p>
+
+      <p>
+        outside engineering, i run marathons. the discipline maps directly — strict pacing, consistent output, and the stubbornness to keep moving when everything feels like friction.
+        a bad run doesn't mean you stop. a broken deploy doesn't mean the system is wrong. you debug, you recover, you go again.
+      </p>
+
+      <p>
+        i write system autopsies — based on pipelines i've built, scaled, and sometimes broken. the point isn't to avoid failure. the point is to reduce time-to-recovery and never make the same mistake twice.
+        postmortems are more valuable than perfect systems. perfect systems don't exist.
+      </p>
+
+      <p>
+        if you want straightforward engineering over theory, you're in the right place.
+      </p>
+    </section>
+
+    <section class="flex flex-wrap gap-4 border-t border-border pt-8">
+      <a
+        href="https://github.com/Chandraprakash-Darji"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        github
+      </a>
+      <a
+        href="https://twitter.com/chandra_7852"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+        twitter
+      </a>
+      <a
+        href="https://github.com/Chandraprakash-Darji/dotfiles"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+        </svg>
+        dotfiles
+      </a>
+    </section>
+  </div>
+</BaseLayout>
