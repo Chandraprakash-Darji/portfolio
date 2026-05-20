@@ -174,4 +174,22 @@
   .flash-underline {
     @apply max-w-max after:absolute after:bottom-0 after:right-0 after:h-[2px] after:w-0 after:transition-all after:duration-200 group-hover:after:left-0 group-hover:after:right-auto group-hover:after:w-full after:bg-primary;
   }
+
+  /* Keyboard key styling */
+  kbd {
+    @apply inline-flex items-center justify-center rounded border border-border bg-muted px-1.5 py-0;
+    font-family: 'FiraCodeNerdFont', monospace;
+    font-size: 0.75em;
+    line-height: 1.4;
+    box-shadow: 0 1px 0 0 hsl(var(--border) / 0.6);
+
+    + kbd {
+      @apply ml-1;
+    }
+  }
+
+  /* Code block filename tab */
+  .code-filename-tab {
+    @apply inline-block rounded-t-md border border-b-0 border-border bg-muted px-3 py-1 font-mono text-xs text-muted-foreground;
+  }
 }

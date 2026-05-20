@@ -20,13 +20,13 @@ i'm not saying this to be polite. i'm saying it because every time someone watch
 
 ## the project switcher
 
-here's the centerpiece: i press `opt+f`. fzf pops up. it's scanning multiple project roots — `~/ghq` at depth 3 (because go modules nest deep), `~/Desktop/p` for personal stuff, `~/Desktop/w` for work, `~/.config` for dotfiles. i type two characters. enter. that's it.
+here's the centerpiece: i press <kbd>opt</kbd><kbd>+</kbd><kbd>f</kbd>. fzf pops up. it's scanning multiple project roots — `~/ghq` at depth 3 (because go modules nest deep), `~/Desktop/p` for personal stuff, `~/Desktop/w` for work, `~/.config` for dotfiles. i type two characters. enter. that's it.
 
 what happens next is the thing i stopped noticing years ago but everyone who watches me work asks about. if tmux isn't running, it fires up a new session with two windows. window 1 has neovim already open at the project root. window 2 is a fresh terminal, sitting at the project root, waiting for `bun dev` or `pnpm dev` or whatever random command i feel like running.
 
 the script is called `tmux-sessionizer`. it's a 200-line bash script i found and customized. it reads from a config file where i define which directories to search and how deep. `~/ghq:3` means "scan ghq, go 3 levels deep, find anything with a `.git` folder." `~/Desktop/p:2` is shallower because personal projects are flatter. this matters — you don't want fzf showing you `node_modules` or `dist` folders. the depth config is the difference between "this is fast" and "why is this lagging."
 
-the session naming is automatic. pick a folder called `stop-reaching-for-kafka`, you get a tmux session called `stop-reaching-for-kafka`. pick it again later, it attaches to the existing session. no thinking. no `tmux ls`, no `tmux attach -t whatever`. just `opt+f`, pick, you're in.
+the session naming is automatic. pick a folder called `stop-reaching-for-kafka`, you get a tmux session called `stop-reaching-for-kafka`. pick it again later, it attaches to the existing session. no thinking. no `tmux ls`, no `tmux attach -t whatever`. just <kbd>opt</kbd><kbd>+</kbd><kbd>f</kbd>, pick, you're in.
 
 and if i'm already inside tmux and want to jump to another project? same shortcut. switches the client. zero friction.
 
@@ -48,19 +48,19 @@ the terminal title bar shows `parent-folder/current-folder`. not the full path. 
 
 tmux without config is unusable. tmux with oh-my-tmux is someone else's opinion. mine is mine.
 
-prefix is `Ctrl+/`. not `Ctrl+b`. `/` is right next to right-shift. one finger. try it for a week and then tell me `Ctrl+b` is better.
+prefix is <kbd>Ctrl</kbd><kbd>+</kbd><kbd>/</kbd>. not <kbd>Ctrl</kbd><kbd>+</kbd><kbd>b</kbd>. `/` is right next to right-shift. one finger. try it for a week and then tell me <kbd>Ctrl</kbd><kbd>+</kbd><kbd>b</kbd> is better.
 
-pane navigation is vim: `h` left, `j` down, `k` up, `l` right. no awkward `Ctrl+b` then arrow keys.
+pane navigation is vim: <kbd>h</kbd> left, <kbd>j</kbd> down, <kbd>k</kbd> up, <kbd>l</kbd> right. no awkward <kbd>Ctrl</kbd><kbd>+</kbd><kbd>b</kbd> then arrow keys.
 
 new windows open in the current directory. always. `new-window -c "#{pane_current_path}"`. every terminal emulator gets this wrong by default.
 
-`Ctrl+/ |` splits vertical. `Ctrl+/ _` splits horizontal. these are the tmux defaults people remap anyway, so i just did it.
+<kbd>Ctrl</kbd><kbd>+</kbd><kbd>/</kbd> <kbd>|</kbd> splits vertical. <kbd>Ctrl</kbd><kbd>+</kbd><kbd>/</kbd> <kbd>_</kbd> splits horizontal. these are the tmux defaults people remap anyway, so i just did it.
 
 the status bar is simple: green background, black text, shows window numbers and names. no clock. no hostname. no battery percentage. i don't need my terminal to be a dashboard.
 
 window renaming is automatic. tmux grabs the current folder name and uses it. `ghq`, `personal`, `config` — i always know where i am.
 
-the one that gets people: `Ctrl+/ z` doesn't zoom the current pane. it zooms the _other_ pane. so if i'm in nvim and need to see the terminal output fullscreen, i hit one key. hitting it again restores. small thing. massive quality of life.
+the one that gets people: <kbd>Ctrl</kbd><kbd>+</kbd><kbd>/</kbd> <kbd>z</kbd> doesn't zoom the current pane. it zooms the _other_ pane. so if i'm in nvim and need to see the terminal output fullscreen, i hit one key. hitting it again restores. small thing. massive quality of life.
 
 ## dotfiles are infrastructure
 
@@ -68,7 +68,7 @@ my dotfiles live in chezmoi. they're version controlled, templated, and installa
 
 what's in there: fish config, tmux config, tmux-sessionizer config, nvim (LazyVim with lazy.nvim), kitty, ghostty, wezterm (i've hopped terminals, the configs stay), aerospace window manager, starship, even firefox userChrome CSS that makes it look like arc browser.
 
-aerospace is the mac window manager i settled on after trying yabai and amethyst. workspaces 1-5 on `alt+1` through `alt+5`. gaps at 10px. tiles by default. no mouse needed.
+aerospace is the mac window manager i settled on after trying yabai and amethyst. workspaces 1-5 on <kbd>alt</kbd><kbd>+</kbd><kbd>1</kbd> through <kbd>alt</kbd><kbd>+</kbd><kbd>5</kbd>. gaps at 10px. tiles by default. no mouse needed.
 
 the point isn't that you should copy my setup. the point is that you should have _a_ setup. something you built piece by piece over years. one alias you kept. one keybinding you borrowed from someone else. one config that survived three terminal emulators.
 
@@ -76,7 +76,7 @@ the point isn't that you should copy my setup. the point is that you should have
 
 a good dev setup isn't about having the flashiest terminal or the most plugins. it's about the seams between things not hurting.
 
-`opt+f` to switch projects. nvim is already open. the terminal is already there. you don't think about it. you just start working.
+<kbd>opt</kbd><kbd>+</kbd><kbd>f</kbd> to switch projects. nvim is already open. the terminal is already there. you don't think about it. you just start working.
 
 that's the bar. not "look at my neofetch." not "i use arch btw." just: can you move from idea to typing code without friction?
 

@@ -1,24 +1,26 @@
-import { defineConfig, fontProviders } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
-import remarkGfm from 'remark-gfm';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import { siteConfig } from './src/site.config';
-import umami from '@yeskunall/astro-umami';
-
 import vercel from '@astrojs/vercel';
+import umami from '@yeskunall/astro-umami';
+import { defineConfig, fontProviders } from 'astro/config';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeSlug from 'rehype-slug';
+import remarkGfm from 'remark-gfm';
+
+import { siteConfig } from './src/site.config';
 
 export default defineConfig({
   site: siteConfig.url,
 
-  fonts: [{
-    provider: fontProviders.fontsource(),
-    name: 'DM Sans',
-    cssVariable: '--font-dm-sans',
-  }],
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: 'DM Sans',
+      cssVariable: '--font-dm-sans',
+    },
+  ],
 
   integrations: [
     mdx({
@@ -26,7 +28,10 @@ export default defineConfig({
       rehypePlugins: [
         rehypeSlug,
         [rehypeAutolinkHeadings, { behavior: 'append' }],
-      ]
+      ],
+      shikiConfig: {
+        theme: 'poimandres',
+      },
     }),
     react(),
     sitemap(),
@@ -39,12 +44,5 @@ export default defineConfig({
       hostUrl: 'https://unami-kohl.vercel.app',
     }),
   ],
-
-  markdown: {
-    shikiConfig: {
-      theme: 'poimandres',
-    },
-  },
-
   adapter: vercel(),
 });
