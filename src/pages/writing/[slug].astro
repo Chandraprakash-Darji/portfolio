@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import TableOfContents from '../../components/TableOfContents';
 import ReadingProgress from '../../components/ReadingProgress';
 import CustomLink from '../../components/links/CustomLink';
+import { PostHeader } from '../../components/content/PostHeader';
 import { Pre } from '../../components/content/Pre';
 import type { THeading } from '../../lib/headings';
 import { postTransitionName } from '../../lib/transition';
@@ -51,8 +52,22 @@ const relatedPosts = allPosts
   .sort((a, b) => (b.data.publishedAt ?? '').localeCompare(a.data.publishedAt ?? ''))
   .slice(0, 2);
 
+// prev/next: sorted same-collection posts by publishedAt desc
+const sameCollectionPosts = [...blogPosts, ...snippetPosts]
+  .filter((p) => p.collection === entry.collection && p.data.published !== false)
+  .sort((a, b) => (b.data.publishedAt ?? '').localeCompare(a.data.publishedAt ?? ''));
+const currentIndex = sameCollectionPosts.findIndex((p) => p.id === entry.id);
+const previous = currentIndex > 0
+  ? { slug: sameCollectionPosts[currentIndex - 1].id.replace(/\.mdx$/, ''), title: sameCollectionPosts[currentIndex - 1].data.title }
+  : null;
+const next = currentIndex < sameCollectionPosts.length - 1
+  ? { slug: sameCollectionPosts[currentIndex + 1].id.replace(/\.mdx$/, ''), title: sameCollectionPosts[currentIndex + 1].data.title }
+  : null;
+
 const collectionPath = isSnippet ? 'snippets' : 'blog';
 const gitHubEditUrl = `https://github.com/Chandraprakash-Darji/portfolio/blob/main/src/content/${collectionPath}/${entry.id}.mdx`;
+const markdownUrl = `${siteConfig.url}/${isSnippet ? 'snippet' : 'writing'}/${slug}.md`;
+const postUrl = `${siteConfig.url}/${isSnippet ? 'snippet' : 'writing'}/${slug}`;
 
 ---
 
@@ -63,12 +78,17 @@ const gitHubEditUrl = `https://github.com/Chandraprakash-Darji/portfolio/blob/ma
 >
   <ReadingProgress client:load />
   <div class="mx-auto w-11/12 max-w-2xl py-10">
-    <a href={backHref} class="mb-8 flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground">
-      <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M19 12H5m7-7-7 7 7 7" />
-      </svg>
-      {backLabel}
-    </a>
+    <PostHeader
+      client:load
+      markdownUrl={markdownUrl}
+      githubUrl={gitHubEditUrl}
+      postUrl={postUrl}
+      postTitle={title}
+      backHref={backHref}
+      backLabel={backLabel}
+      previous={previous}
+      next={next}
+    />
 
     <section class="flex flex-col gap-3 pt-4">
       <h1 transition:name={postTransitionName(title)} class="text-2xl font-medium leading-snug tracking-tight">{title}</h1>

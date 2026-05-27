@@ -11,6 +11,18 @@ import remarkGfm from 'remark-gfm';
 
 import { siteConfig } from './src/site.config';
 
+const blogModules = import.meta.glob('./src/content/blog/*.mdx');
+const snippetModules = import.meta.glob('./src/content/snippets/*.mdx');
+
+const blogMdPages = Object.keys(blogModules).map((f) => {
+  const slug = f.split('/').pop().replace('.mdx', '');
+  return `${siteConfig.url}/writing/${slug}.md`;
+});
+const snippetMdPages = Object.keys(snippetModules).map((f) => {
+  const slug = f.split('/').pop().replace('.mdx', '');
+  return `${siteConfig.url}/snippet/${slug}.md`;
+});
+
 export default defineConfig({
   site: siteConfig.url,
 
@@ -34,7 +46,9 @@ export default defineConfig({
       },
     }),
     react(),
-    sitemap(),
+    sitemap({
+      customPages: [...blogMdPages, ...snippetMdPages],
+    }),
     tailwind({
       applyBaseStyles: false,
     }),
