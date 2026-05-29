@@ -32,7 +32,7 @@ two services. an api that takes the launch request. a worker that does the actua
 
 kafka was the bridge between them:
 
-![Kafka architecture: Client → API → Kafka MSK → Worker → Email/SMS/Voicemail](/diagrams/stop-reaching-for-kafka-diagram-1.svg)
+![Kafka architecture: Client → API → Kafka MSK → Worker → Email/SMS/Voicemail](/writing/stop-reaching-for-kafka/stop-reaching-for-kafka-diagram-1.svg)
 
 decoupled services. durable log. the whole "event-driven architecture" pitch. on paper, fine.
 
@@ -82,7 +82,7 @@ they had a job queue. they just kept calling it an event stream.
 
 we deleted kafka and put BullMQ on Redis in its place. one queue per type of work, not one queue for everything.
 
-![BullMQ architecture: Client → API → campaignQueue → campaignStepQueue → emailQueue / smsQueue / voicemailQueue](/diagrams/stop-reaching-for-kafka-diagram-2.svg)
+![BullMQ architecture: Client → API → campaignQueue → campaignStepQueue → emailQueue / smsQueue / voicemailQueue](/writing/stop-reaching-for-kafka/stop-reaching-for-kafka-diagram-2.svg)
 
 ### per-queue concurrency
 
