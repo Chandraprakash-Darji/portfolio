@@ -12,7 +12,7 @@
     "test": "vitest",
     "lint": "astro check && oxlint",
     "lint:fix": "oxlint --fix src && oxfmt",
-    "typecheck": "tsc --noEmit --incremental false",
+    "typecheck": "tsgo --noEmit --incremental false",
     "format": "oxfmt",
     "format:check": "oxfmt --check"
   },
@@ -63,10 +63,10 @@
     "autoprefixer": "^10.4.19",
     "jsdom": "^24.1.0",
     "oxfmt": "^0.52.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260527.2",
     "oxlint": "^1.67.0",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
-    "typescript": "^6.0.3",
     "vitest": "^1.6.0"
   }
 }
