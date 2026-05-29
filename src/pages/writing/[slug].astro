@@ -127,7 +127,7 @@ const postUrl = `${siteConfig.url}/${isSnippet ? 'snippet' : 'writing'}/${slug}`
 
     <TableOfContents headings={pageHeadings} client:load />
 
-    <article class="lg:prose-md prose prose-invert relative w-full max-w-none py-4 prose-a:no-underline">
+    <article class="lg:prose-md prose dark:prose-invert relative w-full max-w-none py-4 prose-a:no-underline">
       <Content components={{ pre: Pre, a: CustomLink }} />
     </article>
 
@@ -174,24 +174,40 @@ const postUrl = `${siteConfig.url}/${isSnippet ? 'snippet' : 'writing'}/${slug}`
         </div>
       )}
 
-      <div class="mt-8">
-        <script
-          src="https://giscus.app/client.js"
-          data-repo="Chandraprakash-Darji/portfolio"
-          data-repo-id="R_kgDOLTT4QA"
-          data-category="General"
-          data-category-id="DIC_kwDOLTT4QM4CdTNt"
-          data-mapping="pathname"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="bottom"
-          data-theme="dark_dimmed"
-          data-lang="en"
-          data-loading="lazy"
-          crossorigin="anonymous"
-          async
-        >
+      <div class="mt-8" id="giscus-container">
+        <script is:inline>
+          const isDark = document.documentElement.classList.contains('dark');
+          const script = document.createElement('script');
+          script.src = 'https://giscus.app/client.js';
+          script.setAttribute('data-repo', 'Chandraprakash-Darji/portfolio');
+          script.setAttribute('data-repo-id', 'R_kgDOLTT4QA');
+          script.setAttribute('data-category', 'General');
+          script.setAttribute('data-category-id', 'DIC_kwDOLTT4QM4CdTNt');
+          script.setAttribute('data-mapping', 'pathname');
+          script.setAttribute('data-strict', '0');
+          script.setAttribute('data-reactions-enabled', '1');
+          script.setAttribute('data-emit-metadata', '0');
+          script.setAttribute('data-input-position', 'bottom');
+          script.setAttribute('data-theme', isDark ? 'dark_dimmed' : 'light');
+          script.setAttribute('data-lang', 'en');
+          script.setAttribute('data-loading', 'lazy');
+          script.crossOrigin = 'anonymous';
+          script.async = true;
+          document.getElementById('giscus-container').appendChild(script);
+
+          // listen for theme changes and update giscus
+          const observer = new MutationObserver(() => {
+            const dark = document.documentElement.classList.contains('dark');
+            const iframe = document.querySelector('iframe.giscus-frame');
+            if (iframe) {
+              iframe.contentWindow?.postMessage(
+                { giscus: { setConfig: { theme: dark ? 'dark_dimmed' : 'light' } } },
+                'https://giscus.app'
+              );
+            }
+          });
+          observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
         </script>
       </div>
     </div>

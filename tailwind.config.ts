@@ -3,6 +3,7 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
   content: ['./src/**/*.{ts,tsx,astro,mdx}'],
+  darkMode: 'class',
   prefix: '',
   theme: {
     container: {

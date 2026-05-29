@@ -6,10 +6,30 @@ const links = [
   { name: 'about', href: '/about' },
 ];
 ---
-<nav class="layout flex items-center gap-4 py-3">
+<nav class="layout flex items-center gap-4 py-3 relative">
   {links.map((link) => (
     <a href={link.href} class="font-mono text-xs text-muted-foreground transition-colors hover:text-foreground">
       {link.name}
     </a>
   ))}
+
+  <button
+    id="theme-toggle"
+    class="ml-auto h-4 w-4 rounded-full border-2 border-muted-foreground bg-foreground transition-transform hover:scale-110"
+    aria-label="Toggle theme"
+  ></button>
 </nav>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  toggle?.addEventListener('click', () => {
+    const html = document.documentElement;
+    if (html.classList.contains('dark')) {
+      html.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    } else {
+      html.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+</script>
