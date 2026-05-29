@@ -9,8 +9,8 @@
     "typescript",
     "typescriptreact"
   ],
+  "editor.defaultFormatter": "oxc.oxc-vscode",
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
     "editor.codeActionsOnSave": {
       "source.organizeImports": "explicit",
@@ -18,47 +18,32 @@
       "eslint.autoFixOnSave": "always"
     }
   },
-  "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  // Tailwind CSS Autocomplete, add more if used in projects
   "tailwindCSS.classAttributes": ["class", "className", "classNames"],
-  "typescript.preferences.importModuleSpecifier": "non-relative",
   "tailwindCSS.experimental.classRegex": [
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
-  "cSpell.words": [
-    "Autosize",
-    "blocknote",
-    "Blurhash",
-    "Chandraprakash",
-    "datamodel",
-    "dmmf",
-    "dropcursor",
-    "endregion",
-    "gapcursor",
-    "giscus",
-    "Gumroad",
-    "hljs",
-    "hookform",
-    "keymap",
-    "lemonsqueezy",
-    "Lowlight",
-    "lucide",
-    "mantine",
-    "pixelwand",
-    "poimandres",
-    "postbuild",
-    "Rega",
-    "rehype",
-    "shadcn",
-    "Signin",
-    "Squeezy",
-    "tiptap",
-    "transpoter",
-    "trivago",
-    "typecheck",
-    "umami",
-    "usehooks",
-    "भारत"
-  ]
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts",
+    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .oxfmtrc*, oxfmtrc*, .prettier*, prettier*, .editorconfig, bun.*"
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/locale/**": true,
+    "**/docs/pages/**": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/__pycache__": true,
+    "**/node_modules": true,
+    "**/.ruff_cache": true
+  }
 }

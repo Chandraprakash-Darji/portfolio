@@ -13,6 +13,7 @@ categories:
   - name: 'Terminal'
     slug: 'terminal'
 ---
+import {keyboardKey} from "../../lib/utils.ts";
 
 you sit down at someone else's machine and try to work. default terminal. no tmux. they're clicking around in VS Code, `cd`-ing through directories like it's 2009. you try to not be that guy. but you are that guy. because your setup is just better.
 
@@ -20,13 +21,13 @@ i'm not saying this to be polite. i'm saying it because every time someone watch
 
 ## the project switcher
 
-here's the centerpiece: i press <kbd>opt</kbd><kbd>+</kbd><kbd>f</kbd>. fzf pops up. it's scanning multiple project roots — `~/ghq` at depth 3 (because go modules nest deep), `~/Desktop/p` for personal stuff, `~/Desktop/w` for work, `~/.config` for dotfiles. i type two characters. enter. that's it.
+here's the centerpiece: i press <kbd>{keyboardKey('Option')}</kbd><kbd>+</kbd><kbd>f</kbd>. fzf pops up. it's scanning multiple project roots — `~/ghq` at depth 3 (because go modules nest deep), `~/Desktop/p` for personal stuff, `~/Desktop/w` for work, `~/.config` for dotfiles. i type two characters. enter. that's it.
 
 what happens next is the thing i stopped noticing years ago but everyone who watches me work asks about. if tmux isn't running, it fires up a new session with two windows. window 1 has neovim already open at the project root. window 2 is a fresh terminal, sitting at the project root, waiting for `bun dev` or `pnpm dev` or whatever random command i feel like running.
 
 the script is called `tmux-sessionizer`. it's a 200-line bash script i found and customized. it reads from a config file where i define which directories to search and how deep. `~/ghq:3` means "scan ghq, go 3 levels deep, find anything with a `.git` folder." `~/Desktop/p:2` is shallower because personal projects are flatter. this matters — you don't want fzf showing you `node_modules` or `dist` folders. the depth config is the difference between "this is fast" and "why is this lagging."
 
-the session naming is automatic. pick a folder called `stop-reaching-for-kafka`, you get a tmux session called `stop-reaching-for-kafka`. pick it again later, it attaches to the existing session. no thinking. no `tmux ls`, no `tmux attach -t whatever`. just <kbd>opt</kbd><kbd>+</kbd><kbd>f</kbd>, pick, you're in.
+the session naming is automatic. pick a folder called `stop-reaching-for-kafka`, you get a tmux session called `stop-reaching-for-kafka`. pick it again later, it attaches to the existing session. no thinking. no `tmux ls`, no `tmux attach -t whatever`. just <kbd>{keyboardKey("Option")}</kbd><kbd>+</kbd><kbd>f</kbd>, pick, you're in.
 
 and if i'm already inside tmux and want to jump to another project? same shortcut. switches the client. zero friction.
 
@@ -48,19 +49,23 @@ the terminal title bar shows `parent-folder/current-folder`. not the full path. 
 
 tmux without config is unusable. tmux with oh-my-tmux is someone else's opinion. mine is mine.
 
-prefix is <kbd>Ctrl</kbd><kbd>+</kbd><kbd>/</kbd>. not <kbd>Ctrl</kbd><kbd>+</kbd><kbd>b</kbd>. `/` is right next to right-shift. one finger. try it for a week and then tell me <kbd>Ctrl</kbd><kbd>+</kbd><kbd>b</kbd> is better.
+prefix is <kbd>{keyboardKey("Control")}</kbd><kbd>+</kbd><kbd>/</kbd>. not <kbd>{keyboardKey("Control")}</kbd><kbd>+</kbd><kbd>b</kbd>. `/` is right next to right-shift. one finger. try it for a week and then tell me <kbd>{keyboardKey("Control")}</kbd><kbd>+</kbd><kbd>b</kbd> is better.
 
-pane navigation is vim: <kbd>h</kbd> left, <kbd>j</kbd> down, <kbd>k</kbd> up, <kbd>l</kbd> right. no awkward <kbd>Ctrl</kbd><kbd>+</kbd><kbd>b</kbd> then arrow keys.
+pane navigation is vim: <kbd>h</kbd> left, <kbd>j</kbd> down, <kbd>k</kbd> up, <kbd>l</kbd> right. no awkward <kbd>{keyboardKey("Control")}</kbd><kbd>+</kbd><kbd>b</kbd> then arrow keys.
 
 new windows open in the current directory. always. `new-window -c "#{pane_current_path}"`. every terminal emulator gets this wrong by default.
 
-<kbd>Ctrl</kbd><kbd>+</kbd><kbd>/</kbd> <kbd>|</kbd> splits vertical. <kbd>Ctrl</kbd><kbd>+</kbd><kbd>/</kbd> <kbd>_</kbd> splits horizontal. these are the tmux defaults people remap anyway, so i just did it.
+<kbd>{keyboardKey("Control")}</kbd> <kbd>+</kbd>
+<kbd>/</kbd> <kbd>|</kbd> splits vertical. <kbd>{keyboardKey("Control")}</kbd>
+<kbd>+</kbd>
+<kbd>/</kbd> <kbd>_</kbd> splits horizontal. these are the tmux defaults people
+remap anyway, so i just did it.
 
 the status bar is simple: green background, black text, shows window numbers and names. no clock. no hostname. no battery percentage. i don't need my terminal to be a dashboard.
 
 window renaming is automatic. tmux grabs the current folder name and uses it. `ghq`, `personal`, `config` — i always know where i am.
 
-the one that gets people: <kbd>Ctrl</kbd><kbd>+</kbd><kbd>/</kbd> <kbd>z</kbd> doesn't zoom the current pane. it zooms the _other_ pane. so if i'm in nvim and need to see the terminal output fullscreen, i hit one key. hitting it again restores. small thing. massive quality of life.
+the one that gets people: <kbd>{keyboardKey("Control")}</kbd><kbd>+</kbd><kbd>/</kbd> <kbd>z</kbd> doesn't zoom the current pane. it zooms the _other_ pane. so if i'm in nvim and need to see the terminal output fullscreen, i hit one key. hitting it again restores. small thing. massive quality of life.
 
 ## dotfiles are infrastructure
 
@@ -76,7 +81,10 @@ the point isn't that you should copy my setup. the point is that you should have
 
 a good dev setup isn't about having the flashiest terminal or the most plugins. it's about the seams between things not hurting.
 
-<kbd>opt</kbd><kbd>+</kbd><kbd>f</kbd> to switch projects. nvim is already open. the terminal is already there. you don't think about it. you just start working.
+<kbd>{keyboardKey("Option")}</kbd>
+<kbd>+</kbd>
+<kbd>f</kbd> to switch projects. nvim is already open. the terminal is already
+there. you don't think about it. you just start working.
 
 that's the bar. not "look at my neofetch." not "i use arch btw." just: can you move from idea to typing code without friction?
 

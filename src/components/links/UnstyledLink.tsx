@@ -16,16 +16,8 @@ export type UnstyledLinkProps = {
 
 const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
   (
-    {
-      children,
-      href,
-      openNewTab,
-      className,
-      onClick,
-      trackEventTag,
-      ...rest
-    },
-    ref
+    { children, href, openNewTab, className, onClick, trackEventTag, ...rest },
+    ref,
   ) => {
     const isNewTab =
       openNewTab !== undefined
@@ -39,8 +31,8 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
           ref={ref}
           className={cn(className)}
           onClick={(e) => {
-            onClick && onClick(e);
-            trackEventTag && trackEvent(trackEventTag);
+            onClick?.(e);
+            if (trackEventTag) trackEvent(trackEventTag);
           }}
           {...rest}
         >
@@ -58,15 +50,15 @@ const UnstyledLink = React.forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
         {...rest}
         className={cn('cursor-newtab pr-2 relative', className)}
         onClick={(e) => {
-          onClick && onClick(e);
-          trackEventTag && trackEvent(trackEventTag);
+          onClick?.(e);
+          if (trackEventTag) trackEvent(trackEventTag);
         }}
       >
         {children}{' '}
         <ArrowUpRightIcon className="inline-block w-3 absolute top-0 translate-x-full h-3 right-2 text-primary" />
       </a>
     );
-  }
+  },
 );
 
 export default UnstyledLink;

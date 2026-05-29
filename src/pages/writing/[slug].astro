@@ -6,7 +6,6 @@ import ReadingProgress from '../../components/ReadingProgress';
 import CustomLink from '../../components/links/CustomLink';
 import { PostHeader } from '../../components/content/PostHeader';
 import { Pre } from '../../components/content/Pre';
-import type { THeading } from '../../lib/headings';
 import { postTransitionName } from '../../lib/transition';
 import { siteConfig } from '../../site.config';
 
@@ -45,17 +44,17 @@ const allPosts = [...blogPosts, ...snippetPosts].filter((p) => p.data.published 
 const relatedPosts = allPosts
   .filter((p) => {
     if (p.id === entry.id) return false;
-    const pCats = (p.data.categories ?? []).map((c: { slug: string }) => c.slug);
-    const entryCats = categories.map((c: { slug: string }) => c.slug);
-    return pCats.some((c: string) => entryCats.includes(c));
+    const pCats = (p.data.categories ?? []).map((c) => c.slug).filter(Boolean) as string[];
+    const entryCats = new Set(categories.map((c) => c.slug).filter(Boolean) as string[]);
+    return pCats.some((c) => entryCats.has(c));
   })
-  .sort((a, b) => (b.data.publishedAt ?? '').localeCompare(a.data.publishedAt ?? ''))
+  .toSorted((a, b) => (b.data.publishedAt ?? '').localeCompare(a.data.publishedAt ?? ''))
   .slice(0, 2);
 
 // prev/next: sorted same-collection posts by publishedAt desc
 const sameCollectionPosts = [...blogPosts, ...snippetPosts]
   .filter((p) => p.collection === entry.collection && p.data.published !== false)
-  .sort((a, b) => (b.data.publishedAt ?? '').localeCompare(a.data.publishedAt ?? ''));
+  .toSorted((a, b) => (b.data.publishedAt ?? '').localeCompare(a.data.publishedAt ?? ''));
 const currentIndex = sameCollectionPosts.findIndex((p) => p.id === entry.id);
 const previous = currentIndex > 0
   ? { slug: sameCollectionPosts[currentIndex - 1].id.replace(/\.mdx$/, ''), title: sameCollectionPosts[currentIndex - 1].data.title }

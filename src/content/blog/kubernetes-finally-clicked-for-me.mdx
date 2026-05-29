@@ -75,8 +75,8 @@ kubernetes solves this by making resource limits a hard kernel-level guarantee:
 ```yaml
 resources:
   limits:
-    cpu: "2"      # Team B's job physically cannot take more than this
-    memory: "4Gi"
+    cpu: '2' # Team B's job physically cannot take more than this
+    memory: '4Gi'
 ```
 
 Team B can peg their 2 cores at 100%. Team A's pods on their own CPU budget dont feel it. the isolation is real, not a gentleman's agreement. the kernel enforces it.
@@ -205,4 +205,5 @@ git push
 you push code. five minutes later its in prod. nobody ran a single manual command. thats the version of kubernetes that actually makes sense to me.
 
 ---
-*written after a few hours of actually mapping kubernetes to things i already understood instead of reading docs*
+
+_written after a few hours of actually mapping kubernetes to things i already understood instead of reading docs_

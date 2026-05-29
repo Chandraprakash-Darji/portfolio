@@ -17,7 +17,7 @@ const blog = defineCollection({
         z.object({
           name: z.string(),
           slug: z.string().optional(),
-        })
+        }),
       )
       .optional(),
   }),
@@ -38,7 +38,7 @@ const snippets = defineCollection({
         z.object({
           name: z.string(),
           slug: z.string().optional(),
-        })
+        }),
       )
       .optional(),
   }),

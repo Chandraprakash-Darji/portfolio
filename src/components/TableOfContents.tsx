@@ -30,7 +30,7 @@ export default function TableOfContents({
         }
       }
     },
-    []
+    [],
   );
 
   useEffect(() => {
@@ -103,7 +103,7 @@ export default function TableOfContents({
                   ? 'h-[2px] bg-primary'
                   : 'bg-muted-foreground/50 hover:bg-foreground'
               } transition-[opacity,transform] duration-300 ${getDashWidth(
-                h.depth
+                h.depth,
               )} ${
                 visible
                   ? 'translate-x-0 opacity-100'

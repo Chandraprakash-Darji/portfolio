@@ -7,7 +7,7 @@ export const social = [
     name: 'twitter',
     url: 'https://twitter.com/chandra_7852',
   },
-{
+  {
     name: 'mail',
     url: 'mailto:prakashchandra3786@gmail.com',
   },

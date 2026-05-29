@@ -2,29 +2,29 @@
   //#region  //*=========== React ===========
   "import React": {
     "prefix": "ir",
-    "body": ["import * as React from 'react';"]
+    "body": ["import * as React from 'react';"],
   },
   "React.useState": {
     "prefix": "us",
     "body": [
-      "const [${1}, set${1/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}] = React.useState<$3>(${2:initial${1/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}})$0"
-    ]
+      "const [${1}, set${1/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}] = React.useState<$3>(${2:initial${1/(^[a-zA-Z])(.*)/${1:/upcase}${2}/}})$0",
+    ],
   },
   "React.useEffect": {
     "prefix": "uf",
-    "body": ["React.useEffect(() => {", "  $0", "}, []);"]
+    "body": ["React.useEffect(() => {", "  $0", "}, []);"],
   },
   "React.useReducer": {
     "prefix": "ur",
     "body": [
       "const [state, dispatch] = React.useReducer(${0:someReducer}, {",
       "  ",
-      "})"
-    ]
+      "})",
+    ],
   },
   "React.useRef": {
     "prefix": "urf",
-    "body": ["const ${1:someRef} = React.useRef($0)"]
+    "body": ["const ${1:someRef} = React.useRef($0)"],
   },
   "React Functional Component": {
     "prefix": "rc",
@@ -36,8 +36,8 @@
       "      $0",
       "    </div>",
       "  )",
-      "}"
-    ]
+      "}",
+    ],
   },
   "React Functional Component with Props": {
     "prefix": "rcp",
@@ -52,8 +52,8 @@
       "      $0",
       "    </div>",
       "  )",
-      "}"
-    ]
+      "}",
+    ],
   },
   //#endregion  //*======== React ===========
 
@@ -64,8 +64,8 @@
     "body": [
       "//#region  //*=========== ${1} ===========",
       "${TM_SELECTED_TEXT}$0",
-      "//#endregion  //*======== ${1} ==========="
-    ]
+      "//#endregion  //*======== ${1} ===========",
+    ],
   },
   "Region CSS": {
     "prefix": "regc",
@@ -73,8 +73,8 @@
     "body": [
       "/* #region  /**=========== ${1} =========== */",
       "${TM_SELECTED_TEXT}$0",
-      "/* #endregion  /**======== ${1} =========== */"
-    ]
+      "/* #endregion  /**======== ${1} =========== */",
+    ],
   },
   //#endregion  //*======== Commons ===========
 
@@ -90,39 +90,39 @@
       "  } else {",
       "    res.status(405).json({ message: 'Method Not Allowed' });",
       "  }",
-      "}"
-    ]
+      "}",
+    ],
   },
 
   "Infer Get Static Props": {
     "prefix": "igsp",
-    "body": "InferGetStaticPropsType<typeof getStaticProps>"
+    "body": "InferGetStaticPropsType<typeof getStaticProps>",
   },
   "Infer Get Server Side Props": {
     "prefix": "igssp",
-    "body": "InferGetServerSidePropsType<typeof getServerSideProps>"
+    "body": "InferGetServerSidePropsType<typeof getServerSideProps>",
   },
   "Import useRouter": {
     "prefix": "imust",
-    "body": ["import { useRouter } from 'next/router';"]
+    "body": ["import { useRouter } from 'next/router';"],
   },
   //#endregion  //*======== Next.js ===========
 
   //#region  //*=========== Snippet Wrap ===========
   "Wrap with Fragment": {
     "prefix": "ff",
-    "body": ["<>", "\t${TM_SELECTED_TEXT}", "</>"]
+    "body": ["<>", "\t${TM_SELECTED_TEXT}", "</>"],
   },
   "Wrap with cn": {
     "prefix": "cn",
-    "body": ["{cn([${TM_SELECTED_TEXT}$0])}"]
+    "body": ["{cn([${TM_SELECTED_TEXT}$0])}"],
   },
   //#endregion  //*======== Snippet Wrap ===========
   "Logger": {
     "prefix": "lg",
     "body": [
-      "logger({ ${1:${CLIPBOARD}} }, '${TM_FILENAME} line ${TM_LINE_NUMBER}')"
-    ]
+      "logger({ ${1:${CLIPBOARD}} }, '${TM_FILENAME} line ${TM_LINE_NUMBER}')",
+    ],
   },
   /* #region  /**=========== Server Action =========== */
   "Server Action": {
@@ -146,8 +146,8 @@
       " ",
       "    return { data: true };",
       "  }",
-      ");"
-    ]
+      ");",
+    ],
   },
   "Use Action": {
     "prefix": "ua",
@@ -165,8 +165,8 @@
       "        },",
       "        onError: () => {},",
       "      });",
-      "    "
-    ]
-  }
+      "    ",
+    ],
+  },
   /* #endregion  /**======== Server Action =========== */
 }

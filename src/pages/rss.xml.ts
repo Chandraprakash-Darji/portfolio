@@ -7,7 +7,10 @@ export async function GET(context: APIContext) {
   const posts = await getCollection('blog');
   const published = posts
     .filter((p) => p.data.published !== false)
-    .sort((a, b) => b.data.publishedAt?.localeCompare(a.data.publishedAt ?? '') ?? 0);
+    .toSorted(
+      (a, b) =>
+        b.data.publishedAt?.localeCompare(a.data.publishedAt ?? '') ?? 0,
+    );
 
   return rss({
     title: siteConfig.title,
@@ -18,7 +21,9 @@ export async function GET(context: APIContext) {
       return {
         title: post.data.title,
         description: post.data.description ?? '',
-        pubDate: post.data.publishedAt ? new Date(post.data.publishedAt) : new Date(),
+        pubDate: post.data.publishedAt
+          ? new Date(post.data.publishedAt)
+          : new Date(),
         link: `/writing/${slug}/`,
       };
     }),

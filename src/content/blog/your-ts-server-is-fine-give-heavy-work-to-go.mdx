@@ -1,17 +1,17 @@
 ---
-title: "Your TS Server Is Fine. Give the Heavy Work to Go."
+title: 'Your TS Server Is Fine. Give the Heavy Work to Go.'
 description: "One year. Same stack. Every project. API, workers, file processing, all TypeScript. I wasn't stuck because TypeScript is bad. I was stuck because I forgot what other options even feel like."
-image: ""
-imageBlurhash: ""
-publishedAt: "2026-05-05"
-updatedAt: "2026-05-05"
-type: "BLOG"
+image: ''
+imageBlurhash: ''
+publishedAt: '2026-05-05'
+updatedAt: '2026-05-05'
+type: 'BLOG'
 published: true
 categories:
-  - name: "Go"
-    slug: "go"
-  - name: "TypeScript"
-    slug: "typescript"
+  - name: 'Go'
+    slug: 'go'
+  - name: 'TypeScript'
+    slug: 'typescript'
 ---
 
 One year. Same stack. Every project. API server, background job, file processor, all TypeScript, all the time. After a while you stop seeing the walls of your own tech choices.
@@ -28,11 +28,11 @@ The real reason: Go forces you to think about what actually matters in your serv
 
 Here's what I landed on after being locked in with Go for a few weeks:
 
-| Layer | Language | Why |
-|-------|----------|-----|
-| API server | TypeScript (Bun) | AI knows TS better than anything. Bun is fast enough. |
-| Background workers | Go | Single binary. No runtime. Handles concurrency like it's nothing. |
-| DB / Cache / Storage | Managed services | Let them scale themselves. |
+| Layer                | Language         | Why                                                               |
+| -------------------- | ---------------- | ----------------------------------------------------------------- |
+| API server           | TypeScript (Bun) | AI knows TS better than anything. Bun is fast enough.             |
+| Background workers   | Go               | Single binary. No runtime. Handles concurrency like it's nothing. |
+| DB / Cache / Storage | Managed services | Let them scale themselves.                                        |
 
 Your web server isn't the bottleneck. If the DB isn't killing you, Bun handles API requests just fine. Most endpoints are "validate this, query that, return JSON." AI writes that code better in TypeScript than any other language.
 

@@ -102,7 +102,9 @@
   }
 
   .cursor-newtab {
-    cursor: url('/images/new-tab.png') 10 10, pointer;
+    cursor:
+      url('/images/new-tab.png') 10 10,
+      pointer;
   }
 
   .focus-me {
@@ -177,20 +179,26 @@
 @layer utilities {
   .animated-underline {
     @apply bg-[linear-gradient(#11113300,#11113300),linear-gradient(to_right,hsl(var(--primary)),hsl(var(--primary)))];
-    background-size: 100% 2px, 0 2px;
-    background-position: 100% 100%, 0 100%;
+    background-size:
+      100% 2px,
+      0 2px;
+    background-position:
+      100% 100%,
+      0 100%;
     background-repeat: no-repeat;
   }
   @media (prefers-reduced-motion: no-preference) {
     .animated-underline {
       transition: 0.3s ease;
-      transition-property: background-size, color, background-color,
-        border-color;
+      transition-property:
+        background-size, color, background-color, border-color;
     }
   }
   .animated-underline:hover,
   .animated-underline:focus-visible {
-    background-size: 0 2px, 100% 2px;
+    background-size:
+      0 2px,
+      100% 2px;
   }
 
   .flash-underline {
@@ -199,7 +207,7 @@
 
   /* Keyboard key styling */
   kbd {
-    @apply inline-flex items-center justify-center rounded border border-border bg-muted px-1.5 py-0;
+    @apply px-1.5 py-0 pointer-events-none ml-1 inline-flex size-5 items-center justify-center rounded border border-border bg-muted text-[10px] text-muted-foreground;
     font-family: 'FiraCodeNerdFont', monospace;
     font-size: 0.75em;
     line-height: 1.4;

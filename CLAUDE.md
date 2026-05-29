@@ -9,9 +9,10 @@ bun run dev          # Astro dev server with HMR
 bun run build        # Production build (SSG via Vercel adapter)
 bun run preview      # Preview production build locally
 bun run typecheck    # tsc --noEmit
-bun run lint         # astro check
-bun run lint:fix     # eslint --fix + prettier -w ./src
-bun run format       # prettier -w ./src
+bun run lint         # astro check + oxlint
+bun run lint:fix     # oxlint --fix + oxfmt
+bun run format       # oxfmt
+bun run format:check # oxfmt --check
 bun test             # vitest
 ```
 

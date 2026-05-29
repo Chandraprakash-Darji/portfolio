@@ -14,7 +14,7 @@ export default function CustomLink({
         'animated-underline custom-link inline-flex items-center font-medium',
         'focus:outline-none focus-visible:ring focus-visible:ring-primary/80',
         'border-b border-dotted hover:border-black/0',
-        className
+        className,
       )}
     >
       <span className="bg-gradient-to-tr from-primary/60 to-primary bg-clip-text text-transparent">

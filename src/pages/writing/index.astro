@@ -6,7 +6,7 @@ import { postTransitionName } from '../../lib/transition';
 const posts = await getCollection('blog');
 const sorted = posts
   .filter((p) => p.data.published !== false)
-  .sort((a, b) => b.data.publishedAt?.localeCompare(a.data.publishedAt ?? '') ?? 0);
+  .toSorted((a, b) => b.data.publishedAt?.localeCompare(a.data.publishedAt ?? '') ?? 0);
 ---
 
 <BaseLayout

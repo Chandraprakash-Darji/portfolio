@@ -8,10 +8,7 @@ export function Pre({
   ...rest
 }: React.ComponentPropsWithRef<'pre'>) {
   return (
-    <pre
-      {...rest}
-      className={cn(['group relative', className])}
-    >
+    <pre {...rest} className={cn(['group relative', className])}>
       {children}
     </pre>
   );

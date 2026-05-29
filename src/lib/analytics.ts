@@ -3,11 +3,12 @@ type EventType = (typeof EVENT_TYPE)[number];
 
 type TrackEvent = (
   event_name: string,
-  event_data?: { type?: EventType } & { [key: string]: string | number }
+  event_data?: { type?: EventType } & { [key: string]: string | number },
 ) => void;
 
 export const trackEvent: TrackEvent = (...args) => {
-  if (window.umami && typeof window.umami.track === 'function') {
-    window.umami.track(...args);
+  const w = window as Window & { umami?: { track: (...a: unknown[]) => void } };
+  if (w.umami && typeof w.umami.track === 'function') {
+    w.umami.track(...args);
   }
 };

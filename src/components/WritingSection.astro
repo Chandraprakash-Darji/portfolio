@@ -10,7 +10,7 @@ const { collection } = Astro.props;
 const posts = await getCollection(collection);
 const recent = posts
   .filter((p) => p.data.published !== false)
-  .sort((a, b) => b.data.publishedAt?.localeCompare(a.data.publishedAt ?? '') ?? 0)
+  .toSorted((a, b) => b.data.publishedAt?.localeCompare(a.data.publishedAt ?? '') ?? 0)
   .slice(0, 3);
 ---
 

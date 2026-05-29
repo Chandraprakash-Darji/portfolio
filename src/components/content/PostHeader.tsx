@@ -18,18 +18,9 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 
-
 type CopyState = 'idle' | 'loading' | 'done' | 'error';
 
 const cache = new Map<string, string>();
-
-function Kbd({ children }: { children: React.ReactNode }) {
-  return (
-    <kbd className="pointer-events-none ml-1 inline-flex size-5 items-center justify-center rounded border border-border bg-muted text-[10px] text-muted-foreground">
-      {children}
-    </kbd>
-  );
-}
 
 function CopyStateIcon({ state }: { state: CopyState }) {
   if (state === 'done') return <IconCheck className="size-3.5" />;
@@ -155,7 +146,7 @@ function ViewOptions({
         icon: Icons.scira,
       },
     ];
-  }, [markdownUrl]);
+  }, [markdownUrl, githubUrl]);
 
   return (
     <div className="relative">
