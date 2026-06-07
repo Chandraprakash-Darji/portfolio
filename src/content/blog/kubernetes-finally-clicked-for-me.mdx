@@ -1,7 +1,7 @@
 ---
 title: 'kubernetes finally clicked for me'
 description: 'i spent months hearing about kubernetes and nodding along. then i actually sat down and mapped it to things i already understood. heres how it actually clicked.'
-image: ''
+image: '/writing/kubernetes-finally-clicked-for-me/hero.webp'
 imageBlurhash: ''
 publishedAt: '2026-05-21'
 updatedAt: '2026-05-21'
@@ -22,13 +22,13 @@ then i actually stopped and mapped it to things i already knew. and it clicked i
 
 ## its just linux, but for a whole fleet
 
-### the mental model that actually worked
+### the mental model that worked
 
-the way i finally understood kubernetes — Linux decides which process runs on which CPU core. kubernetes decides which container runs on which machine.
+the way i finally understood kubernetes: Linux decides which process runs on which CPU core. kubernetes decides which container runs on which machine.
 
 thats it. thats the whole thing.
 
-you have a bunch of EC2 instances (called Nodes). kubernetes sits on top of them and acts like the OS scheduler, but instead of scheduling processes it schedules containers. you say "i want 4 copies of this app, each needs 0.1 CPU and 128MB RAM" — kubernetes looks at all your machines, figures out where there's space, and places them. you never pick the machine yourself.
+you have a bunch of EC2 instances (called Nodes). kubernetes sits on top of them and acts like the OS scheduler, but instead of scheduling processes it schedules containers. you say "i want 4 copies of this app, each needs 0.1 CPU and 128MB RAM." kubernetes looks at all your machines, figures out where there's space, and places them. you never pick the machine yourself.
 
 ```
 Cluster
@@ -44,7 +44,7 @@ Cluster
 
 ### pods are not VMs
 
-multiple pods live on the same EC2. kubernetes packs them in based on available resources. not one EC2 per container — that would be insane and expensive.
+multiple pods live on the same EC2. kubernetes packs them in based on available resources. not one EC2 per container. that would be insane and expensive.
 
 the thing that confused me early was thinking kubernetes replaces EC2. it doesnt. you still pay for the EC2. kubernetes just manages what runs on them. the Node is the machine. the Pod is the process on that machine.
 
@@ -56,19 +56,19 @@ before i understood this, i thought kubernetes was just "the serious way to depl
 
 thats wrong.
 
-for one app, one team, under a few thousand users — SSH into a server and run docker compose. $15/month on Hetzner. done. no ops overhead, no YAML files, no control plane to think about. i wouldnt touch kubernetes for that.
+for one app, one team, under a few thousand users. SSH into a server and run docker compose. $15/month on Hetzner. done. no ops overhead, no YAML files, no control plane to think about. i wouldnt touch kubernetes for that.
 
-### where it actually starts making sense
+### where it starts making sense
 
 the moment kubernetes pays back is when you have multiple teams deploying to the same infrastructure. that was the unlock for me.
 
 imagine two teams sharing one EC2. Team A runs a Go API. Team B runs a Python ML job that processes audio files. both are in the same docker-compose.yml. both teams SSH into the same server.
 
-Team B's job kicks off, saturates the CPU — Team A's API starts timing out. Team B does a `docker compose up` and accidentally restarts Team A's containers because they touched the shared file. Team A needs to upgrade their runtime, breaks Team B's Python environment.
+Team B's job kicks off, saturates the CPU. Team A's API starts timing out. Team B does a `docker compose up` and accidentally restarts Team A's containers because they touched the shared file. Team A needs to upgrade their runtime, breaks Team B's Python environment.
 
 theres no real fix for this at the docker compose level. its just coordination overhead that compounds as you add more services and more people.
 
-### resource limits that are actually enforced
+### resource limits that are enforced
 
 kubernetes solves this by making resource limits a hard kernel-level guarantee:
 
@@ -81,7 +81,7 @@ resources:
 
 Team B can peg their 2 cores at 100%. Team A's pods on their own CPU budget dont feel it. the isolation is real, not a gentleman's agreement. the kernel enforces it.
 
-## the part that actually matters for teams
+## the part that matters for teams
 
 ### independent deploys
 
@@ -91,7 +91,7 @@ on a shared server, deploying is a coordination problem. "are you deploying righ
 
 ### namespaces are real walls
 
-namespaces make team ownership clean. Team A gets namespace `api`, Team B gets namespace `ml`. kubernetes RBAC means Team B literally cannot delete Team A's deployments — the API server rejects it. not "please dont," but actually rejected.
+namespaces make team ownership clean. Team A gets namespace `api`, Team B gets namespace `ml`. kubernetes RBAC means Team B literally cannot delete Team A's deployments. the API server rejects it. not "please dont," but actually rejected.
 
 ```
 cluster
@@ -104,7 +104,7 @@ on a shared EC2 this boundary doesnt exist. anyone with SSH access can kill anyt
 
 ### services find each other without hardcoding IPs
 
-one more thing that clicked — service discovery. on a plain EC2, if the ML service needs to call the API, you hardcode the IP. the IP changes, everything breaks.
+one more thing that clicked: service discovery. on a plain EC2, if the ML service needs to call the API, you hardcode the IP. the IP changes, everything breaks.
 
 in kubernetes every Service gets a stable internal DNS name automatically. `api-service.api.svc.cluster.local`. doesnt matter which Node the pod is on, how many replicas there are, or whether pods have been replaced. the name stays the same. services just call each other by name.
 
@@ -114,7 +114,7 @@ in kubernetes every Service gets a stable internal DNS name automatically. `api-
 
 rolling updates (k8s default) replace pods one at a time. during the transition youre running v1 and v2 simultaneously. if your DB migration renames a column, v1 breaks because v2 already renamed it. mixed versions sharing a database is dangerous and the window where both are running is hard to reason about.
 
-### how blue-green actually works
+### how blue-green works
 
 blue-green is a cleaner model. you run two full environments at once. only one takes traffic. the switch is a one-line change to which label the Service selector points at.
 
@@ -134,24 +134,24 @@ once youre confident v2 is stable, scale v1 down to zero. next deploy, v1 become
 
 ## the $70/month thing is a trap
 
-### what EKS is actually charging for
+### what EKS charges for
 
 EKS (AWS managed kubernetes) charges $70/month just for the control plane before you add a single EC2 node. for a side project or early-stage app that makes no sense.
 
-that $70 isnt the cost of kubernetes — its the cost of not managing the control plane yourself. kubernetes is open source. you can run it on any Linux server for free.
+that $70 isnt the cost of kubernetes. its the cost of not managing the control plane yourself. kubernetes is open source. you can run it on any Linux server for free.
 
-### what i'd actually use
+### what id use
 
-**k3s on a Hetzner VPS** is where i'd start. k3s is a lightweight kubernetes distribution, one command installs it on any Linux server. Hetzner is $5-15/month. real kubernetes for the cost of a Netflix subscription.
+k3s on a Hetzner VPS is where i'd start. k3s is a lightweight kubernetes distribution, one command installs it on any Linux server. Hetzner is $5-15/month. real kubernetes for the cost of a Netflix subscription.
 
 ```bash
 # full k8s cluster on any Linux server
 curl -sfL https://get.k3s.io | sh -
 ```
 
-**GKE on Google Cloud** if i wanted managed. Google doesnt charge for the control plane — you only pay for the compute pods actually consume. for small workloads dramatically cheaper than EKS.
+GKE on Google Cloud if i wanted managed. Google doesnt charge for the control plane. you only pay for the compute pods actually consume. for small workloads dramatically cheaper than EKS.
 
-**k3d locally** for learning without any cloud cost at all. k3s inside Docker, runs on your laptop.
+k3d locally for learning without any cloud cost at all. k3s inside Docker, runs on your laptop.
 
 ```bash
 brew install k3d
@@ -165,13 +165,13 @@ kubectl get nodes   # works immediately, zero cloud spend
 
 i was thinking about deploying to both the US and India. a server in the US will always be ~200ms away from India. speed of light. you cant benchmark your way out of it.
 
-the only fix is running the server closer to the user. two clusters — one in Virginia, one in Mumbai. Cloudflare GeoDNS routes Indian users to the Mumbai cluster automatically. they never know two clusters exist, they just get ~20ms instead of 1 second.
+the only fix is running the server closer to the user. two clusters: one in Virginia, one in Mumbai. Cloudflare GeoDNS routes Indian users to the Mumbai cluster automatically. they never know two clusters exist, they just get ~20ms instead of 1 second.
 
 ### the database is the hard part
 
-the app itself is easy to replicate — stateless Go binary, just run it in both regions. the database is where it gets complicated.
+the app itself is easy to replicate. stateless Go binary, just run it in both regions. the database is where it gets complicated.
 
-the pattern that works: one primary postgres in the US, one read replica in Mumbai. Indian users read from the local replica (fast). writes still hit the US primary. thats ~200ms for Indian users on writes — the physics tax you cant avoid.
+the pattern that works: one primary postgres in the US, one read replica in Mumbai. Indian users read from the local replica (fast). writes still hit the US primary. thats ~200ms for Indian users on writes. the physics tax you cant avoid.
 
 for static files (React app, JS, CSS) a CDN solves it completely. Cloudflare caches them in 200+ locations. an Indian user loads the frontend from a Mumbai edge node in ~5ms.
 
@@ -181,9 +181,9 @@ kubernetes doesnt solve the geo problem itself. it just makes it easy to deploy 
 
 ### terraform for infra
 
-the last thing that clicked was how all of this is actually operated. nobody SSHs into a cluster and runs `kubectl apply`. thats just a different version of the same chaos.
+the last thing that clicked was how all of this is operated. nobody SSHs into a cluster and runs `kubectl apply`. thats just a different version of the same chaos.
 
-Terraform provisions the infra. cluster, database, DNS records, VPC — all declared as code, versioned in git. `terraform plan` shows exactly what will change before you touch anything, like a git diff for your cloud.
+Terraform provisions the infra. cluster, database, DNS records, VPC. all declared as code, versioned in git. `terraform plan` shows exactly what will change before you touch anything, like a git diff for your cloud.
 
 ### helm for app config
 
@@ -202,7 +202,7 @@ git push
   → pods roll out
 ```
 
-you push code. five minutes later its in prod. nobody ran a single manual command. thats the version of kubernetes that actually makes sense to me.
+you push code. five minutes later its in prod. nobody ran a single manual command. thats the version of kubernetes that makes sense to me.
 
 ---
 
