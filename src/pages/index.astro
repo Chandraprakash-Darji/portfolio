@@ -2,44 +2,107 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WritingSection from '../components/WritingSection.astro';
 import ArrowLink from '../components/links/ArrowLink';
+import { Icons } from '../components/icons';
+import { LiveClock } from '../components/hero/LiveClock';
 import { siteConfig } from '../site.config';
+import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
 ---
 
-<BaseLayout
-  ogImage="home"
->
+<BaseLayout ogImage="home">
   <div class="layout space-y-16 py-20">
-    <!-- Hero -->
+    <!-- Hero Card -->
+    <section class="border border-border">
+      <!-- Profile row: avatar + name + role -->
+      <div class="flex items-center gap-4 border-b border-border p-4">
+        <img
+          src="https://github.com/Chandraprakash-Darji.png"
+          alt="Chandraprakash Darji"
+          width="72"
+          height="72"
+          class="rounded-full border border-border"
+        />
+        <div>
+          <h1 class="text-xl font-bold tracking-tight">{siteConfig.author.name}</h1>
+          <p class="mt-0.5 font-mono text-sm text-muted-foreground">Software Engineer</p>
+        </div>
+      </div>
+
+      <!-- Info grid: 2 columns -->
+      <div class="grid grid-cols-1 divide-y divide-border border-b border-border sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+        <!-- Left column -->
+        <div class="divide-y divide-border">
+          <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
+            <Code2 size={14} className="shrink-0 text-foreground/50" />
+            <span>Software Engineer</span>
+          </div>
+          <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
+            <MapPin size={14} className="shrink-0 text-foreground/50" />
+            <span>India</span>
+          </div>
+          <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
+            <Link size={14} className="shrink-0 text-foreground/50" />
+            <a
+              href={siteConfig.url}
+              class="hover:text-foreground transition-colors truncate"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              chandraprakash.vercel.app
+            </a>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="divide-y divide-border">
+          <LiveClock client:load />
+          <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
+            <Mail size={14} className="shrink-0 text-foreground/50" />
+            <a
+              href="mailto:prakashchandra3786@gmail.com"
+              class="hover:text-foreground transition-colors truncate"
+            >
+              prakashchandra3786@gmail.com
+            </a>
+          </div>
+          <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
+            <User size={14} className="shrink-0 text-foreground/50" />
+            <span>he/him</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social icons row -->
+      <div class="flex items-center gap-1 p-3">
+        <a
+          href="https://twitter.com/chandra_7852"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Twitter / X"
+          class="flex h-8 w-8 items-center justify-center border border-border text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+        >
+          <Icons.x className="h-3.5 w-3.5" />
+        </a>
+        <a
+          href="https://github.com/Chandraprakash-Darji"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          class="flex h-8 w-8 items-center justify-center border border-border text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+        >
+          <Icons.github className="h-3.5 w-3.5" />
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Hello / About -->
     <section>
-      <img
-        src="https://github.com/Chandraprakash-Darji.png"
-        alt="Chandraprakash Darji"
-        width="80"
-        height="80"
-        class="mb-4 rounded-full"
-      />
-      <h1 class="text-2xl font-medium tracking-tight">
-        {siteConfig.author.name}
-      </h1>
-      <p class="mt-2 max-w-xl text-muted-foreground">
-        Full-stack developer obsessed with scalable systems and clean architecture.
-        I design backends that hold up under load, pick the right tool for the job,
-        and write about the decisions that actually matter in production.
-      </p>
-      <ul class="mt-4 space-y-1 text-sm text-muted-foreground">
-        <li>
-          <strong class="text-foreground">Systems thinking</strong>
-          &mdash; I care about how the pieces fit — queues, services, data flow, failure modes.
-        </li>
-        <li>
-          <strong class="text-foreground">Right tool, right scale</strong>
-          &mdash; No Kafka at 10 users. No monolith at 10 million. I match architecture to the actual problem.
-        </li>
-        <li>
-          <strong class="text-foreground">Ship and iterate</strong>
-          &mdash; Good architecture is the one that lets you move fast now and change your mind later.
-        </li>
-      </ul>
+      <h2 class="mb-4 text-lg font-semibold">Hello!!!</h2>
+      <div class="space-y-3 text-muted-foreground leading-relaxed">
+        <p><strong class="text-foreground">software engineer.</strong> full stack, freelancer, whatever the badge is. the title isn't the interesting part.</p>
+        <p>i build <strong class="text-foreground">backends that hold under load</strong> and pick the tool that fits the actual scale — not the one everyone's writing about.</p>
+        <p>i write about the decisions that don't make it into the README. the <strong class="text-foreground">architecture calls</strong>, the cost mistakes, the things you only figure out by shipping.</p>
+      </div>
     </section>
 
     <!-- Writing -->
