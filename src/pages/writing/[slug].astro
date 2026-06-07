@@ -8,6 +8,7 @@ import { PostHeader } from '../../components/content/PostHeader';
 import { Pre } from '../../components/content/Pre';
 import { postTransitionName } from '../../lib/transition';
 import { siteConfig } from '../../site.config';
+import { Image } from '@unpic/astro';
 
 export async function getStaticPaths() {
   const blogPosts = await getCollection('blog');
@@ -125,9 +126,11 @@ const postUrl = `${siteConfig.url}/${isSnippet ? 'snippet' : 'writing'}/${slug}`
     )}
 
     {image && (
-      <img
+      <Image
         src={image}
         alt=""
+        aspectRatio={16/9}
+        width={1200}
         class="mt-6 w-full rounded-lg border border-border bg-white object-cover"
       />
     )}
