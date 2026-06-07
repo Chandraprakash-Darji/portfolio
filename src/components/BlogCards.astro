@@ -1,0 +1,118 @@
+---
+import { getCollection } from 'astro:content';
+import { postTransitionName } from '../lib/transition';
+
+interface Props {
+  collection: 'blog' | 'snippets';
+  limit?: number;
+}
+
+const { collection, limit } = Astro.props;
+const hrefBase = collection === 'snippets' ? '/writing' : '/writing';
+
+const all = await getCollection(collection);
+let posts = all
+  .filter((p) => p.data.published !== false)
+  .toSorted((a, b) => b.data.publishedAt?.localeCompare(a.data.publishedAt ?? '') ?? 0);
+
+if (limit) posts = posts.slice(0, limit);
+---
+
+<div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+  {posts.map((post) => {
+    const slug = post.id.replace(/\.mdx$/, '');
+    const { title, description, image, publishedAt, categories = [] } = post.data;
+    const date = publishedAt ?? '';
+
+    return (
+      <a
+        href={`${hrefBase}/${slug}`}
+        class="corner-card group relative p-3 flex flex-col bg-card text-card-foreground transition-colors hover:bg-muted/30"
+      >
+        <!-- Corner brackets -->
+        <span class="corner tl" aria-hidden="true" />
+        <span class="corner tr" aria-hidden="true" />
+        <span class="corner bl" aria-hidden="true" />
+        <span class="corner br" aria-hidden="true" />
+
+        <!-- Dotted edges -->
+        <span class="edge edge-top"    aria-hidden="true" />
+        <span class="edge edge-bottom" aria-hidden="true" />
+        <span class="edge edge-left"   aria-hidden="true" />
+        <span class="edge edge-right"  aria-hidden="true" />
+
+        <!-- Image / placeholder -->
+        <div class="aspect-video w-full overflow-hidden bg-muted">
+          {image
+            ? <img
+                src={image}
+                alt=""
+                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                transition:name={`post-image-${slug}`}
+              />
+            : <div class="h-full w-full no-image-placeholder" />
+          }
+        </div>
+
+        <!-- Content -->
+        <div class="flex flex-1 flex-col gap-1.5 pt-3">
+          {categories.length > 0 && (
+            <div class="flex flex-wrap gap-1.5">
+              {categories.slice(0, 2).map((c) => (
+                <span class="font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60">
+                  {c.name}
+                </span>
+              ))}
+            </div>
+          )}
+          <h3
+            style={`view-transition-name: ${postTransitionName(title)}`}
+            class="text-sm font-medium leading-snug text-foreground"
+          >
+            {title}
+          </h3>
+          {description && (
+            <p class="line-clamp-2 text-xs text-muted-foreground">{description}</p>
+          )}
+          <span class="mt-auto pt-2 font-mono text-[10px] text-muted-foreground/50">{date}</span>
+        </div>
+      </a>
+    );
+  })}
+</div>
+
+<style>
+  .corner-card { position: relative; }
+
+  .corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    z-index: 10;
+    border-color: hsl(var(--foreground) / 0.35);
+    border-style: solid;
+    border-width: 0;
+  }
+  .corner.tl { top: 0;    left: 0;   border-top-width: 1.5px; border-left-width: 1.5px; }
+  .corner.tr { top: 0;    right: 0;  border-top-width: 1.5px; border-right-width: 1.5px; }
+  .corner.bl { bottom: 0; left: 0;   border-bottom-width: 1.5px; border-left-width: 1.5px; }
+  .corner.br { bottom: 0; right: 0;  border-bottom-width: 1.5px; border-right-width: 1.5px; }
+
+  .edge {
+    position: absolute;
+    z-index: 9;
+    border-color: hsl(var(--border));
+    border-style: dotted;
+    border-width: 0;
+  }
+  .edge-top    { top: 0;    left: 10px; right: 10px;  border-top-width: 1px; }
+  .edge-bottom { bottom: 0; left: 10px; right: 10px;  border-bottom-width: 1px; }
+  .edge-left   { left: 0;   top: 10px;  bottom: 10px; border-left-width: 1px; }
+  .edge-right  { right: 0;  top: 10px;  bottom: 10px; border-right-width: 1px; }
+
+  .no-image-placeholder {
+    background-image:
+      radial-gradient(circle, hsl(var(--foreground) / 0.08) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+</style>

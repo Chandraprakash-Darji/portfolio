@@ -39,7 +39,9 @@ export function LiveClock() {
       <span>
         {time}
         {offset && (
-          <span class="ml-1.5 text-xs text-muted-foreground/60">// {offset}</span>
+          <span class="ml-1.5 text-xs text-muted-foreground/60">
+            // {offset}
+          </span>
         )}
       </span>
     </div>

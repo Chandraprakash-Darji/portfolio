@@ -13,7 +13,8 @@ categories:
   - name: 'Terminal'
     slug: 'terminal'
 ---
-import {keyboardKey} from "../../lib/utils.ts";
+
+import { keyboardKey } from '../../lib/utils.ts';
 
 you sit down at someone else's machine and try to work. default terminal. no tmux. they're clicking around in VS Code, `cd`-ing through directories like it's 2009. you try to not be that guy. but you are that guy. because your setup is just better.
 
@@ -55,8 +56,8 @@ pane navigation is vim: <kbd>h</kbd> left, <kbd>j</kbd> down, <kbd>k</kbd> up, <
 
 new windows open in the current directory. always. `new-window -c "#{pane_current_path}"`. every terminal emulator gets this wrong by default.
 
-<kbd>{keyboardKey("Control")}</kbd> <kbd>+</kbd>
-<kbd>/</kbd> <kbd>|</kbd> splits vertical. <kbd>{keyboardKey("Control")}</kbd>
+<kbd>{keyboardKey('Control')}</kbd> <kbd>+</kbd>
+<kbd>/</kbd> <kbd>|</kbd> splits vertical. <kbd>{keyboardKey('Control')}</kbd>
 <kbd>+</kbd>
 <kbd>/</kbd> <kbd>_</kbd> splits horizontal. these are the tmux defaults people
 remap anyway, so i just did it.
@@ -81,7 +82,7 @@ the point isn't that you should copy my setup. the point is that you should have
 
 a good dev setup isn't about having the flashiest terminal or the most plugins. it's about the seams between things not hurting.
 
-<kbd>{keyboardKey("Option")}</kbd>
+<kbd>{keyboardKey('Option')}</kbd>
 <kbd>+</kbd>
 <kbd>f</kbd> to switch projects. nvim is already open. the terminal is already
 there. you don't think about it. you just start working.

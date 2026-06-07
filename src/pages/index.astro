@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WritingSection from '../components/WritingSection.astro';
+import BlogCards from '../components/BlogCards.astro';
 import ArrowLink from '../components/links/ArrowLink';
 import { Icons } from '../components/icons';
 import { LiveClock } from '../components/hero/LiveClock';
@@ -16,13 +17,15 @@ import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
       <div class="flex items-center gap-4 border-b border-border p-4">
         <img
           src="https://github.com/Chandraprakash-Darji.png"
-          alt="Chandraprakash Darji"
+          alt={siteConfig.author.name}
           width="72"
           height="72"
           class="rounded-full border border-border"
+          transition:name="avatar"
         />
         <div>
-          <h1 class="text-xl font-bold tracking-tight">{siteConfig.author.name}</h1>
+          <h1 class="text-xl font-bold tracking-tight"
+          >{siteConfig.author.name}</h1>
           <p class="mt-0.5 font-mono text-sm text-muted-foreground">Software Engineer</p>
         </div>
       </div>
@@ -115,7 +118,7 @@ import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
           all posts
         </ArrowLink>
       </div>
-      <WritingSection collection="blog" />
+      <BlogCards collection="blog" limit={3} />
     </section>
 
     <!-- Snippets -->
@@ -128,7 +131,7 @@ import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
           all snippets
         </ArrowLink>
       </div>
-      <WritingSection collection="snippets" />
+      <BlogCards collection="snippets" limit={3} />
     </section>
   </div>
 </BaseLayout>
