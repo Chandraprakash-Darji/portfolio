@@ -1,0 +1,108 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CustomLink from '../../components/links/CustomLink';
+import { Pre } from '../../components/content/Pre';
+
+export async function getStaticPaths() {
+  const projectPosts = await getCollection('projects');
+  return projectPosts
+    .filter((p) => p.data.published !== false)
+    .map((entry) => ({
+      params: { slug: entry.id.replace(/\.mdx$/, '') },
+    }));
+}
+
+const { slug } = Astro.params;
+const projects = await getCollection('projects');
+const entry = projects.find(
+  (p) => p.id.replace(/\.mdx$/, '') === slug
+);
+
+if (!entry) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await render(entry);
+
+const { title, description, year, status, stack = [], repo, live } = entry.data;
+const ogRoute = `projects/${slug}`;
+---
+
+<BaseLayout
+  title={`${title} — case study`}
+  description={description}
+  ogImage={ogRoute}
+>
+  <div class="mx-auto w-11/12 max-w-2xl py-10">
+    <a
+      href="/projects"
+      class="mb-8 inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+    >
+      <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5m7-7-7 7 7 7" />
+      </svg>
+      projects
+    </a>
+
+    <section class="flex flex-col gap-3 pt-4">
+      <h1 class="text-2xl font-medium leading-snug tracking-tight">{title}</h1>
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-xs text-muted-foreground">
+        <span>{year}</span>
+        <span aria-hidden="true">·</span>
+        <span class="rounded border border-border px-1.5 py-0.5">{status}</span>
+        {stack.length > 0 && (
+          <>
+            <span aria-hidden="true">·</span>
+            <div class="flex flex-wrap gap-1.5">
+              {stack.map((tech) => (
+                <span class="rounded border border-border px-1.5 py-0.5">{tech}</span>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </section>
+
+    {description && (
+      <p class="mt-4 text-muted-foreground">{description}</p>
+    )}
+
+    <article class="lg:prose-md prose dark:prose-invert relative w-full max-w-none py-4 prose-a:no-underline">
+      <Content components={{ pre: Pre, a: CustomLink }} />
+    </article>
+
+    {(repo || live) && (
+      <div class="mt-10 flex flex-wrap gap-4 border-t border-border pt-6">
+        {repo && (
+          <a
+            href={repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            source
+          </a>
+        )}
+        {live && (
+          <a
+            href={live}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+            live site
+          </a>
+        )}
+      </div>
+    )}
+  </div>
+</BaseLayout>

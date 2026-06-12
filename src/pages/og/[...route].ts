@@ -5,6 +5,7 @@ import { siteConfig } from '../../site.config';
 
 const blogPosts = await getCollection('blog');
 const snippetPosts = await getCollection('snippets');
+const projectPosts = await getCollection('projects');
 
 const signature = `— ${siteConfig.author.name}`;
 
@@ -22,6 +23,10 @@ const pages: Record<string, { title: string; description?: string }> = {
     title: 'Snippets',
     description: 'Short code snippets I find useful.',
   },
+  projects: {
+    title: 'Projects',
+    description: 'case studies — what i built and the decisions behind it',
+  },
 };
 
 for (const post of blogPosts) {
@@ -34,6 +39,14 @@ for (const post of blogPosts) {
 
 for (const post of snippetPosts) {
   const slug = ['writing', post.id.replace(/\.mdx$/, '')].join('/');
+  pages[slug] = {
+    title: post.data.title,
+    description: post.data.description || signature,
+  };
+}
+
+for (const post of projectPosts) {
+  const slug = ['projects', post.id.replace(/\.mdx$/, '')].join('/');
   pages[slug] = {
     title: post.data.title,
     description: post.data.description || signature,

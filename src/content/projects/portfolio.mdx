@@ -1,0 +1,35 @@
+---
+title: 'this site'
+description: 'astro 6 portfolio with react islands, build-time OG images, and raw markdown endpoints for LLMs'
+year: '2026'
+status: 'active'
+stack: ['Astro 6', 'React', 'Tailwind', 'MDX', 'Vercel']
+repo: 'https://github.com/Chandraprakash-Darji/portfolio'
+live: 'https://chandraprakash.vercel.app'
+featured: true
+published: true
+---
+
+## what it is
+
+an astro 6 SSG site deployed on vercel. react components are only interactive islands (`client:load`) or MDX overrides — layout-shell pieces like the navbar are plain `.astro`. a single `writing/[slug].astro` route serves both blog and snippets collections by searching blog first, then snippets, with an `isSnippet` boolean controlling back links and OG image paths.
+
+every post is also available as raw markdown via `writing/[slug].md.ts` which returns `Content-Type: text/markdown` — both LLM-readable and copyable without rendering the page. OG images are generated at build with `astro-og-canvas`: dark gradient background, rose border, DM Sans titles, all WEBP.
+
+dark mode is the default. an inline script in `BaseLayout.astro` reads `localStorage.theme` before paint. the theme toggle in the navbar flips the `dark` class and persists. giscus comments use a MutationObserver to stay in sync.
+
+content lives in `src/content/` organised by collection. mdx processing uses `remark-gfm`, `rehype-slug`, `rehype-autolink-headings`, and shiki with `poimandres` for syntax highlighting.
+
+## the hardest decisions
+
+keeping react confined to islands was the right early call but means every interactive piece must be a react component with `client:load`. the line is clean but absolute — no halfway, no web components.
+
+serving two collections from one route keeps routing simple but does a linear search across both arrays per request. fine for two small collections, would need a map at ten.
+
+raw markdown endpoints create a parallel URL tree — every `writing/:slug` page has a sibling `.md` endpoint. the sitemap had to include custom entries for all of them. high convenience for LLM consumption, doubled route surface.
+
+## what i'd do differently
+
+i'd generate the `.md` endpoints from a shared helper instead of duplicating the `getStaticPaths` filter in each file. `writing/[slug].md.ts` and `snippet/[slug].md.ts` have nearly identical blocks — a `createMarkdownEndpoint(name)` utility would eliminate repetition.
+
+i'd also consider splitting into `blog/[slug].astro` and `snippet/[slug].astro` to remove the collection lookup and make the URL hierarchy self-documenting. the content layer API keeps template duplication minimal.

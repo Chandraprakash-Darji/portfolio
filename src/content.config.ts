@@ -44,4 +44,19 @@ const snippets = defineCollection({
   }),
 });
 
-export const collections = { blog, snippets };
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/projects' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    year: z.string(),
+    status: z.enum(['building', 'active', 'archived']).default('active'),
+    stack: z.array(z.string()).default([]),
+    repo: z.string().url().optional(),
+    live: z.string().url().optional(),
+    featured: z.boolean().default(false),
+    published: z.boolean().default(true),
+  }),
+});
+
+export const collections = { blog, snippets, projects };

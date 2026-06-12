@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('projects');
+const projects = all
+  .filter((p) => p.data.published !== false)
+  .toSorted((a, b) => {
+    // featured first, then year desc
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
+    return b.data.year.localeCompare(a.data.year);
+  });
+---
+
+<BaseLayout
+  title="Projects — case studies"
+  description="What I've built and the decisions behind it."
+  ogImage="projects"
+>
+  <div class="layout py-16">
+    <a href="/" class="mb-8 flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground">
+      <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5m7-7-7 7 7 7" />
+      </svg>
+      home
+    </a>
+    <h1 class="text-2xl font-medium tracking-tight">Projects</h1>
+    <p class="mt-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+      case studies — what i built and the decisions behind it
+    </p>
+
+    <div class="mt-10 space-y-4">
+      {projects.length > 0 ? (
+        projects.map((project) => {
+          const slug = project.id.replace(/\.mdx$/, '');
+          const { title, description, year, status, stack = [] } = project.data;
+          return (
+            <a
+              href={`/projects/${slug}`}
+              class="group block rounded-lg border border-border p-4 transition-colors hover:bg-muted/30"
+            >
+              <div class="flex flex-col gap-2">
+                <h3 class="text-sm font-medium leading-snug text-foreground group-hover:text-primary transition-colors">
+                  {title}
+                </h3>
+                {description && (
+                  <p class="line-clamp-2 text-xs text-muted-foreground">{description}</p>
+                )}
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px] text-muted-foreground/60">
+                  <span>{year}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{status}</span>
+                  {stack.length > 0 && (
+                    <>
+                      <span aria-hidden="true">·</span>
+                      {stack.map((tech) => (
+                        <span>{tech}</span>
+                      ))}
+                    </>
+                  )}
+                </div>
+              </div>
+            </a>
+          );
+        })
+      ) : (
+        <p class="font-mono text-xs text-muted-foreground">nothing published yet.</p>
+      )}
+    </div>
+  </div>
+</BaseLayout>
