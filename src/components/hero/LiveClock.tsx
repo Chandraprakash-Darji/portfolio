@@ -34,12 +34,13 @@ export function LiveClock() {
   }, []);
 
   return (
-    <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
+    <div className="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
       <Clock size={14} className="shrink-0 text-foreground/50" />
       <span>
         {time}
         {offset && (
-          <span class="ml-1.5 text-xs text-muted-foreground/60">
+          <span className="ml-1.5 text-xs text-muted-foreground/60">
+            {/* oxlint-disable-next-line react/jsx-no-comment-textnodes */}
             // {offset}
           </span>
         )}
