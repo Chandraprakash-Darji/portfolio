@@ -108,7 +108,6 @@ export default function CommandBar() {
   const filteredItems = filter
     ? items.filter((item) => item.type === filter)
     : items;
-    console.log(filteredItems)
 
   const groupKeys = Object.keys(GROUPS).filter((type) =>
     filteredItems.some((item) => item.type === type),
