@@ -1,0 +1,18 @@
+---
+import { now } from '../constant/now';
+
+const updated = new Date(now.updatedAt)
+  .toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+  .toLowerCase();
+---
+<section>
+  <div class="mb-1 flex items-center justify-between">
+    <span class="font-mono text-xs uppercase tracking-widest text-muted-foreground">Now</span>
+    <span class="font-mono text-xs text-muted-foreground">updated {updated}</span>
+  </div>
+  <ul class="divide-y divide-border border border-border">
+    {now.items.map((item) => (
+      <li class="px-3 py-2.5 font-mono text-sm text-muted-foreground">{item}</li>
+    ))}
+  </ul>
+</section>
