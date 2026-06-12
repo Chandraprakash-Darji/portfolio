@@ -13,6 +13,7 @@ const GROUPS: Record<string, string> = {
   page: 'Pages',
   post: 'Writing',
   snippet: 'Snippets',
+  project: 'Projects',
 };
 
 export default function CommandBar() {
