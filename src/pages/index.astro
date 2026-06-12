@@ -50,6 +50,8 @@ import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
               class="hover:text-foreground transition-colors truncate"
               target="_blank"
               rel="noopener noreferrer"
+              data-umami-event="hero-link"
+              data-umami-event-name="website"
             >
               chandraprakash.vercel.app
             </a>
@@ -64,6 +66,8 @@ import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
             <a
               href="mailto:prakashchandra3786@gmail.com"
               class="hover:text-foreground transition-colors truncate"
+              data-umami-event="hero-link"
+              data-umami-event-name="email"
             >
               prakashchandra3786@gmail.com
             </a>
@@ -83,6 +87,8 @@ import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
           rel="noopener noreferrer"
           aria-label="Twitter / X"
           class="flex h-8 w-8 items-center justify-center border border-border text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+          data-umami-event="social-click"
+          data-umami-event-name="twitter"
         >
           <Icons.x className="h-3.5 w-3.5" />
         </a>
@@ -92,6 +98,8 @@ import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
           rel="noopener noreferrer"
           aria-label="GitHub"
           class="flex h-8 w-8 items-center justify-center border border-border text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+          data-umami-event="social-click"
+          data-umami-event-name="github"
         >
           <Icons.github className="h-3.5 w-3.5" />
         </a>
@@ -117,7 +125,7 @@ import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
         <span class="font-mono text-xs uppercase tracking-widest text-muted-foreground">
           Writing
         </span>
-        <ArrowLink href="/writing" className="font-mono text-xs text-muted-foreground hover:text-foreground">
+        <ArrowLink href="/writing" className="font-mono text-xs text-muted-foreground hover:text-foreground" data-umami-event="nav-click" data-umami-event-link="all posts">
           all posts
         </ArrowLink>
       </div>
@@ -130,7 +138,7 @@ import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
         <span class="font-mono text-xs uppercase tracking-widest text-muted-foreground">
           Snippets
         </span>
-        <ArrowLink href="/snippet" className="font-mono text-xs text-muted-foreground hover:text-foreground">
+        <ArrowLink href="/snippet" className="font-mono text-xs text-muted-foreground hover:text-foreground" data-umami-event="nav-click" data-umami-event-link="all snippets">
           all snippets
         </ArrowLink>
       </div>

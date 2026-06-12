@@ -72,6 +72,7 @@ function LLMCopyButton({ markdownUrl }: { markdownUrl: string }) {
         await navigator.clipboard.writeText(content);
       }
       setState('done');
+      (window as any).umami?.track('post-copy', { title: markdownUrl });
     } catch {
       setState('error');
     } finally {
@@ -172,6 +173,8 @@ function ViewOptions({
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground transition-colors whitespace-nowrap"
                 onClick={() => setOpen(false)}
+                data-umami-event="post-view-option"
+                data-umami-event-name={title.split(' ')[0]}
               >
                 <Icon className="size-3.5" />
                 {title}
@@ -231,6 +234,7 @@ function DocShareMenu({ title, url }: { title: string; url: string }) {
               onClick={() => {
                 copyText(absoluteUrl);
                 toast.success('Link copied');
+                (window as any).umami?.track('post-share', { method: 'copy-link' });
                 setOpen(false);
               }}
             >
@@ -244,6 +248,8 @@ function DocShareMenu({ title, url }: { title: string; url: string }) {
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground transition-colors whitespace-nowrap"
               onClick={() => setOpen(false)}
+              data-umami-event="post-share"
+              data-umami-event-method="x"
             >
               <Icons.x className="size-3.5" />
               Share on X
@@ -255,6 +261,8 @@ function DocShareMenu({ title, url }: { title: string; url: string }) {
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground transition-colors whitespace-nowrap"
               onClick={() => setOpen(false)}
+              data-umami-event="post-share"
+              data-umami-event-method="linkedin"
             >
               <Icons.linkedin className="size-3.5" />
               Share on LinkedIn
@@ -265,6 +273,7 @@ function DocShareMenu({ title, url }: { title: string; url: string }) {
                 className="flex w-full items-center gap-2 px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground transition-colors whitespace-nowrap"
                 onClick={(e) => {
                   e.preventDefault();
+                  (window as any).umami?.track('post-share', { method: 'native' });
                   navigator.share({ title, url: absoluteUrl }).catch(() => {});
                 }}
               >
@@ -297,7 +306,7 @@ export function PostHeader({
         size="sm"
         asChild
       >
-        <a href={backHref}>
+        <a href={backHref} data-umami-event="post-nav" data-umami-event-direction="back">
           <ArrowLeftIcon className="size-3.5" />
           {backLabel}
         </a>
@@ -320,7 +329,7 @@ export function PostHeader({
               asChild
               aria-label="Previous Post"
             >
-              <a href={`/writing/${previous.slug}`}>
+              <a href={`/writing/${previous.slug}`} data-umami-event="post-nav" data-umami-event-direction="prev">
                 <ArrowLeftIcon className="size-3.5" />
               </a>
             </Button>
@@ -339,7 +348,7 @@ export function PostHeader({
               asChild
               aria-label="Next Post"
             >
-              <a href={`/writing/${next.slug}`}>
+              <a href={`/writing/${next.slug}`} data-umami-event="post-nav" data-umami-event-direction="next">
                 <ArrowRightIcon className="size-3.5" />
               </a>
             </Button>

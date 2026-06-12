@@ -31,6 +31,8 @@ const images = await getBlobImages();
             class="break-inside-avoid border border-border w-full text-left transition-colors hover:border-foreground/30 bg-no-repeat bg-cover bg-center"
             style={`background-image: url(${img.blurDataUrl})`}
             onclick={`window.__openFramesLightbox?.(${i})`}
+            data-umami-event="frame-open"
+            data-umami-event-frame={img.pathname}
           >
             <img
               src={img.gridUrl}

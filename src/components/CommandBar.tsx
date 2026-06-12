@@ -33,6 +33,11 @@ export default function CommandBar() {
     filterRef.current = filter;
   }, [filter]);
 
+  // Track search opens
+  useEffect(() => {
+    if (open) (window as any).umami?.track('search-open');
+  }, [open]);
+
   const fetchItems = useCallback(async () => {
     if (fetchedRef.current) return;
     fetchedRef.current = true;
@@ -59,12 +64,14 @@ export default function CommandBar() {
 
       if (e.key === 'Tab') {
         e.preventDefault();
-        const selected = document.querySelector('[cmdk-item][data-selected="true"]');
+        const selected = document.querySelector(
+          '[cmdk-item][data-selected="true"]',
+        );
         if (selected) {
           const itemType = selected.getAttribute('data-value');
           if (itemType && GROUP_KEYS.includes(itemType)) {
             setFilter((prev) => (prev === itemType ? null : itemType));
-            setSearch("")
+            setSearch('');
           }
         }
         return;
@@ -102,6 +109,7 @@ export default function CommandBar() {
     setOpen(false);
     setSearch('');
     setFilter(null);
+    (window as any).umami?.track('search-select', { href });
     window.location.assign(href);
   }, []);
 
@@ -198,9 +206,17 @@ export default function CommandBar() {
           image-rendering: auto;
         }
       `}</style>
-      <Command.Dialog open={open} onOpenChange={handleOpenChange} label="Command search">
+      <Command.Dialog
+        open={open}
+        onOpenChange={handleOpenChange}
+        label="Command search"
+      >
         <Command.Input
-          placeholder={filter ? `search ${GROUPS[filter]?.toLowerCase() ?? filter}...` : 'search...'}
+          placeholder={
+            filter
+              ? `search ${GROUPS[filter]?.toLowerCase() ?? filter}...`
+              : 'search...'
+          }
           value={search}
           onValueChange={setSearch}
         />
@@ -219,7 +235,9 @@ export default function CommandBar() {
         <Command.List>
           <Command.Empty>no results.</Command.Empty>
           {groupKeys.map((type) => {
-            const groupItems = filteredItems.filter((item) => item.type === type);
+            const groupItems = filteredItems.filter(
+              (item) => item.type === type,
+            );
             if (groupItems.length === 0) return null;
             return (
               <Command.Group key={type} heading={GROUPS[type]}>
@@ -233,13 +251,17 @@ export default function CommandBar() {
                     {item.image ? (
                       <div className="flex items-center gap-3">
                         <img src={item.image} alt="" className="frame-thumb" />
-                        <span className="item-description">{item.description}</span>
+                        <span className="item-description">
+                          {item.description}
+                        </span>
                       </div>
                     ) : (
                       <>
                         <span>{item.title}</span>
                         {item.description && (
-                          <span className="item-description">{item.description}</span>
+                          <span className="item-description">
+                            {item.description}
+                          </span>
                         )}
                       </>
                     )}

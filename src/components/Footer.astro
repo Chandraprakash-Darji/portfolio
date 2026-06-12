@@ -18,6 +18,8 @@ const icons: Record<string, string> = {
         href={item.url}
         className="text-muted-foreground transition-colors hover:text-foreground"
         aria-label={item.name}
+        data-umami-event="social-click"
+        data-umami-event-name={item.name}
       >
         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
           <path d={icons[item.name]} />
@@ -30,6 +32,8 @@ const icons: Record<string, string> = {
       <UnstyledLink
         href={link.href}
         className="rounded px-1.5 py-0.5 font-mono text-xs text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
+        data-umami-event="footer-link"
+        data-umami-event-name={link.name}
       >
         {link.name}
       </UnstyledLink>
@@ -38,6 +42,8 @@ const icons: Record<string, string> = {
       href="/rss.xml"
       className="rounded px-1.5 py-0.5 font-mono text-xs text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
       aria-label="RSS feed"
+      data-umami-event="footer-link"
+      data-umami-event-name="rss"
     >
       rss
     </UnstyledLink>

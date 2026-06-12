@@ -10,7 +10,12 @@ const links = [
 ---
 <nav class="layout flex items-center gap-4 py-3 relative">
   {links.map((link) => (
-    <a href={link.href} class="font-mono text-xs text-muted-foreground transition-colors hover:text-foreground">
+    <a
+      href={link.href}
+      class="font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+      data-umami-event="nav-click"
+      data-umami-event-link={link.name}
+    >
       {link.name}
     </a>
   ))}
@@ -34,13 +39,18 @@ const links = [
   const toggle = document.getElementById('theme-toggle');
   toggle?.addEventListener('click', () => {
     const html = document.documentElement;
+    let theme: 'dark' | 'light';
     if (html.classList.contains('dark')) {
       html.classList.remove('dark');
       localStorage.setItem('theme', 'light');
+      theme = 'light';
     } else {
       html.classList.add('dark');
       localStorage.setItem('theme', 'dark');
+      theme = 'dark';
     }
+    const w = window as Window & { umami?: { track: (...a: unknown[]) => void } };
+    w.umami?.track('theme-toggle', { theme });
   });
 
   document.getElementById('command-bar-trigger')?.addEventListener('click', () => {
