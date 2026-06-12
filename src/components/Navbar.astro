@@ -8,35 +8,117 @@ const links = [
   { name: 'about', href: '/about' },
 ];
 ---
-<nav class="layout flex items-center gap-4 py-3 relative">
-  {links.map((link) => (
-    <a
-      href={link.href}
-      class="font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
-      onclick={`window.umami?.track('nav-click',{link:'${link.name}'})`}
+<nav class="layout flex items-center gap-4 py-3 relative" aria-label="Primary navigation">
+  <!-- Desktop links -->
+  <div class="relative mx-auto w-full max-w-3xl">
+    <button
+      class="menu-toggle relative  mt-0 z-30 -ml-1 flex h-8 w-8 cursor-pointer items-center justify-center md:hidden"
+      aria-label="Open Menu"
+      aria-expanded="false"
+      aria-controls="menu-items"
     >
-      {link.name}
-    </a>
-  ))}
+      <span class="menu-toggle-icon relative h-px w-4 bg-current" />
+    </button>
 
-  <button
-    id="command-bar-trigger"
-    class="ml-auto flex items-center gap-2 border border-border px-2 py-1 font-mono text-xs text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
-    aria-label="Search"
-  >
-    search <kbd class="text-[10px]">⌘K</kbd>
-  </button>
+    <ul
+      id="menu-items"
+      class="menu max-md:bg-background max-md:border-border hidden sm:flex gap-6 max-md:absolute max-md:-top-2.5 max-md:-left-2.5 max-md:z-20 max-md:w-[calc(100%+1.25rem)] max-md:flex-col max-md:gap-1 max-md:border max-md:px-3 max-md:pt-16 max-md:pb-10"
+    >
+      {links.map((link) => (
+        <li class="py-1">
+          <a
+            href={link.href}
+            class="font-mono text-xs text-muted-foreground hover:text-foreground transition-colors max-md:text-sm"
+            onclick={`window.umami?.track('nav-click',{link:'${link.name}'})`}
+          >
+            {link.name}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
 
-  <button
-    id="theme-toggle"
-    class="h-4 w-4 rounded-full border-2 border-muted-foreground bg-foreground transition-transform hover:scale-110"
-    aria-label="Toggle theme"
-  ></button>
+  <!-- Right side: search + theme toggle -->
+  <div class="absolute top-4 sm:top-4 right-0 z-10 flex items-center gap-2">
+    <button
+      id="command-bar-trigger"
+      class="flex items-center gap-2 border border-border px-2 py-1 font-mono text-xs text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+      aria-label="Search"
+    >
+      search <kbd class="text-[10px] hidden sm:inline">⌘K</kbd>
+    </button>
+
+    <button
+      id="theme-toggle"
+      class="h-4 w-4 rounded-full border-2 border-muted-foreground bg-foreground transition-transform hover:scale-110 shrink-0"
+      aria-label="Toggle theme"
+    ></button>
+  </div>
 </nav>
 
+<style>
+  @media (max-width: 767px) {
+    .menu {
+      @apply invisible opacity-0;
+    }
+    .menu.is-visible {
+      @apply visible opacity-100 flex flex-col;
+      transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+    }
+    .menu-toggle-icon {
+      transition: width 0.1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+    }
+    .menu-toggle.is-active .menu-toggle-icon {
+      @apply w-0;
+      transition: width 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .menu-toggle-icon:before,
+    .menu-toggle-icon:after {
+      @apply absolute top-0 left-1/2 h-px w-4 origin-center -translate-x-1/2 bg-current;
+      content: '';
+      transition:
+        rotate 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        margin 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+    }
+    .menu-toggle-icon:before {
+      @apply -mt-1.5;
+    }
+    .menu-toggle-icon:after {
+      @apply mt-1.5;
+    }
+    .menu-toggle.is-active .menu-toggle-icon:before,
+    .menu-toggle.is-active .menu-toggle-icon:after {
+      @apply mt-0;
+      transition:
+        margin 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+        rotate 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+    }
+    .menu-toggle.is-active .menu-toggle-icon:before {
+      @apply rotate-45;
+    }
+    .menu-toggle.is-active .menu-toggle-icon:after {
+      @apply -rotate-45;
+    }
+  }
+</style>
+
 <script>
-  const toggle = document.getElementById('theme-toggle');
-  toggle?.addEventListener('click', () => {
+  function menuToggle() {
+    const menu = document.querySelector('.menu');
+    const menuToggleBtn = document.querySelector('.menu-toggle');
+    menuToggleBtn?.addEventListener('click', () => {
+      const isMenuExpanded = menuToggleBtn.getAttribute('aria-expanded') === 'true';
+      menuToggleBtn.classList.toggle('is-active');
+      menuToggleBtn.setAttribute('aria-expanded', isMenuExpanded ? 'false' : 'true');
+      menuToggleBtn.setAttribute('aria-label', isMenuExpanded ? 'Open Menu' : 'Close Menu');
+      menu?.classList.toggle('is-visible');
+    });
+  }
+  menuToggle();
+  document.addEventListener('astro:after-swap', menuToggle);
+
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle?.addEventListener('click', () => {
     const html = document.documentElement;
     let theme: 'dark' | 'light';
     if (html.classList.contains('dark')) {
