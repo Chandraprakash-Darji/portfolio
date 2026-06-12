@@ -108,6 +108,7 @@ export default function CommandBar() {
   const filteredItems = filter
     ? items.filter((item) => item.type === filter)
     : items;
+    console.log(filteredItems)
 
   const groupKeys = Object.keys(GROUPS).filter((type) =>
     filteredItems.some((item) => item.type === type),
@@ -233,7 +234,7 @@ export default function CommandBar() {
                     {item.image ? (
                       <div className="flex items-center gap-3">
                         <img src={item.image} alt="" className="frame-thumb" />
-                        <span>{item.title}</span>
+                        <span className="item-description">{item.description}</span>
                       </div>
                     ) : (
                       <>

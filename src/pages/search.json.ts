@@ -42,6 +42,7 @@ export async function GET() {
     ...framesManifest.map((f, i) => ({
       type: 'frames',
       title: f.pathname.replace(/\.[^.]+$/, ''),
+      description: f.alt,
       image: f.thumbUrl,
       href: `/frames?photoId=${i}`,
     })),

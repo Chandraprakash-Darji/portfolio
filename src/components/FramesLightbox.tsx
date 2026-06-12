@@ -107,15 +107,18 @@ export default function FramesLightbox({ images }: Props) {
         download
       </button>
 
-      {/* Counter */}
+      {/* Counter + subtitle */}
       <div className="absolute bottom-4 left-4 z-10 font-mono text-xs text-muted-foreground">
-        {index + 1} / {images.length}
+        <span>{index + 1} / {images.length}</span>
+        {current.alt && (
+          <span className="ml-3 italic text-muted-foreground/70">{current.alt}</span>
+        )}
       </div>
 
       {/* Image */}
       <img
         src={current.url}
-        alt={current.pathname.split('/').pop()?.replace(/\.[^.]+$/, '') ?? ''}
+        alt={current.alt ?? ''}
         className="max-h-[90vh] max-w-[90vw] object-contain"
         onClick={(e) => e.stopPropagation()}
       />

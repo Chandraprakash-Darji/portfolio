@@ -34,7 +34,7 @@ const images = await getBlobImages();
           >
             <img
               src={img.gridUrl}
-              alt={img.pathname.split('/').pop()?.replace(/\.[^.]+$/, '') ?? ''}
+              alt={img.alt}
               width={img.gridWidth}
               height={img.gridHeight}
               loading="lazy"

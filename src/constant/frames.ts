@@ -10,6 +10,7 @@ export interface FrameEntry {
   gridHeight: number;    // actual height of grid variant
   width: number;         // original width
   height: number;        // original height
+  alt: string;           // AI-generated description
   blurDataUrl: string;   // 10px hash placeholder
 }
 
@@ -23,6 +24,7 @@ export const frames: FrameEntry[] = [
     "gridHeight": 371,
     "width": 3264,
     "height": 1837,
+    "alt": "people wait quietly on a train platform at dusk under steel beams",
     "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQG/8QAIBAAAQMDBQEAAAAAAAAAAAAAAQACEQMEEgUGITFBcv/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAXEQEBAQEAAAAAAAAAAAAAAAABAAIS/9oADAMBAAIRAxEAPwDMWG5rqrFF7GVnAzk8Y8e9Ks6/cAwGCPooiHpkMl//2Q=="
   },
   {
@@ -34,6 +36,7 @@ export const frames: FrameEntry[] = [
     "gridHeight": 371,
     "width": 3264,
     "height": 1837,
+    "alt": "white subway car displays motivational quote against dim tunnel wall",
     "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUG/8QAHhAAAgMAAQUAAAAAAAAAAAAAAQIAAwQFEyEiMVH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAGREBAAMBAQAAAAAAAAAAAAAAAQATcbHR/9oADAMBAAIRAxEAPwDI8VuwE5azjBtV+zhFWSNHMVjTaOgD5n2i/YiABc4dYytZvk//2Q=="
   },
   {
@@ -45,6 +48,7 @@ export const frames: FrameEntry[] = [
     "gridHeight": 371,
     "width": 3264,
     "height": 1837,
+    "alt": "empty train car bathed in warm light with an uplifting quote about belief and progress",
     "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQG/8QAGxAAAgMBAQEAAAAAAAAAAAAAAQIAAxEEITL/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABcRAAMBAAAAAAAAAAAAAAAAAAABAiH/2gAMAwEAAhEDEQA/AMLS/NcotethigNh+vJU3YFYquBQcAFSgAREhp6Mj//Z"
   },
   {
@@ -56,6 +60,7 @@ export const frames: FrameEntry[] = [
     "gridHeight": 371,
     "width": 3264,
     "height": 1837,
+    "alt": "red rose with baby’s breath rests alone on stone, fading city behind, soft light, hopeful yet quiet mood",
     "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAMG/8QAHhAAAgEDBQAAAAAAAAAAAAAAAQMAAgURBBIhNJL/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAFxEBAQEBAAAAAAAAAAAAAAAAAQACIf/aAAwDAQACEQMRAD8Az5vtwpeta3VBe3BJPMqb3q89tvgREJLQcv/Z"
   },
   {
@@ -67,6 +72,7 @@ export const frames: FrameEntry[] = [
     "gridHeight": 371,
     "width": 3264,
     "height": 1837,
+    "alt": "sunlight filters through lush green leaves, casting peace on the quiet forest below",
     "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUG/8QAHxAAAQQBBQEAAAAAAAAAAAAAAgABBBEFAwYhQYHR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQP/xAAYEQACAwAAAAAAAAAAAAAAAAAAAQISMf/aAAwDAQACEQMRAD8AwOMyEXQZiOM5kFuF1Xqpvu6DfME77oQ+IilWLeCf/9k="
   },
   {
@@ -78,6 +84,7 @@ export const frames: FrameEntry[] = [
     "gridHeight": 371,
     "width": 3264,
     "height": 1836,
+    "alt": "dark sky streaks above a lonely rooftop with glowing streetlights humming softly",
     "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQH/8QAHBABAAIBBQAAAAAAAAAAAAAAAQADEQQhIjGR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAwT/xAAYEQADAQEAAAAAAAAAAAAAAAAAAQIRIf/aAAwDAQACEQMRAD8AzLTFFtKNW4d5kqV5eL7ERobc9JqWViP/2Q=="
   },
   {
@@ -89,6 +96,7 @@ export const frames: FrameEntry[] = [
     "gridHeight": 371,
     "width": 3264,
     "height": 1836,
+    "alt": "dusty railway yard at dusk with blue trains and soft shadows",
     "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQG/8QAHxAAAQMDBQAAAAAAAAAAAAAAAQACAwQFEQYhIzHB/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABcRAQEBAQAAAAAAAAAAAAAAAAEAAhH/2gAMAwEAAhEDEQA/AMhpe7SU9ljhZGCGucNye859V5vUmTxNREDpGcDhf//Z"
   },
   {
@@ -100,6 +108,7 @@ export const frames: FrameEntry[] = [
     "gridHeight": 372,
     "width": 4000,
     "height": 2252,
+    "alt": "empty train car bathed in warm light with a loving poem written across it",
     "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQG/8QAHRAAAgICAwEAAAAAAAAAAAAAAQIAAwQRBSFRcf/EABUBAQEAAAAAAAAAAAAAAAAAAAQF/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAERAjH/2gAMAwEAAhEDEQA/AM9i3cfkot9uK+xWAxDnbdfepY/JqljKmlRSQqjHQADyIkrbdglcP//Z"
   },
   {
@@ -111,6 +120,7 @@ export const frames: FrameEntry[] = [
     "gridHeight": 640,
     "width": 640,
     "height": 640,
+    "alt": "a woman with dark hair and a black jacket stands against an abstract background filled with pink and red colors, creating a dramatic atmosphere",
     "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAKAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAABAUGB//EACQQAAIBAwQABwAAAAAAAAAAAAEDAgAEEQUSMUEUIjM0YYHR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgP/xAAZEQEAAgMAAAAAAAAAAAAAAAABAAIDEmH/2gAMAwEAAhEDEQA/AEyLzwqr1xgzexJSuSxwzdIZOT2OT190SvQ7JioT3O80QfbH9qU0lrGWlxGbJSiBkAnIyeTWw6dGI021AiPRh18ChoMuZ7nZ/9k="
   }
 ];
