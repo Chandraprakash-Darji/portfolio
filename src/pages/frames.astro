@@ -1,39 +1,53 @@
 ---
-import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FramesLightbox from '../components/FramesLightbox';
 import { siteConfig } from '../site.config';
+import { getBlobImages } from '../lib/blob-images';
 
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  '../assets/frames/*.{jpg,jpeg,png,webp,avif}',
-  { eager: true },
-);
-
-const frames = Object.entries(images)
-  .map(([path, mod]) => ({
-    img: mod.default,
-    // "2026-01-snow-trail.jpg" -> alt "snow trail"
-    name: path.split('/').pop()!.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ').replace(/^\d{4}\s?\d{0,2}\s?/, '').trim(),
-  }))
-  .sort((a, b) => b.img.src.localeCompare(a.img.src));
+const images = await getBlobImages();
 ---
-<BaseLayout title={`Frames — ${siteConfig.author.name}`} description="photos i capture. full quality, no recompression." ogImage="frames">
+
+<BaseLayout
+  title={`Frames — ${siteConfig.author.name}`}
+  description="photos i capture. full quality, no recompression."
+  ogImage="frames"
+>
   <div class="layout py-20">
     <div class="mb-4 flex items-center justify-between">
       <span class="font-mono text-xs uppercase tracking-widest text-muted-foreground">Frames</span>
-      <span class="font-mono text-xs text-muted-foreground">click any frame for the original file</span>
+      <span class="font-mono text-xs text-muted-foreground"
+        >{images.length} frame{images.length !== 1 ? 's' : ''}</span
+      >
     </div>
 
-    {frames.length === 0 ? (
-      <p class="font-mono text-sm text-muted-foreground">no frames yet.</p>
+    {images.length === 0 ? (
+      <p class="font-mono text-sm text-muted-foreground">
+        no frames yet. upload some to vercel blob.
+      </p>
     ) : (
-      <div class="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>a]:mb-4 [&>a]:block">
-        {frames.map(({ img, name }) => (
-          <a href={img.src} target="_blank" rel="noopener noreferrer" class="break-inside-avoid border border-border transition-colors hover:border-foreground/30">
-            <Image src={img} alt={name} widths={[480, 800]} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" quality="high" loading="lazy" class="w-full" />
-          </a>
+      <div class="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>button]:mb-4 [&>button]:block">
+        {images.map((img, i) => (
+          <button
+            class="break-inside-avoid border border-border w-full text-left transition-colors hover:border-foreground/30 bg-no-repeat bg-cover bg-center"
+            style={`background-image: url(${img.blurDataUrl})`}
+            onclick={`window.__openFramesLightbox?.(${i})`}
+          >
+            <img
+              src={img.url}
+              alt={img.pathname.split('/').pop()?.replace(/\.[^.]+$/, '') ?? ''}
+              width={img.width}
+              height={img.height}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-auto block transition-opacity duration-300"
+              onload="this.style.opacity='1'"
+              style="opacity:0"
+            />
+          </button>
         ))}
       </div>
     )}
   </div>
+
+  <FramesLightbox images={images} client:load />
 </BaseLayout>

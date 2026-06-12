@@ -124,7 +124,6 @@ export default function CommandBar() {
           cursor: pointer;
           display: flex;
           flex-direction: column;
-          gap: 0.125rem;
         }
         [cmdk-item][data-selected="true"] {
           background: hsl(var(--muted));
