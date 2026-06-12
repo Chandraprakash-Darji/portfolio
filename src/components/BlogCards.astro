@@ -28,9 +28,7 @@ if (limit) posts = posts.slice(0, limit);
       <a
         href={`${hrefBase}/${slug}`}
         class="corner-card group relative p-3 flex flex-col bg-card text-card-foreground transition-colors hover:bg-muted/30"
-        data-umami-event="card-click"
-        data-umami-event-collection={collection}
-        data-umami-event-slug={slug}
+        onclick={`window.umami?.track('card-click',{collection:'${collection}',slug:'${slug}'})`}
       >
         <!-- Corner brackets -->
         <span class="corner tl" aria-hidden="true" />

@@ -13,8 +13,7 @@ const links = [
     <a
       href={link.href}
       class="font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
-      data-umami-event="nav-click"
-      data-umami-event-link={link.name}
+      onclick={`window.umami?.track('nav-click',{link:'${link.name}'})`}
     >
       {link.name}
     </a>
