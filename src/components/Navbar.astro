@@ -16,8 +16,16 @@ const links = [
   ))}
 
   <button
+    id="command-bar-trigger"
+    class="ml-auto flex items-center gap-2 border border-border px-2 py-1 font-mono text-xs text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+    aria-label="Search"
+  >
+    search <kbd class="text-[10px]">⌘K</kbd>
+  </button>
+
+  <button
     id="theme-toggle"
-    class="ml-auto h-4 w-4 rounded-full border-2 border-muted-foreground bg-foreground transition-transform hover:scale-110"
+    class="h-4 w-4 rounded-full border-2 border-muted-foreground bg-foreground transition-transform hover:scale-110"
     aria-label="Toggle theme"
   ></button>
 </nav>
@@ -33,5 +41,9 @@ const links = [
       html.classList.add('dark');
       localStorage.setItem('theme', 'dark');
     }
+  });
+
+  document.getElementById('command-bar-trigger')?.addEventListener('click', () => {
+    window.dispatchEvent(new Event('open-command-bar'));
   });
 </script>

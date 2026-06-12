@@ -2,6 +2,7 @@
 import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 import Navbar from '../components/Navbar.astro';
+import CommandBar from '../components/CommandBar';
 import Footer from '../components/Footer.astro';
 import { siteConfig } from '../site.config';
 import '../styles/globals.css';
@@ -68,5 +69,6 @@ const imageUrl = ogImage
       <slot />
     </main>
     <Footer />
+    <CommandBar client:load />
   </body>
 </html>
