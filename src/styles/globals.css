@@ -114,12 +114,10 @@
   /*#region  /**=========== Typography ===========*/
   .h0 {
     @apply font-primary text-3xl font-medium md:text-5xl;
-    background: linear-gradient(
-      121.57deg,
-      hsl(var(--foreground)),
-      hsl(var(--foreground) / 0.66),
-      hsl(var(--foreground) / 0)
-    );
+    background: linear-gradient(121.57deg,
+        hsl(var(--foreground)),
+        hsl(var(--foreground) / 0.66),
+        hsl(var(--foreground) / 0));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -148,6 +146,7 @@
   .p {
     @apply font-primary text-sm md:text-base;
   }
+
   /*#endregion  /**======== Typography ===========*/
 
   .layout {
@@ -178,7 +177,7 @@
 
 @layer utilities {
   .animated-underline {
-    @apply bg-[linear-gradient(#11113300,#11113300),linear-gradient(to_right,hsl(var(--primary)),hsl(var(--primary)))];
+    background-image: linear-gradient(#11113300, #11113300), linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary)));
     background-size:
       100% 2px,
       0 2px;
@@ -187,6 +186,7 @@
       0 100%;
     background-repeat: no-repeat;
   }
+
   @media (prefers-reduced-motion: no-preference) {
     .animated-underline {
       transition: 0.3s ease;
@@ -194,6 +194,7 @@
         background-size, color, background-color, border-color;
     }
   }
+
   .animated-underline:hover,
   .animated-underline:focus-visible {
     background-size:
@@ -207,13 +208,12 @@
 
   /* Keyboard key styling */
   kbd {
-    @apply px-1.5 py-0 pointer-events-none ml-1 inline-flex size-5 items-center justify-center rounded border border-border bg-muted text-[10px] text-muted-foreground;
+    @apply px-1.5 py-0 pointer-events-none ml-1 inline-flex w-5 h-4 items-center justify-center leading-tight border border-border bg-muted text-[10px] text-muted-foreground;
     font-family: 'FiraCodeNerdFont', monospace;
     font-size: 0.75em;
-    line-height: 1.4;
     box-shadow: 0 1px 0 0 hsl(var(--border) / 0.6);
 
-    + kbd {
+    +kbd {
       @apply ml-1;
     }
   }

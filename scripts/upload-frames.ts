@@ -1,17 +1,23 @@
 import { put } from '@vercel/blob';
-import sharp from 'sharp';
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { join, basename } from 'node:path';
+import { join } from 'node:path';
+import sharp from 'sharp';
 
 const FRAMES_DIR = join(import.meta.dirname, '..', 'public', 'frames');
 const MANIFEST_PATH = join(import.meta.dirname, '..', 'src', 'constant', 'frames.ts');
 
+const GRID_WIDTH = 660; // 2x for retina, displayed at 330px
+
 interface FrameEntry {
   pathname: string;
-  url: string;
+  url: string; // original, full quality
+  thumbUrl: string; // 96×72 (2x of 48×36) for command bar
+  gridUrl: string; // 660w, auto height (2x of 330w) for frames page
+  gridWidth: number;
+  gridHeight: number;
   width: number;
   height: number;
-  blurDataUrl: string;
+  blurDataUrl: string; // 10px hash placeholder
 }
 
 async function main() {
@@ -28,19 +34,44 @@ async function main() {
 
   const frames: FrameEntry[] = [];
 
-  for (const file of files.sort()) {
+  for (const file of files.toSorted()) {
     const filePath = join(FRAMES_DIR, file);
     const buf = readFileSync(filePath);
+    const name = file.replace(/\.[^.]+$/, '');
 
     process.stdout.write(`  ${file} (${(buf.length / 1024 / 1024).toFixed(1)}MB)... `);
 
-    // Upload to Vercel Blob
+    // 1. Upload original (full quality, untouched)
     const { url, pathname } = await put(file, buf, {
       access: 'public',
       addRandomSuffix: false,
+      allowOverwrite: true,
     });
 
-    // Generate metadata with sharp
+    // 2. Generate and upload 96×72 thumbnail (2x for command bar, displayed at 48×36)
+    const thumbBuf = await sharp(buf)
+      .resize(192, 192, { fit: 'cover' })
+      .jpeg({ quality: 80 })
+      .toBuffer();
+    const { url: thumbUrl } = await put(`${name}-thumb.jpg`, thumbBuf, {
+      access: 'public',
+      addRandomSuffix: false,
+      allowOverwrite: true,
+    });
+
+    // 3. Generate grid variant — 660px wide (2x of 330px), auto height
+    const gridBuf = await sharp(buf)
+      .resize(GRID_WIDTH, undefined, { fit: 'inside', withoutEnlargement: true })
+      .jpeg({ quality: 85 })
+      .toBuffer();
+    const gridMeta = await sharp(gridBuf).metadata();
+    const { url: gridUrl } = await put(`${name}-grid.jpg`, gridBuf, {
+      access: 'public',
+      addRandomSuffix: false,
+      allowOverwrite: true,
+    });
+
+    // 4. Generate blur hash (10px placeholder)
     const meta = await sharp(buf).metadata();
     const placeholder = await sharp(buf)
       .resize(10)
@@ -50,12 +81,16 @@ async function main() {
     frames.push({
       pathname,
       url,
+      thumbUrl,
+      gridUrl,
+      gridWidth: gridMeta.width ?? GRID_WIDTH,
+      gridHeight: gridMeta.height ?? 0,
       width: meta.width ?? 0,
       height: meta.height ?? 0,
       blurDataUrl: `data:image/jpeg;base64,${placeholder.toString('base64')}`,
     });
 
-    console.log('done');
+    console.log(`done (grid: ${gridMeta.width}×${gridMeta.height})`);
   }
 
   // Write manifest
@@ -64,10 +99,14 @@ async function main() {
 
 export interface FrameEntry {
   pathname: string;
-  url: string;
-  width: number;
-  height: number;
-  blurDataUrl: string;
+  url: string;           // original, full quality
+  thumbUrl: string;      // 96×72 (2x of 48×36) for command bar
+  gridUrl: string;       // 660w auto-height (2x of 330w) for frames page
+  gridWidth: number;     // actual width of grid variant
+  gridHeight: number;    // actual height of grid variant
+  width: number;         // original width
+  height: number;        // original height
+  blurDataUrl: string;   // 10px hash placeholder
 }
 
 export const frames: FrameEntry[] = ${JSON.stringify(frames, null, 2)};

@@ -33,10 +33,10 @@ const images = await getBlobImages();
             onclick={`window.__openFramesLightbox?.(${i})`}
           >
             <img
-              src={img.url}
+              src={img.gridUrl}
               alt={img.pathname.split('/').pop()?.replace(/\.[^.]+$/, '') ?? ''}
-              width={img.width}
-              height={img.height}
+              width={img.gridWidth}
+              height={img.gridHeight}
               loading="lazy"
               decoding="async"
               class="w-full h-auto block transition-opacity duration-300"
@@ -51,3 +51,16 @@ const images = await getBlobImages();
 
   <FramesLightbox images={images} client:load />
 </BaseLayout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const photoId = params.get('photoId');
+  if (photoId) {
+    const check = setInterval(() => {
+      if (window.__openFramesLightbox) {
+        window.__openFramesLightbox(parseInt(photoId));
+        clearInterval(check);
+      }
+    }, 50);
+  }
+</script>
