@@ -2,7 +2,13 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import sharp from 'sharp';
 
-const MANIFEST_PATH = join(import.meta.dirname, '..', 'src', 'constant', 'frames.ts');
+const MANIFEST_PATH = join(
+  import.meta.dirname,
+  '..',
+  'src',
+  'constant',
+  'frames.ts',
+);
 const LM_STUDIO = 'http://localhost:1234/api/v1/chat';
 const VISION_MODEL = 'qwen/qwen3.5-9b';
 
@@ -47,12 +53,18 @@ async function describeImage(url: string): Promise<string> {
     ?.content?.trim();
 
   if (!desc || desc.length < 3) throw new Error('empty description');
-  return desc.replace(/^["']|["']$/g, '').replace(/\.$/, '').toLowerCase().trim();
+  return desc
+    .replace(/^["']|["']$/g, '')
+    .replace(/\.$/, '')
+    .toLowerCase()
+    .trim();
 }
 
 function isFallback(alt: string): boolean {
   // Fallbacks are filename-derived: timestamps, "Frame NNN", partial numbers
-  return /^\d{8}_\d{6}$/.test(alt) || /^\d+$/.test(alt) || alt.startsWith('Frame ');
+  return (
+    /^\d{8}_\d{6}$/.test(alt) || /^\d+$/.test(alt) || alt.startsWith('Frame ')
+  );
 }
 
 async function main() {
@@ -67,7 +79,9 @@ async function main() {
     return;
   }
 
-  console.log(`${pending.length} of ${frames.length} frames need descriptions.\n`);
+  console.log(
+    `${pending.length} of ${frames.length} frames need descriptions.\n`,
+  );
 
   for (const [i, frame] of pending.entries()) {
     const name = frame.pathname;

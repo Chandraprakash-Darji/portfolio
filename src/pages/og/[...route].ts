@@ -25,7 +25,8 @@ const pages: Record<string, { title: string; description?: string }> = {
   },
   projects: {
     title: 'Projects',
-    description: 'case studies — what i built and the decisions behind it',},
+    description: 'case studies — what i built and the decisions behind it',
+  },
   frames: {
     title: 'Frames',
     description: 'photos i capture. full quality, no recompression.',

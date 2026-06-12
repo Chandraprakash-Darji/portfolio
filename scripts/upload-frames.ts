@@ -4,7 +4,13 @@ import { join } from 'node:path';
 import sharp from 'sharp';
 
 const FRAMES_DIR = join(import.meta.dirname, '..', 'public', 'frames');
-const MANIFEST_PATH = join(import.meta.dirname, '..', 'src', 'constant', 'frames.ts');
+const MANIFEST_PATH = join(
+  import.meta.dirname,
+  '..',
+  'src',
+  'constant',
+  'frames.ts',
+);
 const LM_STUDIO = 'http://localhost:1234/api/v1/chat';
 const VISION_MODEL = 'qwen/qwen3.5-9b';
 
@@ -23,10 +29,14 @@ interface FrameEntry {
   blurDataUrl: string;
 }
 
-async function describeImage(buf: Buffer, mimeType: string, filename: string): Promise<string> {
+async function describeImage(
+  buf: Buffer,
+  mimeType: string,
+  filename: string,
+): Promise<string> {
   // Generate a cleaned fallback from the filename
   const fallback = filename
-    .replace(/^\d{8}_\d{6}[_-]?/, '')  // strip timestamp prefix
+    .replace(/^\d{8}_\d{6}[_-]?/, '') // strip timestamp prefix
     .replace(/^IMG_\d{8}_\d{6}[_-]?/, '') // strip IMG_ prefix
     .replace(/[-_]/g, ' ')
     .replace(/\.[^.]+$/, '')
@@ -100,7 +110,9 @@ async function main() {
     return;
   }
 
-  console.log(`Uploading ${files.length} frame${files.length > 1 ? 's' : ''}...`);
+  console.log(
+    `Uploading ${files.length} frame${files.length > 1 ? 's' : ''}...`,
+  );
 
   const frames: FrameEntry[] = [];
 
@@ -109,9 +121,18 @@ async function main() {
     const buf = readFileSync(filePath);
     const ext = file.split('.').pop()?.toLowerCase() ?? 'jpg';
     const name = file.replace(/\.[^.]+$/, '');
-    const mimeType = ext === 'png' ? 'image/png' : ext === 'webp' ? 'image/webp' : ext === 'avif' ? 'image/avif' : 'image/jpeg';
+    const mimeType =
+      ext === 'png'
+        ? 'image/png'
+        : ext === 'webp'
+          ? 'image/webp'
+          : ext === 'avif'
+            ? 'image/avif'
+            : 'image/jpeg';
 
-    process.stdout.write(`  [${idx + 1}/${files.length}] ${file} (${(buf.length / 1024 / 1024).toFixed(1)}MB)... `);
+    process.stdout.write(
+      `  [${idx + 1}/${files.length}] ${file} (${(buf.length / 1024 / 1024).toFixed(1)}MB)... `,
+    );
 
     // Generate description via local vision model
     const alt = await describeImage(buf, mimeType, file);
@@ -137,7 +158,10 @@ async function main() {
 
     // 3. Generate grid variant — 660px wide, auto height
     const gridBuf = await sharp(buf)
-      .resize(GRID_WIDTH, undefined, { fit: 'inside', withoutEnlargement: true })
+      .resize(GRID_WIDTH, undefined, {
+        fit: 'inside',
+        withoutEnlargement: true,
+      })
       .jpeg({ quality: 85 })
       .toBuffer();
     const gridMeta = await sharp(gridBuf).metadata();

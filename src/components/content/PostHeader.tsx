@@ -234,7 +234,9 @@ function DocShareMenu({ title, url }: { title: string; url: string }) {
               onClick={() => {
                 copyText(absoluteUrl);
                 toast.success('Link copied');
-                (window as any).umami?.track('post-share', { method: 'copy-link' });
+                (window as any).umami?.track('post-share', {
+                  method: 'copy-link',
+                });
                 setOpen(false);
               }}
             >
@@ -273,7 +275,9 @@ function DocShareMenu({ title, url }: { title: string; url: string }) {
                 className="flex w-full items-center gap-2 px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground transition-colors whitespace-nowrap"
                 onClick={(e) => {
                   e.preventDefault();
-                  (window as any).umami?.track('post-share', { method: 'native' });
+                  (window as any).umami?.track('post-share', {
+                    method: 'native',
+                  });
                   navigator.share({ title, url: absoluteUrl }).catch(() => {});
                 }}
               >
@@ -306,7 +310,11 @@ export function PostHeader({
         size="sm"
         asChild
       >
-        <a href={backHref} data-umami-event="post-nav" data-umami-event-direction="back">
+        <a
+          href={backHref}
+          data-umami-event="post-nav"
+          data-umami-event-direction="back"
+        >
           <ArrowLeftIcon className="size-3.5" />
           {backLabel}
         </a>
@@ -329,7 +337,11 @@ export function PostHeader({
               asChild
               aria-label="Previous Post"
             >
-              <a href={`/writing/${previous.slug}`} data-umami-event="post-nav" data-umami-event-direction="prev">
+              <a
+                href={`/writing/${previous.slug}`}
+                data-umami-event="post-nav"
+                data-umami-event-direction="prev"
+              >
                 <ArrowLeftIcon className="size-3.5" />
               </a>
             </Button>
@@ -348,7 +360,11 @@ export function PostHeader({
               asChild
               aria-label="Next Post"
             >
-              <a href={`/writing/${next.slug}`} data-umami-event="post-nav" data-umami-event-direction="next">
+              <a
+                href={`/writing/${next.slug}`}
+                data-umami-event="post-nav"
+                data-umami-event-direction="next"
+              >
                 <ArrowRightIcon className="size-3.5" />
               </a>
             </Button>

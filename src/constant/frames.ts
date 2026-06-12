@@ -3,124 +3,151 @@
 
 export interface FrameEntry {
   pathname: string;
-  url: string;           // original, full quality
-  thumbUrl: string;      // 96×72 (2x of 48×36) for command bar
-  gridUrl: string;       // 660w auto-height (2x of 330w) for frames page
-  gridWidth: number;     // actual width of grid variant
-  gridHeight: number;    // actual height of grid variant
-  width: number;         // original width
-  height: number;        // original height
-  alt: string;           // AI-generated description
-  blurDataUrl: string;   // 10px hash placeholder
+  url: string; // original, full quality
+  thumbUrl: string; // 96×72 (2x of 48×36) for command bar
+  gridUrl: string; // 660w auto-height (2x of 330w) for frames page
+  gridWidth: number; // actual width of grid variant
+  gridHeight: number; // actual height of grid variant
+  width: number; // original width
+  height: number; // original height
+  alt: string; // AI-generated description
+  blurDataUrl: string; // 10px hash placeholder
 }
 
 export const frames: FrameEntry[] = [
   {
-    "pathname": "20240706_025802.jpg",
-    "url": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_025802.jpg",
-    "thumbUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_025802-thumb.jpg",
-    "gridUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_025802-grid.jpg",
-    "gridWidth": 660,
-    "gridHeight": 371,
-    "width": 3264,
-    "height": 1837,
-    "alt": "people wait quietly on a train platform at dusk under steel beams",
-    "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQG/8QAIBAAAQMDBQEAAAAAAAAAAAAAAQACEQMEEgUGITFBcv/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAXEQEBAQEAAAAAAAAAAAAAAAABAAIS/9oADAMBAAIRAxEAPwDMWG5rqrFF7GVnAzk8Y8e9Ks6/cAwGCPooiHpkMl//2Q=="
+    pathname: '20240706_025802.jpg',
+    url: 'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_025802.jpg',
+    thumbUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_025802-thumb.jpg',
+    gridUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_025802-grid.jpg',
+    gridWidth: 660,
+    gridHeight: 371,
+    width: 3264,
+    height: 1837,
+    alt: 'people wait quietly on a train platform at dusk under steel beams',
+    blurDataUrl:
+      'data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQG/8QAIBAAAQMDBQEAAAAAAAAAAAAAAQACEQMEEgUGITFBcv/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAXEQEBAQEAAAAAAAAAAAAAAAABAAIS/9oADAMBAAIRAxEAPwDMWG5rqrFF7GVnAzk8Y8e9Ks6/cAwGCPooiHpkMl//2Q==',
   },
   {
-    "pathname": "20240706_030020.jpg",
-    "url": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030020.jpg",
-    "thumbUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030020-thumb.jpg",
-    "gridUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030020-grid.jpg",
-    "gridWidth": 660,
-    "gridHeight": 371,
-    "width": 3264,
-    "height": 1837,
-    "alt": "white subway car displays motivational quote against dim tunnel wall",
-    "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUG/8QAHhAAAgMAAQUAAAAAAAAAAAAAAQIAAwQFEyEiMVH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAGREBAAMBAQAAAAAAAAAAAAAAAQATcbHR/9oADAMBAAIRAxEAPwDI8VuwE5azjBtV+zhFWSNHMVjTaOgD5n2i/YiABc4dYytZvk//2Q=="
+    pathname: '20240706_030020.jpg',
+    url: 'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030020.jpg',
+    thumbUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030020-thumb.jpg',
+    gridUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030020-grid.jpg',
+    gridWidth: 660,
+    gridHeight: 371,
+    width: 3264,
+    height: 1837,
+    alt: 'white subway car displays motivational quote against dim tunnel wall',
+    blurDataUrl:
+      'data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUG/8QAHhAAAgMAAQUAAAAAAAAAAAAAAQIAAwQFEyEiMVH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAGREBAAMBAQAAAAAAAAAAAAAAAQATcbHR/9oADAMBAAIRAxEAPwDI8VuwE5azjBtV+zhFWSNHMVjTaOgD5n2i/YiABc4dYytZvk//2Q==',
   },
   {
-    "pathname": "20240706_030040.jpg",
-    "url": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030040.jpg",
-    "thumbUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030040-thumb.jpg",
-    "gridUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030040-grid.jpg",
-    "gridWidth": 660,
-    "gridHeight": 371,
-    "width": 3264,
-    "height": 1837,
-    "alt": "empty train car bathed in warm light with an uplifting quote about belief and progress",
-    "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQG/8QAGxAAAgMBAQEAAAAAAAAAAAAAAQIAAxEEITL/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABcRAAMBAAAAAAAAAAAAAAAAAAABAiH/2gAMAwEAAhEDEQA/AMLS/NcotethigNh+vJU3YFYquBQcAFSgAREhp6Mj//Z"
+    pathname: '20240706_030040.jpg',
+    url: 'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030040.jpg',
+    thumbUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030040-thumb.jpg',
+    gridUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030040-grid.jpg',
+    gridWidth: 660,
+    gridHeight: 371,
+    width: 3264,
+    height: 1837,
+    alt: 'empty train car bathed in warm light with an uplifting quote about belief and progress',
+    blurDataUrl:
+      'data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQG/8QAGxAAAgMBAQEAAAAAAAAAAAAAAQIAAxEEITL/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABcRAAMBAAAAAAAAAAAAAAAAAAABAiH/2gAMAwEAAhEDEQA/AMLS/NcotethigNh+vJU3YFYquBQcAFSgAREhp6Mj//Z',
   },
   {
-    "pathname": "20240706_030056.jpg",
-    "url": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030056.jpg",
-    "thumbUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030056-thumb.jpg",
-    "gridUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030056-grid.jpg",
-    "gridWidth": 660,
-    "gridHeight": 371,
-    "width": 3264,
-    "height": 1837,
-    "alt": "red rose with baby’s breath rests alone on stone, fading city behind, soft light, hopeful yet quiet mood",
-    "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAMG/8QAHhAAAgEDBQAAAAAAAAAAAAAAAQMAAgURBBIhNJL/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAFxEBAQEBAAAAAAAAAAAAAAAAAQACIf/aAAwDAQACEQMRAD8Az5vtwpeta3VBe3BJPMqb3q89tvgREJLQcv/Z"
+    pathname: '20240706_030056.jpg',
+    url: 'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030056.jpg',
+    thumbUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030056-thumb.jpg',
+    gridUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240706_030056-grid.jpg',
+    gridWidth: 660,
+    gridHeight: 371,
+    width: 3264,
+    height: 1837,
+    alt: 'red rose with baby’s breath rests alone on stone, fading city behind, soft light, hopeful yet quiet mood',
+    blurDataUrl:
+      'data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAMG/8QAHhAAAgEDBQAAAAAAAAAAAAAAAQMAAgURBBIhNJL/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAFxEBAQEBAAAAAAAAAAAAAAAAAQACIf/aAAwDAQACEQMRAD8Az5vtwpeta3VBe3BJPMqb3q89tvgREJLQcv/Z',
   },
   {
-    "pathname": "20240709_052619.jpg",
-    "url": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052619.jpg",
-    "thumbUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052619-thumb.jpg",
-    "gridUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052619-grid.jpg",
-    "gridWidth": 660,
-    "gridHeight": 371,
-    "width": 3264,
-    "height": 1837,
-    "alt": "sunlight filters through lush green leaves, casting peace on the quiet forest below",
-    "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUG/8QAHxAAAQQBBQEAAAAAAAAAAAAAAgABBBEFAwYhQYHR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQP/xAAYEQACAwAAAAAAAAAAAAAAAAAAAQISMf/aAAwDAQACEQMRAD8AwOMyEXQZiOM5kFuF1Xqpvu6DfME77oQ+IilWLeCf/9k="
+    pathname: '20240709_052619.jpg',
+    url: 'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052619.jpg',
+    thumbUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052619-thumb.jpg',
+    gridUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052619-grid.jpg',
+    gridWidth: 660,
+    gridHeight: 371,
+    width: 3264,
+    height: 1837,
+    alt: 'sunlight filters through lush green leaves, casting peace on the quiet forest below',
+    blurDataUrl:
+      'data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUG/8QAHxAAAQQBBQEAAAAAAAAAAAAAAgABBBEFAwYhQYHR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQP/xAAYEQACAwAAAAAAAAAAAAAAAAAAAQISMf/aAAwDAQACEQMRAD8AwOMyEXQZiOM5kFuF1Xqpvu6DfME77oQ+IilWLeCf/9k=',
   },
   {
-    "pathname": "20240709_052624.jpg",
-    "url": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052624.jpg",
-    "thumbUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052624-thumb.jpg",
-    "gridUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052624-grid.jpg",
-    "gridWidth": 660,
-    "gridHeight": 371,
-    "width": 3264,
-    "height": 1836,
-    "alt": "dark sky streaks above a lonely rooftop with glowing streetlights humming softly",
-    "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQH/8QAHBABAAIBBQAAAAAAAAAAAAAAAQADEQQhIjGR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAwT/xAAYEQADAQEAAAAAAAAAAAAAAAAAAQIRIf/aAAwDAQACEQMRAD8AzLTFFtKNW4d5kqV5eL7ERobc9JqWViP/2Q=="
+    pathname: '20240709_052624.jpg',
+    url: 'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052624.jpg',
+    thumbUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052624-thumb.jpg',
+    gridUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052624-grid.jpg',
+    gridWidth: 660,
+    gridHeight: 371,
+    width: 3264,
+    height: 1836,
+    alt: 'dark sky streaks above a lonely rooftop with glowing streetlights humming softly',
+    blurDataUrl:
+      'data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQH/8QAHBABAAIBBQAAAAAAAAAAAAAAAQADEQQhIjGR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAwT/xAAYEQADAQEAAAAAAAAAAAAAAAAAAQIRIf/aAAwDAQACEQMRAD8AzLTFFtKNW4d5kqV5eL7ERobc9JqWViP/2Q==',
   },
   {
-    "pathname": "20240709_052720.jpg",
-    "url": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052720.jpg",
-    "thumbUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052720-thumb.jpg",
-    "gridUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052720-grid.jpg",
-    "gridWidth": 660,
-    "gridHeight": 371,
-    "width": 3264,
-    "height": 1836,
-    "alt": "dusty railway yard at dusk with blue trains and soft shadows",
-    "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQG/8QAHxAAAQMDBQAAAAAAAAAAAAAAAQACAwQFEQYhIzHB/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABcRAQEBAQAAAAAAAAAAAAAAAAEAAhH/2gAMAwEAAhEDEQA/AMhpe7SU9ljhZGCGucNye859V5vUmTxNREDpGcDhf//Z"
+    pathname: '20240709_052720.jpg',
+    url: 'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052720.jpg',
+    thumbUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052720-thumb.jpg',
+    gridUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/20240709_052720-grid.jpg',
+    gridWidth: 660,
+    gridHeight: 371,
+    width: 3264,
+    height: 1836,
+    alt: 'dusty railway yard at dusk with blue trains and soft shadows',
+    blurDataUrl:
+      'data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQG/8QAHxAAAQMDBQAAAAAAAAAAAAAAAQACAwQFEQYhIzHB/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABcRAQEBAQAAAAAAAAAAAAAAAAEAAhH/2gAMAwEAAhEDEQA/AMhpe7SU9ljhZGCGucNye859V5vUmTxNREDpGcDhf//Z',
   },
   {
-    "pathname": "Frame 102.png",
-    "url": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/Frame%20102.png",
-    "thumbUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/Frame%20102-thumb.jpg",
-    "gridUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/Frame%20102-grid.jpg",
-    "gridWidth": 660,
-    "gridHeight": 372,
-    "width": 4000,
-    "height": 2252,
-    "alt": "empty train car bathed in warm light with a loving poem written across it",
-    "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQG/8QAHRAAAgICAwEAAAAAAAAAAAAAAQIAAwQRBSFRcf/EABUBAQEAAAAAAAAAAAAAAAAAAAQF/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAERAjH/2gAMAwEAAhEDEQA/AM9i3cfkot9uK+xWAxDnbdfepY/JqljKmlRSQqjHQADyIkrbdglcP//Z"
+    pathname: 'Frame 102.png',
+    url: 'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/Frame%20102.png',
+    thumbUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/Frame%20102-thumb.jpg',
+    gridUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/Frame%20102-grid.jpg',
+    gridWidth: 660,
+    gridHeight: 372,
+    width: 4000,
+    height: 2252,
+    alt: 'empty train car bathed in warm light with a loving poem written across it',
+    blurDataUrl:
+      'data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAGAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQG/8QAHRAAAgICAwEAAAAAAAAAAAAAAQIAAwQRBSFRcf/EABUBAQEAAAAAAAAAAAAAAAAAAAQF/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAERAjH/2gAMAwEAAhEDEQA/AM9i3cfkot9uK+xWAxDnbdfepY/JqljKmlRSQqjHQADyIkrbdglcP//Z',
   },
   {
-    "pathname": "IMG_20230110_225252_018.jpg",
-    "url": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/IMG_20230110_225252_018.jpg",
-    "thumbUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/IMG_20230110_225252_018-thumb.jpg",
-    "gridUrl": "https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/IMG_20230110_225252_018-grid.jpg",
-    "gridWidth": 640,
-    "gridHeight": 640,
-    "width": 640,
-    "height": 640,
-    "alt": "a woman with dark hair and a black jacket stands against an abstract background filled with pink and red colors, creating a dramatic atmosphere",
-    "blurDataUrl": "data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAKAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAABAUGB//EACQQAAIBAwQABwAAAAAAAAAAAAEDAgAEEQUSMUEUIjM0YYHR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgP/xAAZEQEAAgMAAAAAAAAAAAAAAAABAAIDEmH/2gAMAwEAAhEDEQA/AEyLzwqr1xgzexJSuSxwzdIZOT2OT190SvQ7JioT3O80QfbH9qU0lrGWlxGbJSiBkAnIyeTWw6dGI021AiPRh18ChoMuZ7nZ/9k="
-  }
+    pathname: 'IMG_20230110_225252_018.jpg',
+    url: 'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/IMG_20230110_225252_018.jpg',
+    thumbUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/IMG_20230110_225252_018-thumb.jpg',
+    gridUrl:
+      'https://bqenrwfsnf6wuctr.public.blob.vercel-storage.com/IMG_20230110_225252_018-grid.jpg',
+    gridWidth: 640,
+    gridHeight: 640,
+    width: 640,
+    height: 640,
+    alt: 'a woman with dark hair and a black jacket stands against an abstract background filled with pink and red colors, creating a dramatic atmosphere',
+    blurDataUrl:
+      'data:image/jpeg;base64,/9j/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAAKAAoDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAABAUGB//EACQQAAIBAwQABwAAAAAAAAAAAAEDAgAEEQUSMUEUIjM0YYHR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgP/xAAZEQEAAgMAAAAAAAAAAAAAAAABAAIDEmH/2gAMAwEAAhEDEQA/AEyLzwqr1xgzexJSuSxwzdIZOT2OT190SvQ7JioT3O80QfbH9qU0lrGWlxGbJSiBkAnIyeTWw6dGI021AiPRh18ChoMuZ7nZ/9k=',
+  },
 ];
