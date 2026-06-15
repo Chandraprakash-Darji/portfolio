@@ -54,8 +54,8 @@ export default defineConfig({
     }),
     umami({
       id: '20fc61c2-6c23-40a3-9a46-5c215e1ca9f0',
-      endpointUrl: 'https://unami-kohl.vercel.app',
-      hostUrl: 'https://unami-kohl.vercel.app',
+      endpointUrl: 'https://unami.rega.run',
+      hostUrl: 'https://unami.rega.run',
     }),
   ],
   adapter: vercel(),

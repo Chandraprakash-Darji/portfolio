@@ -5,6 +5,6 @@ export const links = [
   },
   {
     name: 'analytics',
-    href: 'https://unami-kohl.vercel.app/share/Ltp2RrV5Q9i3Dn5H/Chandraprakash',
+    href: 'https://unami.rega.run/share/Ltp2RrV5Q9i3Dn5H/Chandraprakash',
   },
 ];
