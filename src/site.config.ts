@@ -1,5 +1,5 @@
 export const siteConfig = {
-  url: 'https://chandraprakash.vercel.app',
+  url: 'https://www.elregaldo.com',
   title: 'Chandraprakash Darji',
   description: 'Full-stack developer. I build things and write about them.',
   author: {

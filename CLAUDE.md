@@ -73,4 +73,4 @@ Blog post assets follow the pattern `/public/writing/{slug}/...`. Each post's SV
 
 ### Site config
 
-`src/site.config.ts` exports `siteConfig` with url, title, description, and author info. The URL defaults to `https://chandraprakash.vercel.app` and can be overridden via `NEXT_PUBLIC_WEB_URL` env var.
+`src/site.config.ts` exports `siteConfig` with url, title, description, and author info. The URL defaults to `https://www.elregaldo.com` and can be overridden via `NEXT_PUBLIC_WEB_URL` env var.
