@@ -6,4 +6,7 @@ export const siteConfig = {
     name: 'Chandraprakash Darji',
     twitterUrl: 'https://twitter.com/chandra_7852',
   },
+  // Flip to false to hide the "available for work" badge and CTA.
+  availableForWork: true,
+  calLink: 'https://cal.com/chandra-prakash/15min',
 };

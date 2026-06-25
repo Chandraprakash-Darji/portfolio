@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  limit?: number;
+}
+
+const { limit } = Astro.props;
+
+const all = await getCollection('projects');
+let projects = all
+  .filter((p) => p.data.published !== false)
+  .toSorted((a, b) => {
+    // featured first, then year desc
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
+    return b.data.year.localeCompare(a.data.year);
+  });
+
+if (limit) projects = projects.slice(0, limit);
+---
+
+<div class="space-y-4">
+  {projects.length > 0 ? (
+    projects.map((project) => {
+      const slug = project.id.replace(/\.mdx$/, '');
+      const { title, description, year, status, stack = [] } = project.data;
+      return (
+        <a
+          href={`/projects/${slug}`}
+          class="group block rounded-lg border border-border p-4 transition-colors hover:bg-muted/30"
+          onclick={`window.umami?.track('project-open',{slug:'${slug}'})`}
+        >
+          <div class="flex flex-col gap-2">
+            <h3 class="text-sm font-medium leading-snug text-foreground group-hover:text-primary transition-colors">
+              {title}
+            </h3>
+            {description && (
+              <p class="line-clamp-2 text-xs text-muted-foreground">{description}</p>
+            )}
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px] text-muted-foreground/60">
+              <span>{year}</span>
+              <span aria-hidden="true">·</span>
+              <span>{status}</span>
+              {stack.length > 0 && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  {stack.map((tech) => (
+                    <span>{tech}</span>
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
+        </a>
+      );
+    })
+  ) : (
+    <p class="font-mono text-xs text-muted-foreground">nothing published yet.</p>
+  )}
+</div>

@@ -2,12 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WritingSection from '../components/WritingSection.astro';
 import BlogCards from '../components/BlogCards.astro';
+import ProjectCards from '../components/ProjectCards.astro';
 import NowSection from "../components/NowSection.astro";
 import ArrowLink from '../components/links/ArrowLink';
 import { Icons } from '../components/icons';
 import { LiveClock } from '../components/hero/LiveClock';
+import { NamePronunciation } from '../components/hero/NamePronunciation';
 import { siteConfig } from '../site.config';
-import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
+import { Code2, MapPin, Mail, Link, User, Calendar } from 'lucide-react';
 ---
 
 <BaseLayout ogImage="home">
@@ -28,7 +30,23 @@ import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
           <h1 class="text-xl font-bold tracking-tight"
           >{siteConfig.author.name}</h1>
           <p class="mt-0.5 font-mono text-sm text-muted-foreground">Software Engineer</p>
+          <!-- <NamePronunciation
+            client:load
+            name={siteConfig.author.name}
+            phonetic="chan-druh-pruh-KAASH DAR-jee"
+            audioSrc="/name.mp3" 
+          />-->
         </div>
+
+        {siteConfig.availableForWork && (
+          <span class="ml-auto inline-flex shrink-0 items-center gap-2 border border-border bg-muted/30 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            <span class="relative flex h-1.5 w-1.5" aria-hidden="true">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+              <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary"></span>
+            </span>
+            Available for work
+          </span>
+        )}
       </div>
 
       <!-- Info grid: 2 columns -->
@@ -104,6 +122,19 @@ import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
           <Icons.github className="h-3.5 w-3.5" />
         </a>
 
+        {siteConfig.availableForWork && (
+          <a
+            href={siteConfig.calLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ml-auto inline-flex items-center gap-1.5 border border-foreground bg-foreground px-3 py-1.5 font-mono text-xs text-background transition-opacity hover:opacity-90"
+            data-umami-event="cta-click"
+            data-umami-event-name="book-a-call"
+          >
+            <Calendar size={13} className="shrink-0" />
+            Book a call
+          </a>
+        )}
       </div>
     </section>
 
@@ -117,6 +148,38 @@ import { Code2, MapPin, Mail, Link, User } from 'lucide-react';
         <p>i build <strong class="text-foreground">backends that hold under load</strong> and pick the tool that fits the actual scale — not the one everyone's writing about.</p>
         <p>i write about the decisions that don't make it into the README. the <strong class="text-foreground">architecture calls</strong>, the cost mistakes, the things you only figure out by shipping.</p>
       </div>
+    </section>
+
+    <!-- Work -->
+    <section>
+      <div class="mb-3 flex items-center justify-between">
+        <span class="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          Work
+        </span>
+        <ArrowLink href="/projects" className="font-mono text-xs text-muted-foreground hover:text-foreground" data-umami-event="nav-click" data-umami-event-link="all projects">
+          all projects
+        </ArrowLink>
+      </div>
+      <ProjectCards limit={3} />
+      {siteConfig.availableForWork && (
+        <div class="mt-5 flex flex-col gap-3 rounded-lg border border-border p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm font-medium text-foreground">Have something to build?</p>
+            <p class="mt-0.5 text-xs text-muted-foreground">I'm currently open to freelance and contract work.</p>
+          </div>
+          <a
+            href={siteConfig.calLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex shrink-0 items-center justify-center gap-1.5 border border-foreground bg-foreground px-3 py-1.5 font-mono text-xs text-background transition-opacity hover:opacity-90"
+            data-umami-event="cta-click"
+            data-umami-event-name="book-a-call-work"
+          >
+            <Calendar size={13} className="shrink-0" />
+            Book a call
+          </a>
+        </div>
+      )}
     </section>
 
     <!-- Writing -->
