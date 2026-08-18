@@ -40,6 +40,9 @@
     --input: 240 6% 90%;
     --ring: 346.8 77.2% 49.8%;
     --radius: 0rem;
+    /* TUI design system — single blue accent + status colors */
+    --accent-blue: 212 100% 45%;
+    --success: 145 100% 33%;
   }
 
   .dark {
@@ -63,6 +66,9 @@
     --input: 217 33% 17%;
     --ring: 346.8 77.2% 49.8%;
     --radius: 0rem;
+    /* TUI design system — single blue accent + status colors */
+    --accent-blue: 212 100% 55%;
+    --success: 145 72% 47%;
   }
 }
 
@@ -175,6 +181,45 @@
   .min-h-main {
     @apply min-h-[calc(100vh-56px)];
   }
+
+  /*#region  /**=========== TUI design system (home page) ===========*/
+
+  /* Panel with a title interrupting the top border: ┌─ title ──┐ */
+  .tui-panel {
+    @apply relative border border-border;
+  }
+
+  .tui-panel > .tui-title {
+    @apply absolute left-3 top-0 -translate-y-1/2 bg-background px-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground;
+  }
+
+  /* Section divider: ──── · ──── */
+  .tui-divider {
+    @apply flex items-center justify-center gap-3 text-muted-foreground;
+  }
+  .tui-divider::before,
+  .tui-divider::after {
+    content: '';
+    @apply h-px w-full max-w-[6rem] bg-border;
+  }
+
+  /* Single blue accent, scoped to the home page only */
+  .tui-home {
+    --primary: var(--accent-blue);
+  }
+  .tui-home .accent-link {
+    @apply text-muted-foreground transition-colors;
+    color: hsl(var(--muted-foreground));
+  }
+  .tui-home .accent-link:hover {
+    color: hsl(var(--accent-blue));
+  }
+
+  /* Status bar: left-aligned info ─ right-aligned status */
+  .tui-statusbar {
+    @apply flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-border pt-3 font-mono text-[10px] text-muted-foreground/70;
+  }
+  /*#endregion  /**======== TUI design system ===========*/
 }
 
 @layer utilities {

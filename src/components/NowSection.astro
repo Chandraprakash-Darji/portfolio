@@ -5,14 +5,18 @@ const updated = new Date(now.updatedAt)
   .toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
   .toLowerCase();
 ---
-<section>
-  <div class="mb-1 flex items-center justify-between">
-    <span class="font-mono text-xs uppercase tracking-widest text-muted-foreground">Now</span>
-    <span class="font-mono text-xs text-muted-foreground">updated {updated}</span>
+<section class="tui-panel">
+  <span class="tui-title">now</span>
+  <div class="flex items-center justify-between border-b border-border px-3 py-2 pt-3">
+    <span class="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">what i'm focused on</span>
+    <span class="font-mono text-[10px] text-muted-foreground/70">updated {updated}</span>
   </div>
-  <ul class="divide-y divide-border border border-border">
+  <ul class="divide-y divide-border">
     {now.items.map((item) => (
-      <li class="px-3 py-2.5 font-mono text-sm text-muted-foreground">{item}</li>
+      <li class="flex items-start gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
+        <span class="select-none text-foreground/40" aria-hidden="true">·</span>
+        <span>{item}</span>
+      </li>
     ))}
   </ul>
 </section>
