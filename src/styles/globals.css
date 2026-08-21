@@ -19,56 +19,58 @@
 }
 
 @layer base {
+  /* Catppuccin Latte (light counterpart of Mocha) */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 235 18% 10%;
-    --card: 0 0% 98%;
-    --card-foreground: 235 18% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 235 18% 10%;
-    --primary: 346.8 77.2% 49.8%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 240 4% 46%;
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
-    --accent: 240 5% 96%;
-    --accent-foreground: 235 18% 10%;
-    --destructive: 349 64% 55%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 346.8 77.2% 49.8%;
+    --background: 220 23% 95%; /* Base */
+    --foreground: 234 16% 35%; /* Text */
+    --card: 223 24% 92%; /* Mantle */
+    --card-foreground: 234 16% 35%; /* Text */
+    --popover: 220 23% 95%; /* Base */
+    --popover-foreground: 234 16% 35%; /* Text */
+    --primary: 266 85% 58%; /* Mauve */
+    --primary-foreground: 220 23% 95%; /* Base */
+    --secondary: 228 22% 83%; /* Surface0 */
+    --secondary-foreground: 233 14% 48%; /* Subtext0 */
+    --muted: 228 22% 83%; /* Surface0 */
+    --muted-foreground: 233 14% 48%; /* Subtext0 */
+    --accent: 228 22% 83%; /* Surface0 */
+    --accent-foreground: 234 16% 35%; /* Text */
+    --destructive: 347 87% 44%; /* Red */
+    --destructive-foreground: 220 23% 95%; /* Base */
+    --border: 229 17% 77%; /* Surface1 */
+    --input: 229 17% 77%; /* Surface1 */
+    --ring: 266 85% 58%; /* Mauve */
     --radius: 0rem;
     /* TUI design system — single blue accent + status colors */
-    --accent-blue: 212 100% 45%;
-    --success: 145 100% 33%;
+    --accent-blue: 220 91% 54%; /* Blue */
+    --success: 114 58% 40%; /* Green */
   }
 
+  /* Catppuccin Mocha */
   .dark {
-    --background: 235 18% 10%;
-    --foreground: 0 0% 100%;
-    --card: 235 18% 13%;
-    --card-foreground: 0 0% 100%;
-    --popover: 236 18% 15%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 346.8 77.2% 49.8%;
-    --primary-foreground: 355.7 100% 97.3%;
-    --secondary: 231 20% 19%;
-    --secondary-foreground: 237 8% 56%;
-    --muted: 236 18% 15%;
-    --muted-foreground: 229 9% 64%;
-    --accent: 236 13% 22%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 349 64% 55%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 237 15% 26%;
-    --input: 217 33% 17%;
-    --ring: 346.8 77.2% 49.8%;
+    --background: 240 21% 15%; /* Base */
+    --foreground: 226 64% 88%; /* Text */
+    --card: 237 16% 23%; /* Surface0 */
+    --card-foreground: 226 64% 88%; /* Text */
+    --popover: 240 21% 12%; /* Mantle */
+    --popover-foreground: 226 64% 88%; /* Text */
+    --primary: 267 84% 81%; /* Mauve */
+    --primary-foreground: 240 23% 9%; /* Crust */
+    --secondary: 234 13% 31%; /* Surface1 */
+    --secondary-foreground: 228 24% 72%; /* Subtext0 */
+    --muted: 237 16% 23%; /* Surface0 */
+    --muted-foreground: 230 13% 56%; /* Overlay1 */
+    --accent: 234 13% 31%; /* Surface1 */
+    --accent-foreground: 226 64% 88%; /* Text */
+    --destructive: 343 81% 75%; /* Red */
+    --destructive-foreground: 240 23% 9%; /* Crust */
+    --border: 234 13% 31%; /* Surface1 */
+    --input: 237 16% 23%; /* Surface0 */
+    --ring: 267 84% 81%; /* Mauve */
     --radius: 0rem;
     /* TUI design system — single blue accent + status colors */
-    --accent-blue: 212 100% 55%;
-    --success: 145 72% 47%;
+    --accent-blue: 217 92% 76%; /* Blue */
+    --success: 115 54% 76%; /* Green */
   }
 }
 
