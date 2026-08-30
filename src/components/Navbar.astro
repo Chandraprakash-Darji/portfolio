@@ -114,27 +114,36 @@ const links = [
       menu?.classList.toggle('is-visible');
     });
   }
-  menuToggle();
-  document.addEventListener('astro:after-swap', menuToggle);
+  function bindThemeToggle() {
+    document.getElementById('theme-toggle')?.addEventListener('click', () => {
+      const html = document.documentElement;
+      let theme: 'dark' | 'light';
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        theme = 'light';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        theme = 'dark';
+      }
+      const w = window as Window & { umami?: { track: (...a: unknown[]) => void } };
+      w.umami?.track('theme-toggle', { theme });
+    });
+  }
 
-  const themeToggle = document.getElementById('theme-toggle');
-  themeToggle?.addEventListener('click', () => {
-    const html = document.documentElement;
-    let theme: 'dark' | 'light';
-    if (html.classList.contains('dark')) {
-      html.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-      theme = 'light';
-    } else {
-      html.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-      theme = 'dark';
-    }
-    const w = window as Window & { umami?: { track: (...a: unknown[]) => void } };
-    w.umami?.track('theme-toggle', { theme });
-  });
+  function bindCommandBarTrigger() {
+    document.getElementById('command-bar-trigger')?.addEventListener('click', () => {
+      window.dispatchEvent(new Event('open-command-bar'));
+    });
+  }
 
-  document.getElementById('command-bar-trigger')?.addEventListener('click', () => {
-    window.dispatchEvent(new Event('open-command-bar'));
-  });
+  function bindNavbar() {
+    menuToggle();
+    bindThemeToggle();
+    bindCommandBarTrigger();
+  }
+
+  bindNavbar();
+  document.addEventListener('astro:after-swap', bindNavbar);
 </script>
