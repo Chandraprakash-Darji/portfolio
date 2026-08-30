@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogCards from '../components/BlogCards.astro';
 import ProjectCards from '../components/ProjectCards.astro';
+import TuiCard from '../components/TuiCard.astro';
 import NowSection from "../components/NowSection.astro";
 import { Icons } from '../components/icons';
 import { LiveClock } from '../components/hero/LiveClock';
@@ -125,11 +126,23 @@ import { Code2, MapPin, Mail, Link, User, Calendar } from 'lucide-react';
       </div>
     </section>
 
-    <div class="tui-divider"><span aria-hidden="true">·</span></div>
+    <!-- Writing: surface the main content immediately after the profile -->
+    <section id="writing">
+      <div class="mb-3 flex items-center justify-between">
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-foreground">Writing</span>
+        <a
+          href="/writing"
+          class="accent-link font-mono text-xs"
+          data-umami-event="nav-click"
+          data-umami-event-link="all posts"
+        >
+          all posts →
+        </a>
+      </div>
+      <BlogCards collection="blog" limit={5} />
+    </section>
 
     <NowSection />
-
-    <div class="tui-divider"><span aria-hidden="true">·</span></div>
 
     <!-- Hello / About -->
     <section>
@@ -149,7 +162,7 @@ import { Code2, MapPin, Mail, Link, User, Calendar } from 'lucide-react';
         </span>
       </div>
       <div class="space-y-4">
-        <article class="rounded-lg border border-border p-4">
+        <TuiCard class="p-4">
           <div class="flex flex-col gap-2">
             <h3 class="text-sm font-medium leading-snug text-foreground">Co-Founder & CTO · Pixelwand / Timebase</h3>
             <p class="text-xs text-muted-foreground">
@@ -167,9 +180,9 @@ import { Code2, MapPin, Mail, Link, User, Calendar } from 'lucide-react';
               <span>React Native</span>
             </div>
           </div>
-        </article>
+        </TuiCard>
 
-        <article class="rounded-lg border border-border p-4">
+        <TuiCard class="p-4">
           <div class="flex flex-col gap-2">
             <h3 class="text-sm font-medium leading-snug text-foreground">Chief Technology Officer · Valuemetrix</h3>
             <p class="text-xs text-muted-foreground">
@@ -177,12 +190,10 @@ import { Code2, MapPin, Mail, Link, User, Calendar } from 'lucide-react';
             </p>
             <div class="font-mono text-[10px] text-muted-foreground/60">Jan 2024 — Sep 2025</div>
           </div>
-        </article>
+        </TuiCard>
 
       </div>
     </section>
-    <div class="tui-divider"><span aria-hidden="true">·</span></div>
-
     <!-- Work -->
     <section>
       <div class="mb-3 flex items-center justify-between">
@@ -217,26 +228,6 @@ import { Code2, MapPin, Mail, Link, User, Calendar } from 'lucide-react';
         </div>
       )}
     </section>
-
-    <div class="tui-divider"><span aria-hidden="true">·</span></div>
-
-    <!-- Writing -->
-    <section>
-      <div class="mb-3 flex items-center justify-between">
-        <span class="font-mono text-xs font-bold uppercase tracking-widest text-foreground">Writing</span>
-        <a
-          href="/writing"
-          class="accent-link font-mono text-xs"
-          data-umami-event="nav-click"
-          data-umami-event-link="all posts"
-        >
-          all posts →
-        </a>
-      </div>
-      <BlogCards collection="blog" limit={3} />
-    </section>
-
-    <div class="tui-divider"><span aria-hidden="true">·</span></div>
 
     <!-- Snippets -->
     <section>

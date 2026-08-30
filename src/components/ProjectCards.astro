@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import TuiCard from './TuiCard.astro';
 
 interface Props {
   limit?: number;
@@ -20,15 +21,16 @@ let projects = all
 if (limit) projects = projects.slice(0, limit);
 ---
 
-<div class="space-y-4">
+<div class="flex flex-col gap-2">
   {projects.length > 0 ? (
     projects.map((project) => {
       const slug = project.id.replace(/\.mdx$/, '');
       const { title, description, year, status, stack = [] } = project.data;
       return (
-        <a
+        <TuiCard
           href={`/projects/${slug}`}
-          class="group block border border-border p-4 transition-colors hover:bg-muted/30"
+          ariaLabel={`Read ${title}`}
+          class="block p-3 transition-colors hover:bg-muted/30"
           onclick={`window.umami?.track('project-open',{slug:'${slug}'})`}
         >
           <div class="flex flex-col gap-2">
@@ -53,7 +55,7 @@ if (limit) projects = projects.slice(0, limit);
               )}
             </div>
           </div>
-        </a>
+        </TuiCard>
       );
     })
   ) : (

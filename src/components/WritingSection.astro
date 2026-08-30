@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { postTransitionName } from '../lib/transition';
+import { formatPostDate } from '../lib/utils';
 
 interface Props {
   collection: 'blog' | 'snippets';
@@ -16,7 +17,7 @@ const recent = posts
 
 <div class="w-full">
   {recent.map((post) => {
-    const date = post.data.publishedAt ?? post.data.updatedAt ?? '';
+    const date = formatPostDate(post.data.publishedAt ?? post.data.updatedAt);
     const slug = post.id.replace(/\.mdx$/, '');
     return (
       <a

@@ -195,16 +195,6 @@
     @apply absolute left-3 top-0 -translate-y-1/2 bg-background px-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground;
   }
 
-  /* Section divider: ──── · ──── */
-  .tui-divider {
-    @apply flex items-center justify-center gap-3 text-muted-foreground;
-  }
-  .tui-divider::before,
-  .tui-divider::after {
-    content: '';
-    @apply h-px w-full max-w-[6rem] bg-border;
-  }
-
   /* Single blue accent, scoped to the home page only */
   .tui-home {
     --primary: var(--accent-blue);
@@ -221,6 +211,37 @@
   .tui-statusbar {
     @apply flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-border pt-3 font-mono text-[10px] text-muted-foreground/70;
   }
+
+  /* Square cards use the same corner-and-dotted-edge frame as the TUI panels. */
+  .corner-card {
+    position: relative;
+  }
+
+  .corner-card .corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    z-index: 10;
+    border-color: hsl(var(--foreground) / 0.35);
+    border-style: solid;
+    border-width: 0;
+  }
+  .corner-card .corner.tl { top: 0; left: 0; border-top-width: 1.5px; border-left-width: 1.5px; }
+  .corner-card .corner.tr { top: 0; right: 0; border-top-width: 1.5px; border-right-width: 1.5px; }
+  .corner-card .corner.bl { bottom: 0; left: 0; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+  .corner-card .corner.br { bottom: 0; right: 0; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+
+  .corner-card .edge {
+    position: absolute;
+    z-index: 9;
+    border-color: hsl(var(--border));
+    border-style: dotted;
+    border-width: 0;
+  }
+  .corner-card .edge-top { top: 0; left: 10px; right: 10px; border-top-width: 1px; }
+  .corner-card .edge-bottom { bottom: 0; left: 10px; right: 10px; border-bottom-width: 1px; }
+  .corner-card .edge-left { left: 0; top: 10px; bottom: 10px; border-left-width: 1px; }
+  .corner-card .edge-right { right: 0; top: 10px; bottom: 10px; border-right-width: 1px; }
   /*#endregion  /**======== TUI design system ===========*/
 }
 

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogCards from '../../components/BlogCards.astro';
+import TuiPageHeader from '../../components/TuiPageHeader.astro';
 ---
 
 <BaseLayout
@@ -8,19 +9,11 @@ import BlogCards from '../../components/BlogCards.astro';
   description="Notes on software, systems, and the craft of building things."
   ogImage="writing"
 >
-  <div class="layout py-16">
-    <a href="/" class="mb-8 flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground" onclick="window.umami?.track('nav-click',{link:'home'})">
-      <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M19 12H5m7-7-7 7 7 7" />
-      </svg>
-      home
-    </a>
-    <h1 class="text-2xl font-medium tracking-tight">Writing</h1>
-    <p class="mt-2 text-muted-foreground">
-      Notes on software, systems, and the craft of building things.
-    </p>
-    <div class="mt-10">
-      <BlogCards collection="blog" />
-    </div>
+  <div class="layout tui-home space-y-10 py-16">
+    <TuiPageHeader
+      title="Writing"
+      description="notes on software, systems, and the craft of building things"
+    />
+    <BlogCards collection="blog" />
   </div>
 </BaseLayout>
