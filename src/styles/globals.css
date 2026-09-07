@@ -44,9 +44,11 @@
     /* TUI design system — single blue accent + status colors */
     --accent-blue: 220 91% 54%; /* Blue */
     --success: 114 58% 40%; /* Green */
+    --font-pixel: 'Press Start 2P', monospace;
+    --font-body: 'Noto Sans', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   }
 
-  /* Catppuccin Mocha */
+  /* Catppuccin Mocha (standard dark mode, toggled from the top button) */
   .dark {
     --background: 240 21% 15%; /* Base */
     --foreground: 226 64% 88%; /* Text */
@@ -71,6 +73,36 @@
     /* TUI design system — single blue accent + status colors */
     --accent-blue: 217 92% 76%; /* Blue */
     --success: 115 54% 76%; /* Green */
+  }
+
+  /* Timebase pixel theme — charcoal canvas, Minecraft green, and warm neutrals.
+     Easter egg: toggled from the bottom-right circle or by typing "rega".
+     Defined after .dark so it wins when both classes are present. */
+  .pixel {
+    --background: 30 4.5% 8.6%; /* #171615 canvas */
+    --foreground: 0 0% 100%; /* #FFFFFF text */
+    --card: 20 4.1% 14.3%; /* #262423 surface */
+    --card-foreground: 0 0% 100%;
+    --popover: 30 4.5% 8.6%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 106.6 54.7% 33.7%; /* #3C8527 green */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 20 4.1% 14.3%;
+    --secondary-foreground: 20 12% 84%; /* #D0C5C0 */
+    --muted: 20 4.1% 14.3%;
+    --muted-foreground: 205.7 5.7% 47.8%; /* #737B81 */
+    --accent: 20 4.1% 14.3%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 100% 76.5%; /* #FF8787 */
+    --destructive-foreground: 30 4.5% 8.6%;
+    --border: 12 4.3% 22.9%; /* #3D3938 */
+    --input: 20 4.1% 14.3%;
+    --ring: 95.7 60.2% 48.2%; /* #6DC531 grass */
+    --radius: 2px;
+    --accent-blue: 206.8 91.4% 63.5%; /* #4DABF7 */
+    --success: 95.7 60.2% 48.2%;
+    --font-pixel: 'Press Start 2P', monospace;
+    --font-body: 'Noto Sans', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   }
 }
 
@@ -294,4 +326,70 @@
   .code-filename-tab {
     @apply inline-block rounded-t-md border border-b-0 border-border bg-muted px-3 py-1 font-mono text-xs text-muted-foreground;
   }
+}
+
+/* Timebase-inspired pixel styling for the pixel easter-egg theme */
+.pixel body {
+  overflow-x: hidden;
+  font-family: var(--font-body);
+  background-color: hsl(var(--background));
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pixel h1,
+.pixel h2,
+.pixel h3,
+.pixel h4,
+.pixel nav a,
+.pixel nav button,
+.pixel button,
+.pixel .tui-home [class~='tracking-widest'] {
+  font-family: var(--font-pixel);
+  font-weight: 400;
+}
+
+.pixel h1,
+.pixel h2,
+.pixel h3,
+.pixel h4 {
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+.pixel .tui-home {
+  --primary: var(--success);
+}
+
+.pixel .tui-home .accent-link:hover {
+  color: hsl(var(--success));
+}
+
+.pixel .tui-panel,
+.pixel .corner-card {
+  border: 2px solid hsl(var(--border));
+  border-radius: var(--radius);
+  background: hsl(var(--card));
+  box-shadow: 4px 4px 0 hsl(var(--background));
+}
+
+.pixel .corner-card .corner,
+.pixel .corner-card .edge {
+  display: none;
+}
+
+.pixel .bg-foreground {
+  background-color: hsl(var(--primary));
+}
+
+.pixel .text-background {
+  color: hsl(var(--primary-foreground));
+}
+
+.pixel [class~='rounded-lg'],
+.pixel [class~='rounded']:not([class~='rounded-full']) {
+  border-radius: var(--radius);
 }

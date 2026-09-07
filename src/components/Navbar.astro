@@ -38,8 +38,8 @@ const links = [
     </ul>
   </div>
 
-  <!-- Right side: search + theme toggle -->
-  <div class="absolute top-4 sm:top-4 right-0 z-10 flex items-center gap-2">
+  <!-- Right side: search + dark mode -->
+  <div class="absolute top-4 right-0 z-10 flex items-center gap-2">
     <button
       id="command-bar-trigger"
       class="flex items-center gap-2 border border-border px-2 py-1 font-mono text-xs text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
@@ -50,8 +50,10 @@ const links = [
 
     <button
       id="theme-toggle"
-      class="h-4 w-4 rounded-full border-2 border-muted-foreground bg-foreground transition-transform hover:scale-110 shrink-0"
-      aria-label="Toggle theme"
+      type="button"
+      class="h-4 w-4 shrink-0 rounded-full border-2 border-muted-foreground bg-foreground transition-transform hover:scale-110"
+      aria-label="Toggle dark mode"
+      title="Toggle dark mode"
     ></button>
   </div>
 </nav>
@@ -106,7 +108,9 @@ const links = [
   function menuToggle() {
     const menu = document.querySelector('.menu');
     const menuToggleBtn = document.querySelector('.menu-toggle');
-    menuToggleBtn?.addEventListener('click', () => {
+    if (!menuToggleBtn || menuToggleBtn.getAttribute('data-bound') === 'true') return;
+    menuToggleBtn.setAttribute('data-bound', 'true');
+    menuToggleBtn.addEventListener('click', () => {
       const isMenuExpanded = menuToggleBtn.getAttribute('aria-expanded') === 'true';
       menuToggleBtn.classList.toggle('is-active');
       menuToggleBtn.setAttribute('aria-expanded', isMenuExpanded ? 'false' : 'true');
@@ -114,26 +118,95 @@ const links = [
       menu?.classList.toggle('is-visible');
     });
   }
+
+  function trackEvent(name: string, data?: Record<string, string>) {
+    const w = window as Window & { umami?: { track: (...a: unknown[]) => void } };
+    w.umami?.track(name, data);
+  }
+
+  function isPixelEnabled() {
+    return document.documentElement.classList.contains('pixel');
+  }
+
+  function syncDarkToggle() {
+    const button = document.getElementById('theme-toggle');
+    const isDark = document.documentElement.classList.contains('dark');
+    button?.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    button?.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+
+  function setPixelEnabled(enabled: boolean, source: 'cheat') {
+    document.documentElement.classList.toggle('pixel', enabled);
+    try {
+      localStorage.setItem('pixel-theme', enabled ? 'pixel' : 'normal');
+    } catch (e) {}
+    trackEvent('pixel-toggle', { enabled: String(enabled), source });
+  }
+
+  function togglePixel(source: 'cheat') {
+    setPixelEnabled(!isPixelEnabled(), source);
+  }
+
   function bindThemeToggle() {
-    document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const button = document.getElementById('theme-toggle');
+    if (!button || button.dataset.bound === 'true') {
+      syncDarkToggle();
+      return;
+    }
+    button.dataset.bound = 'true';
+    button.addEventListener('click', () => {
       const html = document.documentElement;
       let theme: 'dark' | 'light';
       if (html.classList.contains('dark')) {
         html.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
+        try {
+          localStorage.setItem('theme', 'light');
+        } catch (e) {}
         theme = 'light';
       } else {
         html.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
+        try {
+          localStorage.setItem('theme', 'dark');
+        } catch (e) {}
         theme = 'dark';
       }
-      const w = window as Window & { umami?: { track: (...a: unknown[]) => void } };
-      w.umami?.track('theme-toggle', { theme });
+      syncDarkToggle();
+      trackEvent('theme-toggle', { theme });
+    });
+    syncDarkToggle();
+  }
+
+  function bindCheatCode() {
+    const w = window as Window & { __regaCheatBound?: boolean };
+    if (w.__regaCheatBound) return;
+    w.__regaCheatBound = true;
+    let buffer = '';
+    window.addEventListener('keydown', (e) => {
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.tagName === 'SELECT' ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key.length !== 1) return;
+      buffer = (buffer + e.key.toLowerCase()).slice(-4);
+      if (buffer === 'rega') {
+        buffer = '';
+        togglePixel('cheat');
+      }
     });
   }
 
   function bindCommandBarTrigger() {
-    document.getElementById('command-bar-trigger')?.addEventListener('click', () => {
+    const trigger = document.getElementById('command-bar-trigger');
+    if (!trigger || trigger.dataset.bound === 'true') return;
+    trigger.dataset.bound = 'true';
+    trigger.addEventListener('click', () => {
       window.dispatchEvent(new Event('open-command-bar'));
     });
   }
@@ -142,6 +215,7 @@ const links = [
     menuToggle();
     bindThemeToggle();
     bindCommandBarTrigger();
+    bindCheatCode();
   }
 
   bindNavbar();

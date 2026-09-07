@@ -30,21 +30,38 @@ const imageUrl = ogImage
   <head>
     <script is:inline>
       (function() {
-        var theme = localStorage.getItem('theme');
-        if (theme === 'light') {
-          document.documentElement.classList.remove('dark');
-        }
+        try {
+          var theme = localStorage.getItem('theme');
+          if (theme === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+          if (localStorage.getItem('pixel-theme') === 'pixel') {
+            document.documentElement.classList.add('pixel');
+          }
+        } catch (e) {}
 
         document.addEventListener('astro:before-swap', function(event) {
           event.newDocument.documentElement.classList.toggle(
             'dark',
             localStorage.getItem('theme') !== 'light'
           );
+          event.newDocument.documentElement.classList.toggle(
+            'pixel',
+            localStorage.getItem('pixel-theme') === 'pixel'
+          );
         });
       })();
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon/favicon.ico" />
