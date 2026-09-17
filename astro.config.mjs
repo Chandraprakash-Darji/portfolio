@@ -47,7 +47,7 @@ export default defineConfig({
     }),
     react(),
     sitemap({
-      customPages: [...blogMdPages, ...snippetMdPages],
+      customPages: [...blogMdPages, ...snippetMdPages, `${siteConfig.url}/design.md`],
     }),
     tailwind({
       applyBaseStyles: false,
