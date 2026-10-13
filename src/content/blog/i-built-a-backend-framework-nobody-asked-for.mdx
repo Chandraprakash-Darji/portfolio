@@ -1,0 +1,75 @@
+---
+title: 'i built a backend framework nobody asked for'
+description: 'Brick-TS does 1,900 downloads a month and nearly all of them are me. I want 200k. So instead of a launch post, here is everything wrong with it. Tell me what I missed.'
+publishedAt: '2026-10-13'
+updatedAt: '2026-10-13'
+type: 'BLOG'
+published: true
+categories:
+  - name: 'TypeScript'
+    slug: 'typescript'
+  - name: 'Bun'
+    slug: 'bun'
+---
+
+1,900 downloads a month. nearly all of them are me.
+
+thats Brick-TS right now. a backend framework i built because our internal projects needed it, cleaned up for public use, published to npm, and watched go nowhere. the goal is 200,000 downloads a month. i am off by roughly 198,000.
+
+so this is not a launch post. this is me listing everything wrong with my own framework before you do.
+
+## what it even is
+
+you define services with validated actions, mount them, and get an http server with openapi docs and a typed client. no codegen step.
+
+```ts
+const healthService = defineService("system");
+const ping = defineAction({
+  name: "ping",
+  execute: async () => ({ status: "ok" }),
+});
+healthService.action(ping);
+
+const app = brick({ services: [healthService] });
+app.listen(4000);
+// POST /api/system/ping, typed end to end
+```
+
+there is also an opt-in crud plugin with deny-by-default field policies over drizzle, and mcp tool support. bun-only. three packages: `@brickkit/core`, `@brickkit/cli`, `@brickkit/crud`.
+
+thats the whole pitch. now the problems.
+
+## problem 1: the space is packed
+
+nest, hono, elysia, trpc, fastify. every one of them has years of docs, plugins, and stack overflow answers. a new framework starts with none of that.
+
+"typed end to end" is not a differentiator anymore. trpc does it. elysia does it with eden. my answer is "same thing, but services are the unit instead of procedures." that is a real design difference and also a sentence nobody cares about until they have felt the pain it solves.
+
+## problem 2: bun-only
+
+bun is fast and i like writing for it. but bun-only cuts out every team on node. thats most teams. the framework imports cleanly under node esm, but the server story is bun. so the addressable market is "typescript devs who already picked bun and want opinions." that is a small room.
+
+## problem 3: i built it for me
+
+every default reflects our internal stack: drizzle, postgres, typebox, elysia under the hood. if your stack is prisma and zod, brick fights you on day one. frameworks win by meeting people where they are. mine meets me where i am.
+
+## problem 4: no reason to switch
+
+switching frameworks is expensive and boring. migrations happen for pain or for hype. brick offers neither. no 10x benchmark story yet, no big company logo, no viral demo. "clean services model" does not get a team through a rewrite proposal.
+
+## what i am doing about it
+
+| week | move | why |
+| ---- | ---- | --- |
+| 1 | starter template + one-click deploys | nobody tries a framework that takes an hour to boot |
+| 2 | benchmark page with real numbers from `bench/` | claims without numbers are noise |
+| 3 | crud api in 10 minutes, on video | video converts better than docs for evaluation |
+| 4 | post the numbers publicly, including the bad ones | this post |
+
+plus the unglamorous stuff: npm keywords (the packages shipped with none, so search couldnt find them), a real readme, a contributing guide, and `good first issue` labels so contributors have a door to walk through.
+
+## the actual ask
+
+i can fix packaging, docs, and benchmarks myself. what i cant see is what makes you close the tab.
+
+so: [here is the repo](https://github.com/Chandraprakash-Darji/brick). thirty seconds. what kills it for you. the bun lock-in, the api shape, a missing feature, the fact that the world does not need this? name the one thing.
