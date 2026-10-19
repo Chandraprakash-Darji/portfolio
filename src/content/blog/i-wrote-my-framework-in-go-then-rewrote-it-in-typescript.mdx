@@ -1,0 +1,71 @@
+---
+title: 'i wrote my framework in go, then rewrote it in typescript'
+description: 'The go version answered api calls in 1-2ms. The typescript one takes 10-50ms. I switched anyway, and it took five days.'
+publishedAt: '2026-10-06'
+updatedAt: '2026-10-06'
+type: 'BLOG'
+published: true
+categories:
+  - name: 'Go'
+    slug: 'go'
+  - name: 'TypeScript'
+    slug: 'typescript'
+  - name: 'Brick'
+    slug: 'brick'
+---
+
+brick was a go framework before it was a typescript one.
+
+the go version answered api calls in 1 to 2 milliseconds. sometimes under 1. the typescript version takes 10 to 50.
+
+i switched anyway.
+
+## what the go version was
+
+i built it as deep as the typescript one: resources, a yaml dsl, codegen, a query layer, a runtime, auth, a deploy to vercel. it ran on huma, so you could bring your own router.
+
+this was the second time i wrote it. thats why the git history shows six milestones landing in about an hour on sep 15. a lot of that code was copied over from the first attempt.
+
+```go
+var Deal = brick.Resource("deal", brick.Schema{
+    Fields: brick.Fields{
+        "title":  brick.String().Required().Searchable().MaxLen(500),
+        "amount": brick.Int().Filterable().Sortable(),
+        "status": brick.Enum("open", "won", "lost").Default("open"),
+    },
+})
+```
+
+the speed was great. it is the only thing i miss.
+
+## where it started to feel wrong
+
+too much depended on codegen. in go you define the schema, run the generator, get typed structs, then write hooks against them. every step needs the step before it.
+
+typescript does not have that problem. types are inferred from the definition. you save the file and the type is already there. no generator, no `_gen` files.
+
+## why i switched
+
+not because go was bad. three reasons.
+
+- **i build faster in typescript.** i know the ecosystem very well. in go i was slower.
+- **inference over codegen.** no generate step between the schema and the code that uses it.
+- **better auth.** in go i had to write the auth library myself. i spent sep 26 to 28 on email and password auth, a jwt plugin, and closing gaps with better auth's oauth provider. in typescript i could just use better auth.
+
+the rewrite took five days. oct 3 was the first day of the new repo, with 34 commits.
+
+## what changed
+
+only the language, and a better api for whoever builds a backend on it. the framework itself is the same idea.
+
+## what i left behind
+
+i dont miss anything from go except the speed. typescript's ecosystem makes up for most of it.
+
+if something in the library gets slow, i may replace that piece in go or rust. i have no plan for that now.
+
+## if you are about to rewrite
+
+dont rewrite if it works. mine worked.
+
+my reason was narrow: i am much faster in typescript. if you cant say your reason that clearly, dont do it.

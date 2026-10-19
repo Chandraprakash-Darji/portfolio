@@ -1,0 +1,53 @@
+---
+title: 'i rewrote my framework on effect in two days, then took it back out'
+description: 'Brick shrank by 10,000 lines on Effect. A real product was building on it at the same time, and that product paid for every rough edge.'
+publishedAt: '2026-10-19'
+updatedAt: '2026-10-19'
+type: 'BLOG'
+published: true
+categories:
+  - name: 'TypeScript'
+    slug: 'typescript'
+  - name: 'Brick'
+    slug: 'brick'
+---
+
+oct 15, 17:54. i merged an effect-native migration of brick.
+
+oct 15, 22:47. i reverted it.
+
+oct 17, 11:10. i deleted effect from core, crud and the docs.
+
+two days to rewrite the framework on effect. two days to get it back out.
+
+## why i tried
+
+there was no bug. nothing was on fire.
+
+i wanted a stronger framework with proper error handling, and one an ai agent is better at working in. brick is opinionated on purpose, and effect looked like the most opinionated way to be strong.
+
+## what it gave me
+
+brick was about 20,000 lines. effect brings its own rpc and http layers, so a lot of my code could simply go away. after the migration the codebase was about 10,000 lines smaller.
+
+the whole rewrite took two days.
+
+i did not measure speed. i cant tell you it was faster or slower. the one number i have is the 10k lines.
+
+## what it cost
+
+pixelwand crm was building on brick while i did this. it hit too many issues making the new version work, and development on the crm slowed down because of the errors.
+
+one of them is in the commit log: a custom schema that wasnt url encodable failed deep inside effect with `Missing structural codec`. i added a definition-time guard just to explain it.
+
+so i dropped the plan. the crm has priority, and brick is only worth anything if the crm can ship on it.
+
+## why it took two commits
+
+the revert on the night of the 15th missed a few parts. thats why there is a second commit on the 17th that removes effect from core, crud, the example and the docs. a migration that touches everything is also hard to undo cleanly.
+
+## what happens next
+
+effect is postponed, not cancelled. once the crm gets to v1 and brick v1 is stable, i will add effect again.
+
+the order was the mistake. i changed the foundation while a real product stood on it. next time the product ships first.

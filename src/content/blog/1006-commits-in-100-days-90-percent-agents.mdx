@@ -1,0 +1,106 @@
+---
+title: '1,006 commits in 100 days. about 90% were written by agents'
+description: 'One crm, 70 working days, and a job that changed from writing code to reviewing it. What the commit log shows, and what it hides.'
+publishedAt: '2026-10-02'
+updatedAt: '2026-10-02'
+type: 'BLOG'
+published: true
+categories:
+  - name: 'Engineering'
+    slug: 'engineering'
+  - name: 'AI'
+    slug: 'ai'
+---
+
+1,006 commits. 70 days with at least one commit. june 19 to october 1, one crm.
+
+about 90% of that code was written by agents. most of my time went into reviewing it.
+
+and i think the number is small. i want around 3,000 commits in three months.
+
+## the crm
+
+pixelwand crm is a light weight crm for fast paced teams. whatsapp, email, sms and calls, all inside one tool.
+
+## what the log says
+
+i sorted the commits by prefix.
+
+- 491 `fix`
+- 252 `feat`
+- 94 `refactor`
+- 52 `chore`
+
+half of it is fixes. a crm is phone numbers, imports, whatsapp templates and permissions, and every one of them breaks somewhere the happy path never goes.
+
+## what the log hides
+
+37 commits have a `Co-Authored-By: Claude` line. that is not the real number.
+
+i mostly use codex, and codex does not add a co-author line. claude does. it likes to flex. so a git log of this repo makes it look like 4% agent work when it is closer to 90%.
+
+if you want to know how much of a repo an agent wrote, dont trust the trailers.
+
+## the two days that look like my best
+
+aug 26 and 27: 273 commits.
+
+almost every one looks like this:
+
+```
+fix(types): resolve type errors in CallLogModal.vue
+fix(types): resolve type errors in TaskPanel.vue
+fix(types): add PendingInvite type and parameter types in Invitations
+```
+
+on those days we moved the untyped vue components to full type safety, to make the code easier to maintain and to catch errors before they reach production.
+
+before: about 3,500 typescript errors. after: zero.
+
+by commit count, those two days were 27% of the whole project. by the work they were one cleanup job, done one file at a time.
+
+## where agents fall short
+
+not on rules. the agents follow the rules file.
+
+the problem is size. give an agent a big task and it will not do all of it. it skips parts. most big tasks took me two to four passes, repeating the instructions each time.
+
+so the job became: ask, review, ask again for what was skipped, review again.
+
+## the review
+
+nothing merges until the tests, typecheck, format and lint all pass. then a human reads it.
+
+that human is me, and that is where the time goes.
+
+## the rules file
+
+`AGENTS.md` is 204 lines. five rules sit at the top and override convenience:
+
+1. frontend and backend are coupled only by a typed contract
+2. thin api, deep service
+3. errors should be loud
+4. reads are pure
+5. no n+1, no work on import
+
+it also lists the oversized files and says not to extend them in place. extract the slice you touch.
+
+## how the power dialer got fixed
+
+the power dialer started as vibe code. we built it fast for one customer.
+
+then we engineered it. it is now an api file of 542 lines on top of a package of six service modules: sessions, queues, leads, dispositions, analytics and common code.
+
+`billing.py` is the next one. it is 4,139 lines today.
+
+## what i would change
+
+nothing.
+
+if i started again in june i would do the same: ship the fast version for the customer who needs it, then pay it down properly. the order matters. the cleanup is easier when you know what the thing actually does.
+
+## the number
+
+1,006 is not impressive to me. what i trust is whether the next week is faster than the last one.
+
+the log says the bottleneck is no longer typing. it is review. so next, how do i get an agent to finish the whole task in one pass?
