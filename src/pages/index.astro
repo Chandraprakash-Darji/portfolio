@@ -2,8 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogCards from '../components/BlogCards.astro';
 import ProjectCards from '../components/ProjectCards.astro';
-import TuiCard from '../components/TuiCard.astro';
-import NowSection from "../components/NowSection.astro";
 import { Icons } from '../components/icons';
 import { LiveClock } from '../components/hero/LiveClock';
 import { siteConfig } from '../site.config';
@@ -70,12 +68,12 @@ import { Code2, MapPin, Mail, Link, User, Calendar } from 'lucide-react';
           <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
             <Mail size={14} className="shrink-0 text-foreground/50" />
             <a
-              href="mailto:prakashchandra3786@gmail.com"
+              href="mailto:me@elregaldo.com"
               class="accent-link truncate"
               data-umami-event="hero-link"
               data-umami-event-name="email"
             >
-              prakashchandra3786@gmail.com
+              me@elregaldo.com
             </a>
           </div>
           <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
@@ -126,75 +124,7 @@ import { Code2, MapPin, Mail, Link, User, Calendar } from 'lucide-react';
       </div>
     </section>
 
-    <!-- Writing: surface the main content immediately after the profile -->
-    <section id="writing">
-      <div class="mb-3 flex items-center justify-between">
-        <span class="font-mono text-xs font-bold uppercase tracking-widest text-foreground">Writing</span>
-        <a
-          href="/writing"
-          class="accent-link font-mono text-xs"
-          data-umami-event="nav-click"
-          data-umami-event-link="all posts"
-        >
-          all posts →
-        </a>
-      </div>
-      <BlogCards collection="blog" limit={5} />
-    </section>
-
-    <NowSection />
-
-    <!-- Hello / About -->
-    <section>
-      <h2 class="mb-4 font-mono text-xs font-bold uppercase tracking-widest text-foreground">Hello</h2>
-      <div class="space-y-3 leading-relaxed text-muted-foreground">
-        <p><strong class="text-foreground">software engineer.</strong> full stack, freelancer, whatever the badge is. the title isn't the interesting part.</p>
-        <p>i build <strong class="text-foreground">backends that hold under load</strong> and pick the tool that fits the actual scale — not the one everyone's writing about.</p>
-        <p>i write about the decisions that don't make it into the README. the <strong class="text-foreground">architecture calls</strong>, the cost mistakes, the things you only figure out by shipping.</p>
-      </div>
-    </section>
-
-    <!-- Experience -->
-    <section>
-      <div class="mb-3 flex items-center justify-between">
-        <span class="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-          Work history
-        </span>
-      </div>
-      <div class="space-y-4">
-        <TuiCard class="p-4">
-          <div class="flex flex-col gap-2">
-            <h3 class="text-sm font-medium leading-snug text-foreground">Co-Founder & CTO · Pixelwand / Timebase</h3>
-            <p class="text-xs text-muted-foreground">
-              Started Pixelwand as a product engineering studio, then helped establish Timebase for services while Pixelwand evolved into a CRM product company. Lead a 10-person team and own architecture, infrastructure, roadmap, and delivery.
-            </p>
-            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px] text-muted-foreground/60">
-              <span>May 2022 — now</span>
-              <span aria-hidden="true">·</span>
-              <span>React</span>
-              <span>Next.js</span>
-              <span>Express</span>
-              <span>AWS</span>
-              <span>Python</span>
-              <span>Go</span>
-              <span>React Native</span>
-            </div>
-          </div>
-        </TuiCard>
-
-        <TuiCard class="p-4">
-          <div class="flex flex-col gap-2">
-            <h3 class="text-sm font-medium leading-snug text-foreground">Chief Technology Officer · Valuemetrix</h3>
-            <p class="text-xs text-muted-foreground">
-              Led technology strategy, architecture, and engineering delivery for the product until its acquisition.
-            </p>
-            <div class="font-mono text-[10px] text-muted-foreground/60">Jan 2024 — Sep 2025</div>
-          </div>
-        </TuiCard>
-
-      </div>
-    </section>
-    <!-- Work -->
+    <!-- Work: shipped projects come first, right after the profile -->
     <section>
       <div class="mb-3 flex items-center justify-between">
         <span class="font-mono text-xs font-bold uppercase tracking-widest text-foreground">Work</span>
@@ -227,6 +157,32 @@ import { Code2, MapPin, Mail, Link, User, Calendar } from 'lucide-react';
           </a>
         </div>
       )}
+    </section>
+
+    <!-- Writing -->
+    <section id="writing">
+      <div class="mb-3 flex items-center justify-between">
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-foreground">Writing</span>
+        <a
+          href="/writing"
+          class="accent-link font-mono text-xs"
+          data-umami-event="nav-click"
+          data-umami-event-link="all posts"
+        >
+          all posts →
+        </a>
+      </div>
+      <BlogCards collection="blog" limit={5} />
+    </section>
+
+    <!-- Hello / About -->
+    <section>
+      <h2 class="mb-4 font-mono text-xs font-bold uppercase tracking-widest text-foreground">Hello</h2>
+      <div class="space-y-3 leading-relaxed text-muted-foreground">
+        <p><strong class="text-foreground">software engineer.</strong> full stack, freelancer, whatever the badge is. the title isn't the interesting part.</p>
+        <p>i build <strong class="text-foreground">backends that hold under load</strong> and pick the tool that fits the actual scale — not the one everyone's writing about.</p>
+        <p>i write about the decisions that don't make it into the README. the <strong class="text-foreground">architecture calls</strong>, the cost mistakes, the things you only figure out by shipping.</p>
+      </div>
     </section>
 
     <!-- Snippets -->

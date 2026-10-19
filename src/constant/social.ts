@@ -9,6 +9,6 @@ export const social = [
   },
   {
     name: 'mail',
-    url: 'mailto:prakashchandra3786@gmail.com',
+    url: 'mailto:me@elregaldo.com',
   },
 ];
