@@ -1,204 +1,96 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BlogCards from '../components/BlogCards.astro';
-import ProjectCards from '../components/ProjectCards.astro';
-import { Icons } from '../components/icons';
-import { LiveClock } from '../components/hero/LiveClock';
 import { siteConfig } from '../site.config';
-import { Code2, MapPin, Mail, Link, User, Calendar } from 'lucide-react';
+import { formatPostDate } from '../lib/utils';
+
+const slug = (id: string) => id.replace(/\.mdx$/, '');
+const byDateDesc = (a: { data: { publishedAt?: string } }, b: { data: { publishedAt?: string } }) =>
+  (b.data.publishedAt ?? '').localeCompare(a.data.publishedAt ?? '');
+
+const projects = (await getCollection('projects'))
+  .filter((p) => p.data.published !== false)
+  .toSorted((a, b) => Number(!!b.data.featured) - Number(!!a.data.featured) || b.data.year.localeCompare(a.data.year));
+
+const posts = (await getCollection('blog')).filter((p) => p.data.published !== false).toSorted(byDateDesc).slice(0, 5);
+const snippets = (await getCollection('snippets')).filter((p) => p.data.published !== false).toSorted(byDateDesc).slice(0, 3);
+
+// Every section renders the same row: title on the left, date or year on the right.
+const sections = [
+  {
+    label: 'work',
+    all: { href: '/projects', text: 'all projects →', event: 'all projects' },
+    rows: projects.map((p) => ({
+      href: `/projects/${slug(p.id)}`,
+      title: p.data.title,
+      meta: p.data.year,
+      track: `window.umami?.track('project-open',{slug:'${slug(p.id)}'})`,
+    })),
+  },
+  {
+    label: 'writing',
+    all: { href: '/writing', text: 'all posts →', event: 'all posts' },
+    rows: posts.map((p) => ({
+      href: `/writing/${slug(p.id)}`,
+      title: p.data.title,
+      meta: formatPostDate(p.data.publishedAt),
+      track: `window.umami?.track('card-click',{collection:'blog',slug:'${slug(p.id)}'})`,
+    })),
+  },
+  {
+    label: 'snippets',
+    all: { href: '/snippet', text: 'all snippets →', event: 'all snippets' },
+    rows: snippets.map((p) => ({
+      href: `/writing/${slug(p.id)}`,
+      title: p.data.title,
+      meta: formatPostDate(p.data.publishedAt),
+      track: `window.umami?.track('card-click',{collection:'snippets',slug:'${slug(p.id)}'})`,
+    })),
+  },
+];
+
+const ext = { target: '_blank', rel: 'noopener noreferrer' };
 ---
 
 <BaseLayout ogImage="home">
-  <div class="layout tui-home space-y-12 py-20">
-    <!-- Hero panel — title embedded in top border -->
-    <section class="tui-panel">
-      <!-- Profile row: avatar + name + role -->
-      <div class="flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-border p-4 pt-5">
-        <img
-          src="https://github.com/Chandraprakash-Darji.png"
-          alt={siteConfig.author.name}
-          width="72"
-          height="72"
-          class="h-[72px] w-[72px] shrink-0 rounded-full border border-border"
-          transition:name="avatar"
-        />
-        <div class="min-w-0">
-          <h1 class="text-xl font-bold tracking-tight">{siteConfig.author.name}</h1>
-          <p class="mt-0.5 font-mono text-sm text-muted-foreground">Software Engineer</p>
-        </div>
-
+  <div class="layout tui-home space-y-14 py-20">
+    <section class="space-y-4 leading-relaxed">
+      <p>
+        i'm chandra, a software engineer in india. i build
+        <strong class="font-medium text-foreground">backends that hold under load</strong>
+        and pick the tool that fits the actual scale, not the one everyone's writing about.
+      </p>
+      <p class="text-muted-foreground">
+        i write about the decisions that don't make it into the readme: the architecture calls, the cost
+        mistakes, the things you only figure out by shipping.
+      </p>
+      <p class="text-muted-foreground">
+        dms are open on <a class="underline underline-offset-4 hover:text-foreground" href={siteConfig.author.twitterUrl} {...ext} data-umami-event="social-click" data-umami-event-name="twitter">x</a>,
+        code is on <a class="underline underline-offset-4 hover:text-foreground" href="https://github.com/Chandraprakash-Darji" {...ext} data-umami-event="social-click" data-umami-event-name="github">github</a>,
+        or <a class="underline underline-offset-4 hover:text-foreground" href="mailto:me@elregaldo.com" data-umami-event="hero-link" data-umami-event-name="email">email me</a>.
         {siteConfig.availableForWork && (
-          <span class="ml-auto inline-flex shrink-0 items-center gap-1.5 border border-border px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest">
-            <span class="text-[hsl(var(--success))]" aria-hidden="true">✓</span>
-            <span class="text-muted-foreground">available for work</span>
-          </span>
+          <>open to freelance work, <a class="underline underline-offset-4 hover:text-foreground" href={siteConfig.calLink} {...ext} data-umami-event="cta-click" data-umami-event-name="book-a-call">book a call</a>.</>
         )}
-      </div>
-
-      <!-- Info grid: 2 columns -->
-      <div class="grid grid-cols-1 divide-y divide-border border-b border-border sm:grid-cols-2 sm:divide-x sm:divide-y-0">
-        <!-- Left column -->
-        <div class="divide-y divide-border">
-          <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
-            <Code2 size={14} className="shrink-0 text-foreground/50" />
-            <span>Software Engineer</span>
-          </div>
-          <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
-            <MapPin size={14} className="shrink-0 text-foreground/50" />
-            <span>India</span>
-          </div>
-          <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
-            <Link size={14} className="shrink-0 text-foreground/50" />
-            <a
-              href={siteConfig.url}
-              class="accent-link truncate"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-umami-event="hero-link"
-              data-umami-event-name="website"
-            >
-              www.elregaldo.com
-            </a>
-          </div>
-        </div>
-
-        <!-- Right column -->
-        <div class="divide-y divide-border">
-          <LiveClock client:load />
-          <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
-            <Mail size={14} className="shrink-0 text-foreground/50" />
-            <a
-              href="mailto:me@elregaldo.com"
-              class="accent-link truncate"
-              data-umami-event="hero-link"
-              data-umami-event-name="email"
-            >
-              me@elregaldo.com
-            </a>
-          </div>
-          <div class="flex items-center gap-2.5 px-3 py-2.5 font-mono text-sm text-muted-foreground">
-            <User size={14} className="shrink-0 text-foreground/50" />
-            <span>he/him</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Social icons row -->
-      <div class="flex items-center gap-1 p-3">
-        <a
-          href="https://twitter.com/chandra_7852"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Twitter / X"
-          class="flex h-8 w-8 items-center justify-center border border-border text-muted-foreground transition-colors hover:border-[hsl(var(--accent-blue))]/40 hover:text-[hsl(var(--accent-blue))]"
-          data-umami-event="social-click"
-          data-umami-event-name="twitter"
-        >
-          <Icons.x className="h-3.5 w-3.5" />
-        </a>
-        <a
-          href="https://github.com/Chandraprakash-Darji"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub"
-          class="flex h-8 w-8 items-center justify-center border border-border text-muted-foreground transition-colors hover:border-[hsl(var(--accent-blue))]/40 hover:text-[hsl(var(--accent-blue))]"
-          data-umami-event="social-click"
-          data-umami-event-name="github"
-        >
-          <Icons.github className="h-3.5 w-3.5" />
-        </a>
-
-        {siteConfig.availableForWork && (
-          <a
-            href={siteConfig.calLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="ml-auto inline-flex items-center gap-1.5 border border-foreground bg-foreground px-3 py-1.5 font-mono text-xs text-background transition-opacity hover:opacity-90"
-            data-umami-event="cta-click"
-            data-umami-event-name="book-a-call"
-          >
-            <Calendar size={13} className="shrink-0" />
-            Book a call
-          </a>
-        )}
-      </div>
+      </p>
     </section>
 
-    <!-- Work: shipped projects come first, right after the profile -->
-    <section>
-      <div class="mb-3 flex items-center justify-between">
-        <span class="font-mono text-xs font-bold uppercase tracking-widest text-foreground">Work</span>
-        <a
-          href="/projects"
-          class="accent-link font-mono text-xs"
-          data-umami-event="nav-click"
-          data-umami-event-link="all projects"
-        >
-          all projects →
-        </a>
-      </div>
-      <ProjectCards limit={3} />
-      {siteConfig.availableForWork && (
-        <div class="mt-5 flex flex-col gap-3 border border-border p-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p class="text-sm font-medium text-foreground">Have something to build?</p>
-            <p class="mt-0.5 text-xs text-muted-foreground">I'm currently open to freelance and contract work.</p>
-          </div>
-          <a
-            href={siteConfig.calLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex shrink-0 items-center justify-center gap-1.5 border border-foreground bg-foreground px-3 py-1.5 font-mono text-xs text-background transition-opacity hover:opacity-90"
-            data-umami-event="cta-click"
-            data-umami-event-name="book-a-call-work"
-          >
-            <Calendar size={13} className="shrink-0" />
-            Book a call
-          </a>
-        </div>
-      )}
-    </section>
-
-    <!-- Writing -->
-    <section id="writing">
-      <div class="mb-3 flex items-center justify-between">
-        <span class="font-mono text-xs font-bold uppercase tracking-widest text-foreground">Writing</span>
-        <a
-          href="/writing"
-          class="accent-link font-mono text-xs"
-          data-umami-event="nav-click"
-          data-umami-event-link="all posts"
-        >
-          all posts →
-        </a>
-      </div>
-      <BlogCards collection="blog" limit={5} />
-    </section>
-
-    <!-- Hello / About -->
-    <section>
-      <h2 class="mb-4 font-mono text-xs font-bold uppercase tracking-widest text-foreground">Hello</h2>
-      <div class="space-y-3 leading-relaxed text-muted-foreground">
-        <p><strong class="text-foreground">software engineer.</strong> full stack, freelancer, whatever the badge is. the title isn't the interesting part.</p>
-        <p>i build <strong class="text-foreground">backends that hold under load</strong> and pick the tool that fits the actual scale — not the one everyone's writing about.</p>
-        <p>i write about the decisions that don't make it into the README. the <strong class="text-foreground">architecture calls</strong>, the cost mistakes, the things you only figure out by shipping.</p>
-      </div>
-    </section>
-
-    <!-- Snippets -->
-    <section>
-      <div class="mb-3 flex items-center justify-between">
-        <span class="font-mono text-xs font-bold uppercase tracking-widest text-foreground">Snippets</span>
-        <a
-          href="/snippet"
-          class="accent-link font-mono text-xs"
-          data-umami-event="nav-click"
-          data-umami-event-link="all snippets"
-        >
-          all snippets →
-        </a>
-      </div>
-      <BlogCards collection="snippets" limit={3} />
-    </section>
+    {sections.map((s) => (
+      <section>
+        <h2 class="mb-4 flex items-baseline justify-between text-sm text-muted-foreground">
+          <span>{s.label}</span>
+          <a href={s.all.href} class="hover:text-foreground" data-umami-event="nav-click" data-umami-event-link={s.all.event}>{s.all.text}</a>
+        </h2>
+        <ul class="space-y-3">
+          {s.rows.map((r) => (
+            <li>
+              <a href={r.href} class="flex items-baseline gap-3" onclick={r.track}>
+                <span class="min-w-0 truncate text-foreground">{r.title}</span>
+                <span class="ml-auto shrink-0 text-sm text-muted-foreground/60">{r.meta}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
   </div>
 </BaseLayout>

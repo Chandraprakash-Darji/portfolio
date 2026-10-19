@@ -2,76 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'FiraCodeNerdFont';
-  src: url('/fonts/FiraCodeNerdFont-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'FiraCodeNerdFont';
-  src: url('/fonts/FiraCodeNerdFont-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 @layer base {
-  /* Catppuccin Latte (light counterpart of Mocha) */
+  /* Monochrome neutrals (shadcn neutral, as HSL). Color is kept for status. */
   :root {
-    --background: 220 23% 95%; /* Base */
-    --foreground: 234 16% 35%; /* Text */
-    --card: 223 24% 92%; /* Mantle */
-    --card-foreground: 234 16% 35%; /* Text */
-    --popover: 220 23% 95%; /* Base */
-    --popover-foreground: 234 16% 35%; /* Text */
-    --primary: 266 85% 58%; /* Mauve */
-    --primary-foreground: 220 23% 95%; /* Base */
-    --secondary: 228 22% 83%; /* Surface0 */
-    --secondary-foreground: 233 14% 48%; /* Subtext0 */
-    --muted: 228 22% 83%; /* Surface0 */
-    --muted-foreground: 233 14% 48%; /* Subtext0 */
-    --accent: 228 22% 83%; /* Surface0 */
-    --accent-foreground: 234 16% 35%; /* Text */
-    --destructive: 347 87% 44%; /* Red */
-    --destructive-foreground: 220 23% 95%; /* Base */
-    --border: 229 17% 77%; /* Surface1 */
-    --input: 229 17% 77%; /* Surface1 */
-    --ring: 266 85% 58%; /* Mauve */
-    --radius: 0rem;
-    /* TUI design system — single blue accent + status colors */
-    --accent-blue: 220 91% 54%; /* Blue */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.2%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 63%;
+    --radius: 0.625rem;
+    /* Home hover/selection accent stays neutral; green is for status only */
+    --accent-blue: 0 0% 9%;
     --success: 114 58% 40%; /* Green */
     --font-pixel: 'Press Start 2P', monospace;
     --font-body: 'Noto Sans', -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   }
 
-  /* Catppuccin Mocha (standard dark mode, toggled from the top button) */
+  /* Dark: same neutrals, toggled from the top button */
   .dark {
-    --background: 240 21% 15%; /* Base */
-    --foreground: 226 64% 88%; /* Text */
-    --card: 237 16% 23%; /* Surface0 */
-    --card-foreground: 226 64% 88%; /* Text */
-    --popover: 240 21% 12%; /* Mantle */
-    --popover-foreground: 226 64% 88%; /* Text */
-    --primary: 267 84% 81%; /* Mauve */
-    --primary-foreground: 240 23% 9%; /* Crust */
-    --secondary: 234 13% 31%; /* Surface1 */
-    --secondary-foreground: 228 24% 72%; /* Subtext0 */
-    --muted: 237 16% 23%; /* Surface0 */
-    --muted-foreground: 230 13% 56%; /* Overlay1 */
-    --accent: 234 13% 31%; /* Surface1 */
-    --accent-foreground: 226 64% 88%; /* Text */
-    --destructive: 343 81% 75%; /* Red */
-    --destructive-foreground: 240 23% 9%; /* Crust */
-    --border: 234 13% 31%; /* Surface1 */
-    --input: 237 16% 23%; /* Surface0 */
-    --ring: 267 84% 81%; /* Mauve */
-    --radius: 0rem;
-    /* TUI design system — single blue accent + status colors */
-    --accent-blue: 217 92% 76%; /* Blue */
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 89.8%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 91% 71%;
+    --destructive-foreground: 0 0% 9%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 17.5%;
+    --ring: 0 0% 45.2%;
+    --radius: 0.625rem;
+    --accent-blue: 0 0% 98%;
     --success: 115 54% 76%; /* Green */
   }
 
@@ -113,6 +96,23 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Film-grain overlay: static, ignores clicks, hidden in print */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @media print {
+    body::after {
+      display: none;
+    }
   }
 
   html {
@@ -313,7 +313,7 @@
   /* Keyboard key styling */
   kbd {
     @apply px-1.5 py-0 pointer-events-none ml-1 inline-flex w-5 h-4 items-center justify-center leading-tight border border-border bg-muted text-[10px] text-muted-foreground;
-    font-family: 'FiraCodeNerdFont', monospace;
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
     font-size: 0.75em;
     box-shadow: 0 1px 0 0 hsl(var(--border) / 0.6);
 

@@ -5,26 +5,34 @@ import { formatPostDate } from '../lib/utils';
 import TuiCard from './TuiCard.astro';
 
 interface Props {
-  collection: 'blog' | 'snippets';
+  collection: 'blog' | 'snippets' | 'projects';
   limit?: number;
 }
 
 const { collection, limit } = Astro.props;
-const hrefBase = collection === 'snippets' ? '/writing' : '/writing';
+// Snippets are rendered by the writing route too.
+const hrefBase = collection === 'projects' ? '/projects' : '/writing';
 
-const all = await getCollection(collection);
-let posts = all
+let posts = (await getCollection(collection))
   .filter((p) => p.data.published !== false)
-  .toSorted((a, b) => b.data.publishedAt?.localeCompare(a.data.publishedAt ?? '') ?? 0);
+  .map((p) => ({
+    slug: p.id.replace(/\.mdx$/, ''),
+    title: p.data.title,
+    // Projects carry a year; posts carry a publish date.
+    date: 'year' in p.data ? p.data.year : (p.data.publishedAt ?? ''),
+    categories: 'categories' in p.data ? (p.data.categories ?? []) : [],
+    featured: 'featured' in p.data && p.data.featured,
+    description: 'year' in p.data ? p.data.description : '',
+  }))
+  .toSorted((a, b) => Number(b.featured) - Number(a.featured) || b.date.localeCompare(a.date));
 
 if (limit) posts = posts.slice(0, limit);
 ---
 
 <div class="flex flex-col gap-2">
   {posts.map((post) => {
-    const slug = post.id.replace(/\.mdx$/, '');
-    const { title, publishedAt, categories = [] } = post.data;
-    const date = formatPostDate(publishedAt);
+    const { slug, title, categories, description } = post;
+    const date = formatPostDate(post.date);
 
     return (
       <TuiCard
@@ -50,6 +58,7 @@ if (limit) posts = posts.slice(0, limit);
             >
               {title}
             </h3>
+            {description && <p class="mt-1 line-clamp-2 text-xs text-muted-foreground">{description}</p>}
           </div>
           <div class="flex shrink-0 items-center gap-3">
             <span class="font-mono text-[10px] text-muted-foreground/50">{date}</span>

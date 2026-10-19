@@ -148,7 +148,7 @@ export default function CommandBar() {
           border-bottom: 1px solid hsl(var(--border));
           background: transparent;
           padding: 0.75rem 1rem;
-          font-family: var(--font-dm-sans), ui-monospace, monospace;
+          font-family: var(--font-geist), ui-monospace, monospace;
           font-size: 0.875rem;
           color: hsl(var(--foreground));
           outline: none;
@@ -162,13 +162,13 @@ export default function CommandBar() {
         }
         [cmdk-empty] {
           padding: 0.75rem 1rem;
-          font-family: var(--font-dm-sans), ui-monospace, monospace;
+          font-family: var(--font-geist), ui-monospace, monospace;
           font-size: 0.75rem;
           color: hsl(var(--muted-foreground));
         }
         [cmdk-group-heading] {
           padding: 0.75rem 1rem 0.25rem;
-          font-family: var(--font-dm-sans), ui-monospace, monospace;
+          font-family: var(--font-geist), ui-monospace, monospace;
           font-size: 0.75rem;
           text-transform: uppercase;
           letter-spacing: 0.1em;
@@ -176,7 +176,7 @@ export default function CommandBar() {
         }
         [cmdk-item] {
           padding: 0.625rem 1rem;
-          font-family: var(--font-dm-sans), ui-monospace, monospace;
+          font-family: var(--font-geist), ui-monospace, monospace;
           font-size: 0.75rem;
           color: hsl(var(--muted-foreground));
           cursor: pointer;

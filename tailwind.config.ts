@@ -15,8 +15,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        primary: ['var(--font-dm-sans)', ...defaultTheme.fontFamily.sans],
-        mono: ['FiraCodeNerdFont', ...defaultTheme.fontFamily.mono],
+        sans: ['var(--font-geist)', ...defaultTheme.fontFamily.sans],
+        primary: ['var(--font-geist)', ...defaultTheme.fontFamily.sans],
+        mono: ['var(--font-geist-mono)', ...defaultTheme.fontFamily.mono],
       },
       colors: {
         border: 'hsl(var(--border))',

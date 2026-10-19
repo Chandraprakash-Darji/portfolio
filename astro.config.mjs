@@ -29,8 +29,13 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.fontsource(),
-      name: 'DM Sans',
-      cssVariable: '--font-dm-sans',
+      name: 'Geist',
+      cssVariable: '--font-geist',
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Geist Mono',
+      cssVariable: '--font-geist-mono',
     },
   ],
 
@@ -42,7 +47,8 @@ export default defineConfig({
         [rehypeAutolinkHeadings, { behavior: 'append' }],
       ],
       shikiConfig: {
-        theme: 'poimandres',
+        themes: { light: 'github-light', dark: 'github-dark' },
+        defaultColor: false,
       },
     }),
     react(),

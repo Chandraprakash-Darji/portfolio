@@ -75,22 +75,21 @@ export const { getStaticPaths, GET } = await OGImageRoute({
       title: {
         color: [255, 255, 255],
         size: 64,
-        families: ['DM Sans'],
+        families: ['Geist'],
         weight: 'Medium',
         lineHeight: 1.2,
       },
       description: {
         color: [180, 180, 200],
         size: 36,
-        families: ['DM Sans'],
+        families: ['Geist'],
         weight: 'Normal',
         lineHeight: 1.2,
       },
     },
     fonts: [
-      './src/pages/og/_fonts/dm-sans-400.ttf',
-      './src/pages/og/_fonts/dm-sans-500.ttf',
-      './src/pages/og/_fonts/dm-sans-700.ttf',
+      './src/pages/og/_fonts/geist-400.ttf',
+      './src/pages/og/_fonts/geist-500.ttf',
     ],
   }),
 });
