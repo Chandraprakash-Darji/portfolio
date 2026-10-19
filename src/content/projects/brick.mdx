@@ -1,0 +1,35 @@
+---
+title: 'brick'
+description: 'typescript backend framework on bun. services with validated actions, openapi docs, and a typed client without codegen'
+year: '2026'
+status: 'active'
+stack: ['TypeScript', 'Bun', 'Elysia', 'Drizzle', 'TypeBox']
+repo: 'https://github.com/Chandraprakash-Darji/brick'
+live: 'https://www.brickkit.dev'
+featured: true
+published: true
+---
+
+## what it is
+
+a backend framework for bun. you define services, each with validated actions, mount them, and get an http server with openapi docs and a typed client. no codegen step. three packages on npm: `@brickkit/core`, `@brickkit/cli` and `@brickkit/crud`.
+
+`@brickkit/crud` is opt-in. it adds crud endpoints over drizzle with deny-by-default field policies, so a field is not exposed until you say so. mcp tool support is built in.
+
+it started as the internal framework behind our own projects and was cleaned up for public use. docs live at [brickkit.dev](https://www.brickkit.dev).
+
+## the hardest decisions
+
+the unit is a service, not a procedure. trpc and elysia already give you typed end to end, so this is the real design difference. it is also a hard thing to sell until someone has felt the problem it solves.
+
+bun-only. the server story is bun, which cuts out every team on node. i took the smaller room on purpose, because supporting two runtimes would have halved the time spent on the one i use.
+
+crud is deny-by-default. safer, and slower to get a first endpoint working. i picked safe.
+
+## what i'd do differently
+
+i built the defaults for my own stack: drizzle, postgres, typebox, elysia underneath. if yours is prisma and zod, it fights you on day one. i would make the defaults swappable earlier.
+
+the first npm release shipped with no keywords and a thin readme, so search could not find it. packaging and docs came after the code. i would do them first.
+
+i wrote up the honest version of all this in [i built a backend framework nobody asked for](/writing/i-built-a-backend-framework-nobody-asked-for).
