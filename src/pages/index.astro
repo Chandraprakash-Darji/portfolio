@@ -1,4 +1,5 @@
 ---
+export const prerender = false;
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../site.config';
@@ -55,6 +56,7 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
 <BaseLayout ogImage="home">
   <div class="layout tui-home space-y-14 py-20">
     <section class="space-y-4 leading-relaxed">
+      <h1 class="sr-only">Chandraprakash Darji, software engineer</h1>
       <p>
         i'm chandra, a software engineer in india. i build
         <strong class="font-medium text-foreground">backends that hold under load</strong>
