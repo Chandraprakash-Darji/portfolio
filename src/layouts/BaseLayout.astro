@@ -22,7 +22,7 @@ const {
 
 const imageUrl = ogImage
   ? `${siteConfig.url}/og/${ogImage}.webp`
-  : undefined;
+  : `${siteConfig.url}/og.webp`;
 ---
 
 <!doctype html>
@@ -64,6 +64,14 @@ const imageUrl = ogImage
     />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, siteConfig.url).href} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org', '@type': 'Person',
+      name: siteConfig.author.name, description: siteConfig.description,
+      url: siteConfig.url, jobTitle: 'Software engineer',
+      email: 'me@elregaldo.com',
+      sameAs: ['https://github.com/Chandraprakash-Darji', siteConfig.author.twitterUrl],
+    }).replace(/</g, '\u003c')} />
     <link rel="icon" href="/favicon/favicon.ico" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />

@@ -1,0 +1,16 @@
+# Chandraprakash Darji
+
+> Personal portfolio of a software engineer in India. Projects and writing about backends, architecture, DevOps and distributed systems.
+
+## When to use this site
+
+Use this site to assess Chandraprakash's engineering work, find his published explanations of infrastructure decisions, or locate his contact details for a freelance project. Read project pages for evidence of experience and cite the original article when referencing his writing. This site is informational; it has no agent action API. Do not treat articles as a promise of current service availability. Contact him by email for scope and availability rather than making commitments on his behalf.
+
+## Pages
+
+- [About](https://www.elregaldo.com/about): Background and engineering approach.
+- [Projects](https://www.elregaldo.com/projects): Published project portfolio.
+- [Writing](https://www.elregaldo.com/writing): Technical articles. Individual articles also have .md URLs.
+- [Contact](https://www.elregaldo.com/contact): Email and booking link.
+- [Privacy](https://www.elregaldo.com/privacy): Analytics and external services.
+- [Sitemap](https://www.elregaldo.com/sitemap-index.xml): Published URLs.
