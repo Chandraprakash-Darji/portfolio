@@ -81,31 +81,33 @@ export const { getStaticPaths, GET } = await OGImageRoute({
     quality: 90,
     title: page.title,
     description: page.description,
-    bgGradient: [[10, 10, 10]],
-    border: { color: [64, 64, 64], width: 2 },
+    // Frame, dot grid and footer are baked into the background; the top label is the "logo".
+    bgImage: { path: './src/pages/og/_images/background.png', fit: 'cover' },
+    padding: 80,
     logo: {
       path: './src/pages/og/_images/logo.png',
-      size: [300],
+      size: [212],
     },
     font: {
       title: {
-        color: [255, 255, 255],
+        color: [250, 250, 250],
         size: 64,
         families: ['Geist'],
         weight: 'Medium',
-        lineHeight: 1.2,
+        lineHeight: 1.1,
       },
       description: {
         color: [163, 163, 163],
-        size: 36,
-        families: ['Geist'],
+        size: 26,
+        families: ['Geist Mono'],
         weight: 'Normal',
-        lineHeight: 1.2,
+        lineHeight: 1.4,
       },
     },
     fonts: [
       './src/pages/og/_fonts/geist-400.ttf',
       './src/pages/og/_fonts/geist-500.ttf',
+      './src/pages/og/_fonts/geist-mono-400.ttf',
     ],
   }),
 });
