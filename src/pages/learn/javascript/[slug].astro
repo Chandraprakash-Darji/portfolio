@@ -12,7 +12,7 @@ const notes = import.meta.glob<MarkdownInstance<Record<string, never>>>('../../.
 const chapter = notes[`../../../data/javascript-notes/${lesson.slug}.md`];
 if (!chapter) throw new Error(`Missing chapter: ${lesson.slug}`);
 const Content = chapter.Content;
-const runnable = await Promise.all(codeBlocks(chapter.rawContent()).map(logsCleanly));
+const runnable = await Promise.all(codeBlocks(await chapter.compiledContent()).map(logsCleanly));
 const demos: Record<string, string> = { 'basis-of-js': 'values', functions: 'closures', objects: 'references', 'dom-manipulation': 'events', oops: 'prototypes', 'what-are-promises': 'async' };
 const demo = demos[lesson.slug];
 const previous = lessons[index - 1];

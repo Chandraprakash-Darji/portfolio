@@ -20,3 +20,9 @@ test('serialized formatter runs standalone and code cannot close the script tag'
   const format = new Function(`${boot.slice(0, boot.indexOf('const send'))}; return format;`)();
   expect(format({ n: [1, 2] })).toBe('{n: [1, 2]}');
 });
+
+test('a shared object is not a cycle, and comment openers are escaped', () => {
+  const o = { a: 1 };
+  expect(formatValue([o, o])).toBe('[{a: 1}, {a: 1}]');
+  expect(runnerDoc('console.log("<!--<script>")', 'id')).not.toContain('<!--');
+});

@@ -1,8 +1,21 @@
 import { Worker } from 'node:worker_threads';
 
-/** JS/JavaScript fenced blocks in a note, in the order the page renders them. */
-export const codeBlocks = (markdown: string) =>
-  [...markdown.matchAll(/^```(?:js|javascript)\n([\s\S]*?)^```/gm)].map((match) => match[1]);
+const entities: Record<string, string> = { lt: '<', gt: '>', amp: '&', quot: '"', apos: "'" };
+const decode = (text: string) =>
+  text.replace(/&(#x[0-9a-f]+|#\d+|\w+);/gi, (match, code: string) =>
+    code[0] !== '#'
+      ? (entities[code] ?? match)
+      : String.fromCodePoint(code[1] === 'x' || code[1] === 'X' ? parseInt(code.slice(2), 16) : Number(code.slice(1))),
+  );
+
+/**
+ * Source of each rendered JS code block, in page order. Read from the rendered HTML, not the
+ * Markdown, so it always lines up with the <pre> elements that get Run buttons.
+ */
+export const codeBlocks = (html: string) =>
+  [...html.matchAll(/<pre[^>]*data-language="(?:js|javascript)"[^>]*>([\s\S]*?)<\/pre>/g)].map((match) =>
+    decode(match[1].replace(/<[^>]+>/g, '')),
+  );
 
 // Runs in its own thread so a block's stray promise rejections can't reach the build process.
 // Timers fire immediately here, so the check stays fast.
@@ -39,10 +52,15 @@ const context = vm.createContext({
 export function logsCleanly(code: string): Promise<boolean> {
   return new Promise((resolve) => {
     const worker = new Worker(checker, { eval: true, workerData: code });
-    worker.once('message', (ok: boolean) => {
+    // The vm timeout doesn't cover timer callbacks, so cap the whole check; a hung block is not runnable.
+    const timer = setTimeout(() => void worker.terminate(), 2000);
+    const finish = (ok: boolean) => {
+      clearTimeout(timer);
       resolve(ok);
       void worker.terminate();
-    });
-    worker.once('error', () => resolve(false));
+    };
+    worker.once('message', finish);
+    worker.once('error', () => finish(false));
+    worker.once('exit', () => finish(false));
   });
 }

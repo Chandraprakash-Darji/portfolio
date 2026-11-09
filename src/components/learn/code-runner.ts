@@ -6,18 +6,24 @@ export function formatValue(value: unknown, seen = new WeakSet<object>()): strin
   if (typeof value === 'symbol' || value === undefined || value === null || typeof value !== 'object') return String(value);
   if (value instanceof Error) return `${value.name}: ${value.message}`;
   if (seen.has(value)) return '[Circular]';
+  if (typeof Node !== 'undefined' && value instanceof Node) return `<${value.nodeName.toLowerCase()}>`;
+  // `seen` holds only the current path, so the same object twice side by side is not a cycle.
   seen.add(value);
   const inner = (v: unknown) => (typeof v === 'string' ? JSON.stringify(v) : formatValue(v, seen));
-  if (Array.isArray(value)) return `[${value.map(inner).join(', ')}]`;
-  if (value instanceof Map) return `Map(${value.size}) {${[...value].map(([k, v]) => `${inner(k)} => ${inner(v)}`).join(', ')}}`;
-  if (value instanceof Set) return `Set(${value.size}) {${[...value].map(inner).join(', ')}}`;
-  if (typeof Node !== 'undefined' && value instanceof Node) return `<${value.nodeName.toLowerCase()}>`;
   const name = value.constructor && value.constructor !== Object ? `${value.constructor.name} ` : '';
-  return `${name}{${Object.entries(value).map(([k, v]) => `${k}: ${inner(v)}`).join(', ')}}`;
+  const text = Array.isArray(value)
+    ? `[${value.map(inner).join(', ')}]`
+    : value instanceof Map
+      ? `Map(${value.size}) {${[...value].map(([k, v]) => `${inner(k)} => ${inner(v)}`).join(', ')}}`
+      : value instanceof Set
+        ? `Set(${value.size}) {${[...value].map(inner).join(', ')}}`
+        : `${name}{${Object.entries(value).map(([k, v]) => `${k}: ${inner(v)}`).join(', ')}}`;
+  seen.delete(value);
+  return text;
 }
 
-// Escape "</script" so note code cannot close the tag early.
-const safe = (s: string) => s.replace(/<\/script/gi, '<\\/script');
+// Escape "</script" so note code cannot close the tag early, and "<!--" so it cannot open the escaped state that swallows our closing tag.
+const safe = (s: string) => s.replace(/<\/script/gi, '<\\/script').replace(/<!--/g, '<\\!--');
 
 /** HTML for a sandboxed iframe that runs `code` and posts each console line to the parent. */
 export function runnerDoc(code: string, id: string): string {
