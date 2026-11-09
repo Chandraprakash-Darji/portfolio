@@ -43,7 +43,7 @@ export const chapters = [
     slug: 'dom',
     title: 'The DOM',
     summary: 'Selecting, creating and changing elements, and reacting to events.',
-    sections: [{ slug: 'dom-manuplication', title: 'DOM manipulation' }],
+    sections: [{ slug: 'dom-manipulation', title: 'DOM manipulation' }],
   },
   {
     slug: 'oop',

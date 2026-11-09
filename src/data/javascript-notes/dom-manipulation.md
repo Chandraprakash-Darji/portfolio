@@ -1,4 +1,4 @@
-## DOM Manuplication
+## DOM Manipulation
 
 
 **Document Object Model** Structured Representation Of Html Documents. Allows Javascript To Access Html Elements And Styles To Manipulate Them.
@@ -9,14 +9,14 @@ DOM tree Structure
 DOM is not Part of JavaScript ...
 Javscript interact with DOM by WEB API's that browser Implements ...
 
-- [Accessing Dom Elements](/learn/javascript/dom-manuplication#accessing-dom-elements)
+- [Accessing Dom Elements](/learn/javascript/dom-manipulation#accessing-dom-elements)
 - [Grab Children/Parent Node(s)](#grab-childrenparent-nodes)
-- [Create New DOM Elements](/learn/javascript/dom-manuplication#create-new-dom-elements)
-- [Add Elements to the DOM](/learn/javascript/dom-manuplication#add-elements-to-the-dom)
-- [Remove Html Element](/learn/javascript/dom-manuplication#remove-html-element)
-- [Add/Remove/Toggle/Check Classes](/learn/javascript/dom-manuplication#addremovetogglecheck-classes)
-- [Updating Styles Using Dom](/learn/javascript/dom-manuplication#updating-styles-using-dom)
-- [Changing the Atributes](/learn/javascript/dom-manuplication#changing-the-atributes)
+- [Create New DOM Elements](/learn/javascript/dom-manipulation#create-new-dom-elements)
+- [Add Elements to the DOM](/learn/javascript/dom-manipulation#add-elements-to-the-dom)
+- [Remove Html Element](/learn/javascript/dom-manipulation#remove-html-element)
+- [Add/Remove/Toggle/Check Classes](/learn/javascript/dom-manipulation#addremovetogglecheck-classes)
+- [Updating Styles Using Dom](/learn/javascript/dom-manipulation#updating-styles-using-dom)
+- [Changing the Atributes](/learn/javascript/dom-manipulation#changing-the-atributes)
 
 ### Accessing Dom Elements
 
