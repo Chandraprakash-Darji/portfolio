@@ -471,14 +471,17 @@
   }
   .js-home-grid,
   .js-reading {
-    grid-template-columns: 1fr;
+    /* minmax(0, …) lets the column shrink below long code lines instead of widening the page */
+    grid-template-columns: minmax(0, 1fr);
     gap: 40px;
   }
   .js-cover-sidebar {
     position: static;
-    width: 240px;
-    max-width: 100%;
-    margin: auto;
+    width: 100%;
+  }
+  .js-cover {
+    aspect-ratio: auto;
+    min-height: 200px;
   }
   .js-cover h2 {
     font-size: 31px;
