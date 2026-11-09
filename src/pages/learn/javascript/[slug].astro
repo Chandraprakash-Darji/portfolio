@@ -17,7 +17,7 @@ const demo = demos[lesson.slug];
 const previous = lessons[index - 1];
 const next = lessons[index + 1];
 ---
-<LearnLayout title={lesson.title} description={`${lesson.number} ${lesson.title}, from chapter ${lesson.chapterNumber}: ${lesson.chapter.title}. ${lesson.chapter.summary}`}>
+<LearnLayout title={lesson.title} ogImage={`learn/javascript/${lesson.slug}`} description={`${lesson.number} ${lesson.title}, from chapter ${lesson.chapterNumber}: ${lesson.chapter.title}. ${lesson.chapter.summary}`}>
   <header class="js-readbar">
     <a class="js-readbar-home" href="/learn/javascript">[js] recap</a>
     <div class="js-readbar-title">
