@@ -2,17 +2,16 @@
 import LearnLayout from '../../../layouts/LearnLayout.astro';
 import Comments from '../../../components/Comments.astro';
 import Playground from '../../../components/learn/Playground';
-import type { MarkdownInstance } from 'astro';
+import { getEntry, render } from 'astro:content';
 import { ArrowLeft, ArrowRight, Menu } from 'lucide-react';
 import { chapters, lessons } from '../../../data/javascript-lessons';
 import { codeBlocks, logsCleanly } from '../../../components/learn/runnable';
 export function getStaticPaths() { return lessons.map((lesson, index) => ({ params: { slug: lesson.slug }, props: { lesson, index } })); }
 const { lesson, index } = Astro.props;
-const notes = import.meta.glob<MarkdownInstance<Record<string, never>>>('../../../data/javascript-notes/*.md', { eager: true });
-const chapter = notes[`../../../data/javascript-notes/${lesson.slug}.md`];
-if (!chapter) throw new Error(`Missing chapter: ${lesson.slug}`);
-const Content = chapter.Content;
-const runnable = await Promise.all(codeBlocks(await chapter.compiledContent()).map(logsCleanly));
+const note = await getEntry('javascript', lesson.slug);
+if (!note) throw new Error(`Missing section: ${lesson.slug}`);
+const { Content } = await render(note);
+const runnable = await Promise.all(codeBlocks(note.rendered?.html ?? '').map(logsCleanly));
 const demos: Record<string, string> = { 'basis-of-js': 'values', functions: 'closures', objects: 'references', 'dom-manipulation': 'events', oops: 'prototypes', 'what-are-promises': 'async' };
 const demo = demos[lesson.slug];
 const previous = lessons[index - 1];

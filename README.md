@@ -12,7 +12,7 @@ Live at [elregaldo.com](https://www.elregaldo.com).
 | Snippets | `/snippet` | `src/content/snippets/*.mdx` |
 | Projects | `/projects` | `src/content/projects` |
 | Frames | `/frames` | `src/constant/frames` |
-| JS Recap | `/learn/javascript` | `src/data/javascript-notes/*.md` |
+| JS Recap | `/learn/javascript` | `src/content/javascript/*.md` |
 
 Every post and snippet is also served as plain Markdown (`/writing/<slug>.md`), and `/llms.txt` describes the site for AI agents.
 
@@ -26,7 +26,7 @@ A JavaScript guide built from my [js-recap](https://github.com/Chandraprakash-Da
 - **Glossary.** Terms get popover definitions in the text and a searchable list on the guide page.
 - **Discussion.** Each section has its own comment thread through GitHub Discussions (giscus).
 
-The notes live in this repo now; edit them in `src/data/javascript-notes/` and the chapter list in `src/data/javascript-lessons.ts`.
+The notes live in this repo now; edit them in `src/content/javascript/` and the chapter list in `src/data/javascript-lessons.ts`.
 
 ## Stack
 
