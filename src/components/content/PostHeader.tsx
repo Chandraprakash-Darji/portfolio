@@ -84,8 +84,8 @@ function LLMCopyButton({ markdownUrl }: { markdownUrl: string }) {
 
   return (
     <Button
-      className="h-7 gap-1.5 border-none px-2 text-[0.8125rem] active:scale-none"
-      variant="secondary"
+      className="h-7 gap-1.5 rounded-none px-2 text-[0.8125rem] active:scale-none"
+      variant="outline"
       size="sm"
       disabled={state === 'loading'}
       onClick={handleCopy}
@@ -152,8 +152,8 @@ function ViewOptions({
   return (
     <div className="relative">
       <Button
-        className="size-7 border-none active:scale-none"
-        variant="secondary"
+        className="size-7 rounded-none active:scale-none"
+        variant="outline"
         size="icon-xs"
         aria-label="View Options"
         onClick={() => setOpen(!open)}
@@ -195,9 +195,8 @@ function LLMCopyButtonWithViewOptions({
   githubUrl: string;
 }) {
   return (
-    <ButtonGroup>
+    <ButtonGroup className="[&>*+*]:-ml-px">
       <LLMCopyButton markdownUrl={markdownUrl} />
-      <div className="h-7 w-px self-center bg-border" />
       <ViewOptions markdownUrl={markdownUrl} githubUrl={githubUrl} />
     </ButtonGroup>
   );
@@ -216,8 +215,8 @@ function DocShareMenu({ title, url }: { title: string; url: string }) {
   return (
     <div className="relative">
       <Button
-        className="size-7 border-none active:scale-none"
-        variant="secondary"
+        className="size-7 rounded-none active:scale-none"
+        variant="outline"
         size="icon-xs"
         aria-label="Share"
         onClick={() => setOpen(!open)}

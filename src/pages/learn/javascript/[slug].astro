@@ -1,0 +1,150 @@
+---
+import LearnLayout from '../../../layouts/LearnLayout.astro';
+import Comments from '../../../components/Comments.astro';
+import Playground from '../../../components/learn/Playground';
+import type { MarkdownInstance } from 'astro';
+import { ArrowLeft, ArrowRight, Menu } from 'lucide-react';
+import { chapters, lessons } from '../../../data/javascript-lessons';
+import { codeBlocks, logsCleanly } from '../../../components/learn/runnable';
+export function getStaticPaths() { return lessons.map((lesson, index) => ({ params: { slug: lesson.slug }, props: { lesson, index } })); }
+const { lesson, index } = Astro.props;
+const notes = import.meta.glob<MarkdownInstance<Record<string, never>>>('../../../data/javascript-notes/*.md', { eager: true });
+const chapter = notes[`../../../data/javascript-notes/${lesson.slug}.md`];
+if (!chapter) throw new Error(`Missing chapter: ${lesson.slug}`);
+const Content = chapter.Content;
+const runnable = await Promise.all(codeBlocks(await chapter.compiledContent()).map(logsCleanly));
+const demos: Record<string, string> = { 'basis-of-js': 'values', functions: 'closures', objects: 'references', 'dom-manipulation': 'events', oops: 'prototypes', 'what-are-promises': 'async' };
+const demo = demos[lesson.slug];
+const previous = lessons[index - 1];
+const next = lessons[index + 1];
+---
+<LearnLayout title={lesson.title} description={`${lesson.number} ${lesson.title}, from chapter ${lesson.chapterNumber}: ${lesson.chapter.title}. ${lesson.chapter.summary}`}>
+  <header class="js-readbar">
+    <a class="js-readbar-home" href="/learn/javascript">[js] recap</a>
+    <div class="js-readbar-title">
+      <strong>Chapter {lesson.chapterNumber} · {lesson.chapter.title}</strong>
+      <span>{lesson.title}</span>
+      <nav class="js-readbar-segments" aria-label={`Sections in chapter ${lesson.chapterNumber}`}>{lesson.chapter.sections.map((section, i) => <a href={`/learn/javascript/${section.slug}`} title={`${lesson.chapterNumber}.${i + 1} ${section.title}`} aria-label={`${lesson.chapterNumber}.${i + 1} ${section.title}`} aria-current={i + 1 === lesson.position ? 'page' : undefined} class={i + 1 < lesson.position ? 'is-done' : i + 1 === lesson.position ? 'is-current' : undefined}><i /></a>)}</nav>
+    </div>
+    <button type="button" popovertarget="js-toc" aria-label="Book contents"><Menu size={14} aria-hidden="true" /> <span>Contents</span></button>
+  </header>
+  <div id="js-toc" popover class="js-toc-drawer">
+    <p class="js-eyebrow">CONTENTS</p>
+    <nav aria-label="Book contents">{chapters.map((chapter, c) => <div class="js-toc-chapter"><p>{c + 1}. {chapter.title}</p>{chapter.sections.map((item, i) => <a aria-current={item.slug === lesson.slug ? 'page' : undefined} href={`/learn/javascript/${item.slug}`}>{c + 1}.{i + 1} {item.title}</a>)}</div>)}</nav>
+  </div>
+  <div class="js-reading">
+    <article data-lesson={lesson.slug}><header><nav class="js-crumbs" aria-label="Breadcrumb"><a href="/learn/javascript">Contents</a> › <a href={`/learn/javascript#chapter-${lesson.chapter.slug}`}>Chapter {lesson.chapterNumber} · {lesson.chapter.title}</a> <span>{lesson.position} of {lesson.chapter.sections.length}</span></nav><p class="js-eyebrow">{lesson.number}</p><h1>{lesson.title}</h1></header><p class="js-hint">Examples with a Run button are editable. Underlined terms open a short definition.</p><div class="js-notes" data-runnable={JSON.stringify(runnable)}><Content /></div>{demo && <section id="experiment"><h2>Explore the idea</h2><Playground kind={demo} client:load /></section>}<p class="js-storage">Your last opened chapter is saved in this browser when local storage is available.</p><nav class="js-pagination" aria-label="Chapter navigation">{previous ? <a href={`/learn/javascript/${previous.slug}`}><small><ArrowLeft size={14} aria-hidden="true" /> Previous</small>{previous.number} {previous.title}</a> : <a href="/learn/javascript"><small><ArrowLeft size={14} aria-hidden="true" /> Back</small>Contents</a>}{next ? <a class="is-next" href={`/learn/javascript/${next.slug}`}><small>Next <ArrowRight size={14} aria-hidden="true" /></small>{next.number} {next.title}</a> : <a class="is-next" href="/learn/javascript"><small>Finished <ArrowRight size={14} aria-hidden="true" /></small>Back to the guide</a>}</nav><section class="js-discussion" aria-labelledby="discussion-title"><h2 id="discussion-title">Discuss this section</h2><p>Questions, corrections or a better example? Comments use GitHub Discussions.</p><Comments /></section></article>
+  </div>
+</LearnLayout>
+<script>
+  function saveProgress() {
+    const slug = document.querySelector<HTMLElement>('[data-lesson]')?.dataset.lesson;
+    if (slug) { try { localStorage.setItem('js-recap-last', slug); } catch { /* Storage is optional. */ } }
+  }
+  saveProgress();
+  document.addEventListener('astro:page-load', saveProgress);
+
+  import { runnerDoc } from '../../../components/learn/code-runner';
+  import { glossary } from '../../../data/javascript-lessons';
+
+  function makeRunnable(pre: HTMLPreElement, index: number) {
+    const code = pre.querySelector('code') ?? pre;
+    const original = code.innerHTML;
+    code.setAttribute('contenteditable', 'plaintext-only');
+    code.setAttribute('spellcheck', 'false');
+    code.setAttribute('aria-label', 'Editable JavaScript example');
+    const bar = document.createElement('div');
+    bar.className = 'js-run';
+    const run = Object.assign(document.createElement('button'), { type: 'button' });
+    // Same play icon as lucide's Play, inlined because these buttons are created at runtime.
+    run.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg> Run';
+    const reset = Object.assign(document.createElement('button'), { type: 'button', textContent: 'Reset' });
+    const out = document.createElement('output');
+    out.hidden = true;
+    out.setAttribute('aria-live', 'polite');
+    bar.append(run, reset);
+    pre.after(bar, out);
+    reset.addEventListener('click', () => { code.innerHTML = original; out.hidden = true; out.replaceChildren(); });
+    run.addEventListener('click', () => {
+      const id = `${index}-${Date.now()}`;
+      pre.dataset.runId = id;
+      out.hidden = false;
+      out.replaceChildren();
+      const frame = document.createElement('iframe');
+      frame.sandbox.add('allow-scripts');
+      frame.hidden = true;
+      frame.srcdoc = runnerDoc(code.textContent ?? '', id);
+      const onMessage = (event: MessageEvent) => {
+        if (event.source !== frame.contentWindow || event.data?.id !== id || pre.dataset.runId !== id) return;
+        const line = document.createElement('div');
+        line.className = `js-log js-log-${event.data.level}`;
+        line.textContent = String(event.data.text);
+        out.append(line);
+      };
+      window.addEventListener('message', onMessage);
+      // shortcut: a snippet with an infinite loop can still freeze the tab when the browser runs the sandbox in-process; move to a Worker if that bites.
+      // 6 s covers the longest timer in the notes (5 s).
+      setTimeout(() => {
+        window.removeEventListener('message', onMessage);
+        frame.remove();
+        if (pre.dataset.runId === id && !out.childElementCount) out.textContent = 'No console output.';
+      }, 6000);
+      document.body.append(frame);
+    });
+  }
+
+  function linkTerms(root: HTMLElement) {
+    const pending = new Map(glossary.map((item) => [item.term.toLowerCase(), item]));
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: (node) => (node.parentElement?.closest('pre, code, a, button, h1, h2, h3, h4, h5, h6') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+    });
+    const nodes: Text[] = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode as Text);
+    for (let text of nodes) {
+      while (pending.size) {
+        const terms = [...pending.values()].map((item) => item.term).join('|');
+        const match = new RegExp(`\\b(${terms})(?:e?s)?\\b`, 'i').exec(text.data);
+        if (!match) break;
+        const item = pending.get(match[1].toLowerCase())!;
+        pending.delete(match[1].toLowerCase());
+        const word = text.splitText(match.index);
+        text = word.splitText(match[0].length);
+        const id = `term-${item.term.toLowerCase().replace(/\s+/g, '-')}`;
+        const button = Object.assign(document.createElement('button'), { type: 'button', className: 'js-term', textContent: word.data });
+        button.setAttribute('popovertarget', id);
+        const pop = Object.assign(document.createElement('span'), { id, className: 'js-term-pop' });
+        pop.setAttribute('popover', 'auto');
+        pop.append(Object.assign(document.createElement('strong'), { textContent: item.term }), ` ${item.definition}`);
+        pop.addEventListener('beforetoggle', (event) => {
+          if ((event as ToggleEvent).newState !== 'open') return;
+          const rect = button.getBoundingClientRect();
+          pop.style.top = `${rect.bottom + 8}px`;
+          pop.style.left = `${Math.max(16, Math.min(rect.left, innerWidth - 296))}px`;
+        });
+        word.replaceWith(button, pop);
+      }
+    }
+  }
+
+  function updateProgress() {
+    const bar = document.querySelector<HTMLElement>('.js-readbar');
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar?.style.setProperty('--read', `${max > 0 ? Math.min(100, (scrollY / max) * 100) : 100}%`);
+  }
+  addEventListener('scroll', updateProgress, { passive: true });
+
+  function enhance() {
+    updateProgress();
+    const root = document.querySelector<HTMLElement>('.js-notes');
+    if (!root || root.dataset.enhanced) return;
+    root.dataset.enhanced = 'true';
+    // Only blocks that printed something at build time get Run/Reset (see runnable.ts).
+    const flags: boolean[] = JSON.parse(root.dataset.runnable ?? '[]');
+    root.querySelectorAll<HTMLPreElement>('pre[data-language="js"], pre[data-language="javascript"]').forEach((pre, index) => {
+      if (flags[index]) makeRunnable(pre, index);
+    });
+    linkTerms(root);
+  }
+  enhance();
+  document.addEventListener('astro:page-load', enhance);
+</script>

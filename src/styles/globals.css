@@ -393,3 +393,30 @@
 .pixel [class~='rounded']:not([class~='rounded-full']) {
   border-radius: var(--radius);
 }
+
+/* Page-navigation indicator, toggled from BaseLayout. Appears only if a navigation takes over 150ms. */
+html.is-navigating::before {
+  content: '';
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 100;
+  height: 2px;
+  width: 100%;
+  background: hsl(var(--foreground));
+  transform-origin: left;
+  animation: nav-progress 8s cubic-bezier(0.1, 0.7, 0.2, 1) 150ms both;
+}
+@keyframes nav-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(0.9);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.is-navigating::before {
+    animation: none;
+    transform: scaleX(0.5);
+  }
+}

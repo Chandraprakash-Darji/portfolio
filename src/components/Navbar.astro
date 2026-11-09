@@ -1,4 +1,7 @@
 ---
+interface Props { wide?: boolean }
+const { wide = false } = Astro.props;
+
 const links = [
   { name: 'home', href: '/' },
   { name: 'projects', href: '/projects' },
@@ -8,9 +11,9 @@ const links = [
   { name: 'about', href: '/about' },
 ];
 ---
-<nav class="layout flex items-center gap-4 py-3 relative" aria-label="Primary navigation">
+<nav class:list={["flex items-center gap-4 py-3 relative", wide ? "guide-navbar" : "layout"]} aria-label="Primary navigation">
   <!-- Desktop links -->
-  <div class="relative mx-auto w-full max-w-3xl">
+  <div class:list={["relative mx-auto w-full", !wide && "max-w-3xl"]}>
     <button
       class="menu-toggle relative  mt-0 z-30 -ml-1 flex h-8 w-8 cursor-pointer items-center justify-center md:hidden"
       aria-label="Open Menu"
@@ -42,10 +45,10 @@ const links = [
   <div class="absolute top-4 right-0 z-10 flex items-center gap-2">
     <button
       id="command-bar-trigger"
-      class="flex items-center gap-2 border border-border px-2 py-1 font-mono text-xs text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
+      class="flex items-center gap-2 border border-border px-2 py-1 font-mono text-xs leading-none text-muted-foreground transition-colors hover:border-foreground/30 hover:text-foreground"
       aria-label="Search"
     >
-      search <kbd class="text-[10px] hidden sm:inline">⌘K</kbd>
+      search <kbd class="hidden sm:inline-flex ml-0 w-auto px-1 leading-none">⌘K</kbd>
     </button>
 
     <button
@@ -59,6 +62,7 @@ const links = [
 </nav>
 
 <style>
+  .guide-navbar { width:calc(100% - 40px); max-width:984px; margin-left:auto; margin-right:auto; }
   @media (max-width: 767px) {
     .menu {
       @apply invisible opacity-0;
