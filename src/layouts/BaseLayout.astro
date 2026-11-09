@@ -22,9 +22,7 @@ const {
   wideLayout = false,
 } = Astro.props;
 
-const imageUrl = ogImage
-  ? `${siteConfig.url}/og/${ogImage}.webp`
-  : `${siteConfig.url}/og.webp`;
+const imageUrl = `${siteConfig.url}/og/${ogImage ?? 'home'}.webp`;
 ---
 
 <!doctype html>
