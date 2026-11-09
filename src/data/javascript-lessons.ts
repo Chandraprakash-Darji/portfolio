@@ -1,4 +1,4 @@
-/** The book: chapters group the imported note sections (src/data/javascript-notes/<slug>.md). */
+/** The book: chapters group the imported note sections (src/content/javascript/<slug>.md). */
 export const chapters = [
   {
     slug: 'fundamentals',

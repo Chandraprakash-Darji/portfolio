@@ -59,4 +59,10 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, snippets, projects };
+// JS Recap sections. Ids keep the exact file names, which are the page slugs in src/data/javascript-lessons.ts.
+const javascript = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/javascript', generateId: ({ entry }) => entry.replace(/\.md$/, '') }),
+  schema: z.object({}),
+});
+
+export const collections = { blog, snippets, projects, javascript };
