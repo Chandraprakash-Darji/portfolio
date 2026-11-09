@@ -1,0 +1,53 @@
+---
+// GitHub Discussions comments via giscus; one thread per page path.
+interface Props { class?: string }
+const { class: className } = Astro.props;
+---
+<div class={className} id="giscus-container">
+  <script is:inline>
+    // Inline scripts re-run on every client-side navigation, so keep names out of global scope.
+    // Load giscus only when comments come near the viewport: its script can take seconds,
+    // and the router waits for page scripts before it finishes a navigation.
+    (() => {
+      const container = document.getElementById('giscus-container');
+      const load = () => {
+        const script = document.createElement('script');
+        script.src = 'https://giscus.app/client.js';
+        script.setAttribute('data-repo', 'Chandraprakash-Darji/portfolio');
+        script.setAttribute('data-repo-id', 'R_kgDOLTT4QA');
+        script.setAttribute('data-category', 'General');
+        script.setAttribute('data-category-id', 'DIC_kwDOLTT4QM4CdTNt');
+        script.setAttribute('data-mapping', 'pathname');
+        script.setAttribute('data-strict', '0');
+        script.setAttribute('data-reactions-enabled', '1');
+        script.setAttribute('data-emit-metadata', '0');
+        script.setAttribute('data-input-position', 'bottom');
+        script.setAttribute('data-theme', document.documentElement.classList.contains('dark') ? 'dark_dimmed' : 'light');
+        script.setAttribute('data-lang', 'en');
+        script.setAttribute('data-loading', 'lazy');
+        script.crossOrigin = 'anonymous';
+        script.async = true;
+        container.appendChild(script);
+      };
+      // Observe after the swap settles; mid-swap layout can report the container as visible.
+      document.addEventListener('astro:page-load', () => {
+        new IntersectionObserver((entries, observer) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          observer.disconnect();
+          load();
+        }, { rootMargin: '600px' }).observe(container);
+      }, { once: true });
+
+      // One theme listener for the whole session, not one per visited post.
+      if (window.giscusThemeSync) return;
+      window.giscusThemeSync = true;
+      new MutationObserver(() => {
+        const dark = document.documentElement.classList.contains('dark');
+        document.querySelector('iframe.giscus-frame')?.contentWindow?.postMessage(
+          { giscus: { setConfig: { theme: dark ? 'dark_dimmed' : 'light' } } },
+          'https://giscus.app'
+        );
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    })();
+  </script>
+</div>

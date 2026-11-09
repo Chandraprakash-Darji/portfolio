@@ -19,6 +19,11 @@ const snippets = (await getCollection('snippets')).filter((p) => p.data.publishe
 // Every section renders the same row: title on the left, date or year on the right.
 const sections = [
   {
+    label: 'learn',
+    all: { href: '/learn/javascript', text: 'open the guide →', event: 'learn javascript' },
+    rows: [{ href: '/learn/javascript', title: 'JS Recap · an interactive JavaScript guide', meta: '28 chapters', track: "window.umami?.track('learn-javascript')" }],
+  },
+  {
     label: 'work',
     all: { href: '/projects', text: 'all projects →', event: 'all projects' },
     rows: projects.map((p) => ({

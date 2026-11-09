@@ -1,0 +1,20 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import '../styles/learn.css';
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+---
+<BaseLayout title={`${title} · JS Recap`} description={description} wideLayout>
+  <div class="js-guide">
+    <a class="js-skip" href="#guide-content">Skip to guide content</a>
+    <div id="guide-content" class="js-book"><slot /></div>
+
+  </div>
+  <div slot="footer" class="js-guide js-footer-content">
+    <div class="js-book-footer">
+      <div><a class="js-brand" href="/learn/javascript">[js] recap</a><p>JavaScript, one idea at a time.</p></div>
+      <div><p>read</p><a href="/learn/javascript">the guide</a><a href="/learn/javascript#chapters">chapters</a><a href="/learn/javascript#glossary">glossary</a></div>
+      <div><p>explore</p><a href="/learn/javascript#further-reading">further reading</a><a href="/projects">projects</a><a href="/writing">writing</a></div>
+    </div>
+  </div>
+</BaseLayout>

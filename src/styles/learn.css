@@ -1,0 +1,1142 @@
+.js-guide {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: hsl(var(--foreground));
+}
+.js-guide a {
+  color: inherit;
+  text-decoration: none;
+}
+.js-guide button,
+.js-guide input {
+  font: inherit;
+}
+.js-guide a,
+.js-guide button {
+  -webkit-tap-highlight-color: transparent;
+}
+.js-guide a:focus-visible,
+.js-guide button:focus-visible,
+.js-guide input:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 4px;
+}
+.js-guide h1,
+.js-guide h2,
+.js-guide h3,
+.js-guide p,
+.js-guide figure {
+  margin: 0;
+}
+.js-guide h1,
+.js-guide h2,
+.js-guide h3 {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.js-guide h2 {
+  font-size: 20px;
+}
+.js-guide h3 {
+  font-size: 18px;
+}
+.js-guide p {
+  color: hsl(var(--muted-foreground));
+}
+.js-guide a:hover {
+  color: hsl(var(--foreground));
+}
+.js-sr-only,
+.js-skip:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.js-skip:focus {
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  z-index: 100;
+  background: hsl(var(--background));
+  padding: 10px;
+}
+.js-topbar {
+  height: 65px;
+  border-bottom: 1px solid hsl(var(--border));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 26px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: hsl(var(--background) / 0.95);
+  backdrop-filter: blur(12px);
+}
+.js-topbar > a:last-child {
+  font-size: 14px;
+  color: hsl(var(--muted-foreground));
+}
+.js-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 19px;
+  letter-spacing: -0.02em;
+}
+.js-mark {
+  font-family: var(--font-geist), sans-serif;
+  color: hsl(var(--foreground));
+  font-size: 25px;
+  line-height: 1;
+}
+.js-book {
+  max-width: 1024px;
+  padding: 64px 20px 40px;
+  margin: auto;
+}
+.js-home-grid {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 48px;
+}
+.js-cover-sidebar {
+  position: sticky;
+  top: 88px;
+  align-self: start;
+}
+.js-cover {
+  aspect-ratio: 2/3;
+  background-color: hsl(var(--card));
+  background-image: radial-gradient(
+    hsl(var(--foreground) / 0.15) 1px,
+    transparent 1.5px
+  );
+  background-size: 10px 10px;
+  border-radius: 0;
+  box-shadow:
+    0 6px 13px #0002,
+    inset 0 0 0 1px #0001;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  color: hsl(var(--primary-foreground));
+  overflow: hidden;
+}
+.js-cover-symbol {
+  font-size: 28px;
+  line-height: 1;
+}
+.js-cover h2 {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 31px;
+  line-height: 0.96;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.js-cover p {
+  font-family: var(--font-geist-mono), monospace;
+  color: hsl(var(--muted-foreground));
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.07em;
+  margin-top: 16px;
+}
+.js-cover-actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 24px;
+}
+.js-cover-actions a {
+  border: 1px solid hsl(var(--border));
+  border-radius: 0;
+  min-height: 40px;
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.js-cover-actions a:hover {
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+}
+.js-cover-actions .js-primary {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+}
+.js-cover-actions .js-primary:hover {
+  background: hsl(var(--primary) / 0.85);
+  color: hsl(var(--primary-foreground));
+}
+.js-intro p {
+  margin-top: 12px;
+  line-height: 1.65;
+}
+.js-intro em {
+  font-family: var(--font-geist), sans-serif;
+}
+.js-sample {
+  margin-top: 40px;
+}
+.js-sample > p {
+  margin-top: 12px;
+}
+.js-sample figure {
+  margin: 40px 0;
+}
+.js-sample figcaption {
+  font-size: 13px;
+  line-height: 1.6;
+  color: hsl(var(--muted-foreground));
+  margin-top: 12px;
+}
+.js-sample figcaption strong {
+  font-weight: 500;
+  color: hsl(var(--foreground));
+}
+.js-demo {
+  background: hsl(var(--muted) / 0.4);
+  border: 1px solid hsl(var(--border));
+  border-radius: 0;
+  overflow: hidden;
+  padding: 20px;
+  font-size: 14px;
+}
+.js-demo-label {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 16px;
+  font-family: var(--font-geist-mono), monospace;
+}
+.js-demo > p {
+  font-size: 14px;
+}
+.js-queues {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.js-queues span {
+  border-left: 2px solid hsl(var(--border));
+  padding-left: 10px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  flex: 1;
+  min-width: 100px;
+}
+.js-demo ol {
+  background: hsl(var(--background) / 0.7);
+  border: 1px solid hsl(var(--border));
+  border-radius: 0;
+  min-height: 116px;
+  margin: 18px 0;
+  padding: 16px 16px 16px 38px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 13px;
+}
+.js-demo button {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: 0;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  margin: 8px 8px 8px 0;
+  cursor: pointer;
+}
+.js-demo button:first-of-type {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+}
+.js-demo button:hover {
+  opacity: 0.8;
+}
+.js-demo button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.js-demo small {
+  display: block;
+  font-size: 11px;
+  color: hsl(var(--muted-foreground));
+  margin-top: 8px;
+}
+.js-demo input {
+  accent-color: hsl(var(--primary));
+  max-width: 100%;
+}
+.js-chapter-group {
+  margin-top: 28px;
+}
+.js-chapter-group h3 {
+  margin-bottom: 10px;
+}
+.js-round-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid hsl(var(--border));
+  border-radius: 50%;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 11px;
+  width: 18px;
+  height: 18px;
+  color: hsl(var(--muted-foreground));
+  vertical-align: middle;
+  margin-left: 5px;
+}
+.js-chapter-links {
+  border: 1px solid hsl(var(--border));
+  border-radius: 0;
+  overflow: hidden;
+}
+.js-chapter-links a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.js-chapter-links a + a {
+  border-top: 1px solid hsl(var(--border));
+}
+.js-chapter-links a:hover {
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+}
+.js-row-icon {
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 12px;
+}
+.js-number {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+}
+.js-resource {
+  margin-top: 36px;
+}
+.js-resource h2 {
+  margin-bottom: 12px;
+}
+.js-resource dl {
+  border: 1px solid hsl(var(--border));
+  border-radius: 0;
+  margin: 0;
+}
+.js-resource dl > div {
+  padding: 12px;
+}
+.js-resource dl > div + div {
+  border-top: 1px solid hsl(var(--border));
+}
+.js-resource dt {
+  font-size: 14px;
+  font-weight: 500;
+}
+.js-resource dd {
+  font-size: 14px;
+  color: hsl(var(--muted-foreground));
+  margin: 4px 0 0;
+}
+.js-book-footer {
+  border-top: 1px solid hsl(var(--border));
+  padding: 48px max(24px, calc((100% - 984px) / 2)) 32px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 36px;
+  font-size: 14px;
+  color: hsl(var(--muted-foreground));
+  margin-top: 0;
+}
+.js-book-footer .js-brand {
+  font-size: 19px;
+}
+.js-book-footer p {
+  margin-bottom: 14px;
+}
+.js-book-footer .js-brand + p {
+  margin-top: 14px;
+  max-width: 220px;
+}
+.js-book-footer > div > a:not(.js-brand) {
+  display: block;
+  margin-top: 12px;
+}
+.js-book-footer small {
+  grid-column: 1/-1;
+  border-top: 1px solid hsl(var(--border));
+  padding-top: 24px;
+  font-size: 12px;
+}
+.js-reading {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 48px;
+  padding-bottom: 48px;
+}
+.js-reading aside {
+  position: sticky;
+  top: 88px;
+  align-self: start;
+  font-size: 13px;
+}
+.js-eyebrow {
+  font-size: 11px;
+  font-family: var(--font-geist-mono), monospace;
+  color: hsl(var(--muted-foreground));
+  letter-spacing: 0.08em;
+  margin: 24px 0 16px;
+}
+.js-reading aside nav {
+  display: grid;
+  gap: 6px;
+}
+.js-reading aside nav a {
+  padding: 9px 12px;
+  border-radius: 0;
+  color: hsl(var(--muted-foreground));
+}
+.js-reading aside nav a[aria-current] {
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+}
+.js-reading article h1 {
+  font-size: 36px;
+  line-height: 1.25;
+}
+.js-deck {
+  font-size: 18px;
+  margin-top: 16px;
+}
+.js-reading article h2 {
+  margin: 32px 0 14px;
+}
+.js-reading article > p {
+  line-height: 1.8;
+}
+.js-reading pre {
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--muted) / 0.4);
+  border-radius: 0;
+  padding: 20px;
+  overflow: auto;
+  font-size: 13px;
+  line-height: 1.9;
+  margin: 28px 0;
+}
+.js-takeaway {
+  border-left: 2px solid hsl(var(--foreground));
+  padding-left: 20px;
+  margin: 32px 0;
+}
+.js-storage {
+  font-size: 12px;
+  margin-top: 36px;
+}
+.js-pagination {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  border-top: 1px solid hsl(var(--border));
+  margin-top: 24px;
+  padding-top: 24px;
+  font-size: 13px;
+}
+@media (max-width: 767px) {
+  .js-book {
+    padding-top: 40px;
+  }
+  .js-home-grid,
+  .js-reading {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .js-cover-sidebar {
+    position: static;
+    width: 240px;
+    max-width: 100%;
+    margin: auto;
+  }
+  .js-cover h2 {
+    font-size: 31px;
+  }
+  .js-reading aside {
+    position: static;
+  }
+  .js-reading aside nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .js-reading aside nav a {
+    font-size: 12px;
+    padding: 6px;
+  }
+  .js-book-footer {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  .js-topbar {
+    padding: 0 20px;
+  }
+  .js-brand {
+    font-size: 17px;
+  }
+  .js-reading article h1 {
+    font-size: 30px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+/* Shared portfolio tokens, with the guide's two-column reading structure. */
+.js-guide .js-topbar {
+  position: static;
+  background: hsl(var(--background));
+  max-width: 984px;
+  margin: auto;
+  padding: 0 0 20px;
+  height: auto;
+}
+.js-guide .js-brand {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0;
+}
+.js-guide .js-mark {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+}
+.js-guide {
+  padding-top: 32px;
+}
+.js-guide .js-cover {
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  position: relative;
+  box-shadow: none;
+  border: 1px solid hsl(var(--border));
+}
+.js-guide .js-cover::before,
+.js-guide .js-cover::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: hsl(var(--foreground) / 0.4);
+  border-style: solid;
+  pointer-events: none;
+}
+.js-guide .js-cover::before {
+  left: -1px;
+  top: -1px;
+  border-width: 2px 0 0 2px;
+}
+.js-guide .js-cover::after {
+  right: -1px;
+  bottom: -1px;
+  border-width: 0 2px 2px 0;
+}
+.js-guide .js-cover h2 {
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: -0.04em;
+  font-size: 32px;
+  line-height: 1.1;
+}
+.js-guide .js-cover-symbol {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  color: hsl(var(--muted-foreground));
+}
+.js-guide .js-cover p {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+}
+.js-guide .js-cover-actions a,
+.js-guide .js-demo button {
+  border-radius: 0;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+}
+.js-guide .js-cover-actions .js-primary,
+.js-guide .js-demo button:first-of-type {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+}
+.js-guide .js-demo {
+  position: relative;
+  overflow: visible;
+}
+.js-guide .js-demo-label {
+  display: table;
+  margin: -29px 0 20px -8px;
+  padding: 0 8px;
+  background: hsl(var(--background));
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+}
+.js-guide .js-demo small {
+  font-family: var(--font-geist-mono), monospace;
+  border-top: 1px solid hsl(var(--border));
+  padding-top: 12px;
+  font-size: 10px;
+}
+.js-guide .js-sample figure {
+  margin-top: 40px;
+}
+.js-guide .js-round-arrow {
+  border-radius: 0;
+}
+.js-guide .js-book-footer {
+  max-width: 984px;
+  margin: auto;
+  padding: 36px 0;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+}
+.js-guide .js-reading article h1 {
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+.js-guide .js-reading aside nav a[aria-current] {
+  border-left: 2px solid hsl(var(--foreground));
+}
+.js-guide .js-demo ol {
+  list-style: decimal;
+}
+@media (max-width: 1024px) {
+  .js-guide .js-topbar,
+  .js-guide .js-book-footer {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+.pixel .js-guide h1,
+.pixel .js-guide h2,
+.pixel .js-guide h3 {
+  font-family: var(--font-pixel);
+}
+.js-reading aside {
+  max-height: calc(100vh - 110px);
+  overflow: auto;
+}
+.js-notes {
+  overflow-wrap: anywhere;
+}
+.js-guide .js-notes h2 {
+  font-size: 24px;
+  margin: 40px 0 18px;
+}
+.js-guide .js-notes h3 {
+  margin: 30px 0 14px;
+}
+.js-guide .js-notes h4,
+.js-guide .js-notes h5,
+.js-guide .js-notes h6 {
+  margin: 24px 0 12px;
+  font-weight: 500;
+}
+.js-guide .js-notes p {
+  margin: 16px 0;
+}
+.js-notes ul {
+  list-style: disc;
+  padding-left: 24px;
+  margin: 16px 0;
+}
+.js-notes ol {
+  list-style: decimal;
+  padding-left: 24px;
+  margin: 16px 0;
+}
+.js-notes li {
+  margin: 8px 0;
+}
+.js-notes img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 24px 0;
+}
+.js-notes a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.js-notes table {
+  display: block;
+  overflow: auto;
+  border-collapse: collapse;
+  margin: 24px 0;
+}
+.js-notes th,
+.js-notes td {
+  border: 1px solid hsl(var(--border));
+  padding: 8px 12px;
+}
+.js-notes code {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.85em;
+}
+.js-notes blockquote {
+  border-left: 2px solid hsl(var(--border));
+  padding-left: 20px;
+}
+.js-notes pre code {
+  font-size: inherit;
+}
+.js-guide.js-footer-content {
+  width: 100%;
+  padding-top: 0;
+}
+.js-guide.js-footer-content .js-book-footer {
+  max-width: none;
+  margin: 0;
+  padding: 12px 0 30px;
+  border-top: 0;
+  border-bottom: 1px solid hsl(var(--border));
+}
+@media (max-width: 767px) {
+  .js-guide.js-footer-content .js-book-footer {
+    grid-template-columns: 1fr 1fr;
+  }
+  .js-footer-content .js-book-footer > div:first-child {
+    grid-column: 1/-1;
+  }
+}
+/* Interactive reading: progress bar, runnable examples, glossary popovers. */
+.js-hint {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  color: hsl(var(--muted-foreground));
+  border-left: 2px solid hsl(var(--border));
+  padding-left: 12px;
+  margin-top: 24px;
+}
+.js-notes pre:has(+ .js-run) {
+  margin-bottom: 0;
+}
+.js-notes pre code[contenteditable] {
+  display: block;
+  outline: none;
+  white-space: pre;
+}
+.js-notes pre:focus-within {
+  border-color: hsl(var(--foreground) / 0.5);
+}
+.js-run {
+  display: flex;
+  gap: 8px;
+  border: 1px solid hsl(var(--border));
+  border-top: 0;
+  padding: 8px;
+  margin-bottom: 28px;
+}
+.js-run:has(+ output:not([hidden])) {
+  margin-bottom: 0;
+}
+.js-run button {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  padding: 4px 12px;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0;
+  cursor: pointer;
+}
+.js-run button:first-child {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+}
+.js-run button:hover {
+  opacity: 0.8;
+}
+.js-run + output:not([hidden]) {
+  display: block;
+  border: 1px solid hsl(var(--border));
+  border-top: 0;
+  background: hsl(var(--background));
+  padding: 12px 16px;
+  margin-bottom: 28px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+  color: hsl(var(--muted-foreground));
+}
+.js-log {
+  color: hsl(var(--foreground));
+  padding: 2px 0;
+}
+.js-log + .js-log {
+  border-top: 1px dashed hsl(var(--border));
+}
+.js-log-warn {
+  color: hsl(40 90% 50%);
+}
+.js-log-error {
+  color: hsl(var(--destructive));
+}
+.js-term {
+  font: inherit;
+  color: inherit;
+  cursor: help;
+  text-decoration: underline dotted hsl(var(--muted-foreground));
+  text-underline-offset: 4px;
+}
+.js-term:hover {
+  text-decoration-style: solid;
+}
+.js-term-pop {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  width: 280px;
+  padding: 12px 14px;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--popover));
+  color: hsl(var(--popover-foreground));
+  font-size: 13px;
+  line-height: 1.6;
+  box-shadow: 0 8px 24px hsl(0 0% 0% / 0.15);
+}
+.js-term-pop strong {
+  display: block;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+/* Book structure: chapters group sections. */
+.js-notes > h2:first-child {
+  display: none; /* the imported section heading repeats the page title */
+}
+.js-crumbs {
+  font-size: 13px;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 16px;
+}
+.js-crumbs a:hover {
+  color: hsl(var(--foreground));
+}
+.js-crumbs span {
+  border-left: 1px solid hsl(var(--border));
+  margin-left: 8px;
+  padding-left: 10px;
+}
+.js-crumbs + .js-eyebrow {
+  margin: 0 0 8px;
+}
+.js-toc-chapter + .js-toc-chapter {
+  margin-top: 16px;
+}
+.js-toc-chapter p {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  color: hsl(var(--foreground));
+  padding: 0 12px 4px;
+}
+.js-guide .js-reading aside nav a {
+  display: block;
+  padding: 6px 12px;
+}
+.js-chapter-group .js-eyebrow {
+  margin: 0 0 6px;
+}
+.js-chapter-summary {
+  font-size: 14px;
+  color: hsl(var(--muted-foreground));
+  margin: 0 0 12px;
+}
+/* Event-loop demo: code, queues and console side by side. */
+.js-demo .js-loop-code {
+  margin: 0 0 16px;
+  padding: 12px 0;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  overflow-x: auto;
+}
+.js-demo .js-loop-code code {
+  display: block;
+  padding: 2px 16px;
+  border-left: 2px solid transparent;
+}
+.js-demo .js-loop-code .js-loop-active {
+  background: hsl(var(--muted));
+  border-left-color: hsl(var(--foreground));
+}
+.js-demo .js-loop-note {
+  min-height: 3.2em;
+  color: hsl(var(--foreground));
+}
+.js-loop-boxes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+.js-loop-boxes > div,
+.js-loop-console {
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  padding: 10px 12px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  min-height: 92px;
+}
+.js-loop-boxes strong,
+.js-loop-console strong {
+  display: block;
+  font-weight: 500;
+}
+.js-guide .js-loop-boxes small {
+  display: block;
+  border: 0;
+  padding: 0;
+  margin: 0 0 8px;
+  color: hsl(var(--muted-foreground));
+}
+.js-loop-boxes span {
+  display: block;
+  border: 1px solid hsl(var(--foreground) / 0.4);
+  padding: 4px 8px;
+  margin-top: 4px;
+}
+.js-loop-boxes em {
+  color: hsl(var(--muted-foreground));
+  font-style: normal;
+}
+.js-guide .js-demo .js-loop-console ol {
+  min-height: 0;
+  margin: 6px 0 0;
+  padding: 0 0 0 20px;
+  border: 0;
+  background: none;
+}
+@media (max-width: 640px) {
+  .js-loop-boxes {
+    grid-template-columns: 1fr;
+  }
+}
+/* Section reading: sticky chapter bar, centered column, contents drawer (after learn-inference). */
+.js-readbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 2fr) 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 0 12px;
+  margin-bottom: 48px;
+  background: hsl(var(--background));
+  /* Full-bleed background and bottom rule without causing horizontal scroll. */
+  box-shadow: 0 0 0 100vmax hsl(var(--background));
+  clip-path: inset(0 -100vmax);
+  border-bottom: 1px solid hsl(var(--border));
+  border-image: linear-gradient(hsl(var(--border)), hsl(var(--border))) 1 / 0 0 1px 0 / 0 100vmax;
+}
+.js-readbar-home {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+}
+.js-readbar-title {
+  text-align: center;
+  min-width: 0;
+}
+.js-readbar-title strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+}
+.js-readbar-title > span {
+  display: block;
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.js-readbar-segments {
+  display: flex;
+  gap: 4px;
+  max-width: 420px;
+  margin: 8px auto 0;
+}
+.js-readbar-segments a {
+  flex: 1;
+  height: 3px;
+  background: hsl(var(--border));
+  overflow: hidden;
+}
+.js-readbar-segments a i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: hsl(var(--foreground));
+}
+.js-readbar-segments .is-done i {
+  width: 100%;
+  opacity: 0.45;
+}
+.js-readbar-segments .is-current i {
+  width: var(--read, 0%);
+}
+.js-readbar button {
+  justify-self: end;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.js-toc-drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  width: min(360px, 100vw);
+  height: 100vh;
+  max-height: none;
+  overflow: auto;
+  padding: 24px 20px;
+  border: 0;
+  border-left: 1px solid hsl(var(--border));
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-size: 13px;
+}
+.js-toc-drawer::backdrop {
+  background: hsl(0 0% 0% / 0.4);
+}
+.js-toc-drawer .js-eyebrow {
+  margin-top: 0;
+}
+.js-toc-drawer a {
+  display: block;
+  padding: 6px 12px;
+  color: hsl(var(--muted-foreground));
+}
+.js-toc-drawer a[aria-current] {
+  color: hsl(var(--foreground));
+  background: hsl(var(--muted));
+  border-left: 2px solid hsl(var(--foreground));
+}
+.js-guide .js-reading {
+  display: block;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.js-guide .js-reading article h1 {
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+.js-guide .js-notes p,
+.js-guide .js-notes li {
+  font-size: 17px;
+  line-height: 1.8;
+}
+.js-guide .js-pagination a {
+  flex: 1;
+  border: 1px solid hsl(var(--border));
+  padding: 14px 16px;
+  font-size: 15px;
+}
+.js-guide .js-pagination a:hover {
+  border-color: hsl(var(--foreground) / 0.5);
+}
+.js-pagination small {
+  display: block;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 4px;
+}
+.js-pagination .is-next {
+  text-align: right;
+}
+@media (max-width: 640px) {
+  .js-readbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .js-readbar-home,
+  .js-readbar button span {
+    display: none;
+  }
+}
+.js-glossary-search {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-size: 15px;
+}
+.js-glossary-search:focus {
+  outline: none;
+  border-color: hsl(var(--foreground) / 0.5);
+}
+.js-glossary-empty {
+  font-size: 14px;
+  color: hsl(var(--muted-foreground));
+  padding: 12px;
+}
+.js-pagination small {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.js-pagination .is-next small {
+  justify-content: flex-end;
+}
+/* Inline lucide icons sit centred next to their labels. */
+.js-cover-actions a,
+.js-readbar button,
+.js-run button,
+.js-demo button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.js-discussion {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid hsl(var(--border));
+}
+.js-discussion > p {
+  font-size: 14px;
+  color: hsl(var(--muted-foreground));
+  margin: 8px 0 20px;
+}

@@ -1,0 +1,52 @@
+---
+import LearnLayout from '../../../layouts/LearnLayout.astro';
+import Playground from '../../../components/learn/Playground';
+import { ArrowUpRight, BookA, Library, Play } from 'lucide-react';
+import { chapters, glossary } from '../../../data/javascript-lessons';
+---
+<LearnLayout title="Learn JavaScript" description="A hands-on JavaScript guide. Explore values, closures, objects, the DOM, prototypes, and async execution.">
+  <h1 class="js-sr-only">Learn JavaScript: an interactive guide to the language</h1>
+  <div class="js-home-grid">
+    <aside class="js-cover-sidebar">
+      <div class="js-cover"><span class="js-cover-symbol" aria-hidden="true">[js-recap]</span><div><h2>Learn<br />JavaScript</h2><p>THE LANGUAGE,<br />ONE IDEA AT A TIME</p></div></div>
+      <nav class="js-cover-actions" aria-label="Guide resources"><a class="js-primary" href="/learn/javascript/basis-of-js" id="js-continue"><Play size={14} aria-hidden="true" /> <span>Start reading</span></a><a href="#glossary"><BookA size={14} aria-hidden="true" /> Glossary</a><a href="#further-reading"><Library size={14} aria-hidden="true" /> Further reading</a></nav>
+    </aside>
+    <div class="js-home-content">
+      <section class="js-intro"><h2>Understand what your code does</h2><p>JavaScript is easy to start and surprisingly easy to misread. A copied object still changes. A function remembers a variable. A promise runs before a timer. The interesting part is understanding why.</p><p>A chapter-by-chapter JavaScript reference, from primitive values and operators to promises and modules. Read the notes, follow the code examples, and explore the interactive experiments.</p></section>
+      <section class="js-sample"><h2>Try one</h2><p>Four lines of code, one surprising order. Step through them and watch where each callback waits before it runs.</p><figure><Playground client:load /><figcaption><strong>Figure 1. Execution order.</strong> Normal code runs first. Then promise callbacks (microtasks). Then timer callbacks (tasks).</figcaption></figure></section>
+      <section id="chapters" class="js-chapters"><h2 class="js-sr-only">Chapters</h2>{chapters.map((chapter, c) => <div class="js-chapter-group" id={`chapter-${chapter.slug}`}><p class="js-eyebrow">CHAPTER {c + 1}</p><h3><a href={`/learn/javascript/${chapter.sections[0].slug}`}>{chapter.title}</a></h3><p class="js-chapter-summary">{chapter.summary}</p><div class="js-chapter-links">{chapter.sections.map((section, s) => <a href={`/learn/javascript/${section.slug}`}><span class="js-row-icon"><Play size={14} aria-hidden="true" /></span><span class="js-number">{c + 1}.{s + 1}</span>{section.title}</a>)}</div></div>)}</section>
+      <section id="glossary" class="js-resource"><h2>Glossary</h2><input class="js-glossary-search" type="search" placeholder="Every term, defined once" aria-label="Search the glossary" /><dl>{glossary.map((item) => <div data-term={`${item.term} ${item.definition}`.toLowerCase()}><dt>{item.term}</dt><dd>{item.definition}</dd></div>)}</dl><p class="js-glossary-empty" hidden>No matching term.</p></section>
+      <section id="further-reading" class="js-resource"><h2>Further reading</h2><div class="js-chapter-links"><a href="https://www.udemy.com/course/the-complete-javascript-course/"><span class="js-row-icon"><ArrowUpRight size={14} aria-hidden="true" /></span>The Complete JavaScript Course by Jonas Schmedtmann (the course these notes follow)</a><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide"><span class="js-row-icon"><ArrowUpRight size={14} aria-hidden="true" /></span>MDN JavaScript Guide</a><a href="https://javascript.info/"><span class="js-row-icon"><ArrowUpRight size={14} aria-hidden="true" /></span>The Modern JavaScript Tutorial</a></div></section>
+    </div>
+  </div>
+</LearnLayout>
+<script>
+  import { lessons } from '../../../data/javascript-lessons';
+  function restoreProgress() {
+    try {
+      const slug = localStorage.getItem('js-recap-last');
+      const lesson = lessons.find(item => item.slug === slug);
+      const link = document.querySelector<HTMLAnchorElement>('#js-continue');
+      if (lesson && link) { link.href = `/learn/javascript/${lesson.slug}`; const label = link.querySelector('span'); if (label) label.textContent = `Continue ${lesson.number}`; }
+    } catch { /* Reading remains available without storage. */ }
+  }
+  restoreProgress();
+  function filterGlossary() {
+    const input = document.querySelector<HTMLInputElement>('.js-glossary-search');
+    if (!input || input.dataset.bound) return;
+    input.dataset.bound = 'true';
+    input.addEventListener('input', () => {
+      const query = input.value.trim().toLowerCase();
+      let shown = 0;
+      document.querySelectorAll<HTMLElement>('#glossary [data-term]').forEach((row) => {
+        row.hidden = !row.dataset.term?.includes(query);
+        if (!row.hidden) shown++;
+      });
+      const empty = document.querySelector<HTMLElement>('.js-glossary-empty');
+      if (empty) empty.hidden = shown > 0;
+    });
+  }
+  filterGlossary();
+  document.addEventListener('astro:page-load', filterGlossary);
+  document.addEventListener('astro:page-load', restoreProgress);
+</script>

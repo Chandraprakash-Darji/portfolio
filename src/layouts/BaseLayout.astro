@@ -12,12 +12,14 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  wideLayout?: boolean;
 }
 
 const {
   title = siteConfig.title,
   description = siteConfig.description,
   ogImage,
+  wideLayout = false,
 } = Astro.props;
 
 const imageUrl = ogImage
@@ -97,11 +99,16 @@ const imageUrl = ogImage
 
   </head>
   <body class="min-h-screen bg-background font-sans text-foreground antialiased">
-    <Navbar />
+    <Navbar wide={wideLayout} />
     <main>
       <slot />
     </main>
-    <Footer />
+    <Footer wide={wideLayout}><slot name="footer" /></Footer>
     <CommandBar client:only="react" />
   </body>
 </html>
+<script>
+  // Client-side navigation fetches the next page before anything changes on screen; show that a click registered.
+  document.addEventListener('astro:before-preparation', () => document.documentElement.classList.add('is-navigating'));
+  document.addEventListener('astro:after-swap', () => document.documentElement.classList.remove('is-navigating'));
+</script>
