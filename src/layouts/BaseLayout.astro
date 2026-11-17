@@ -13,6 +13,10 @@ interface Props {
   description?: string;
   ogImage?: string;
   wideLayout?: boolean;
+  /** Keep the page out of search results (404). Also drops the canonical. */
+  noindex?: boolean;
+  /** Extra schema.org node for this page, e.g. a BlogPosting. */
+  schema?: Record<string, unknown>;
 }
 
 const {
@@ -20,9 +24,43 @@ const {
   description = siteConfig.description,
   ogImage,
   wideLayout = false,
+  noindex = false,
+  schema,
 } = Astro.props;
 
 const imageUrl = `${siteConfig.url}/og/${ogImage ?? 'home'}.webp`;
+// Same form as the sitemap: no trailing slash except the root.
+const canonical = new URL(Astro.url.pathname.replace(/(.)\/$/, '$1'), siteConfig.url).href;
+const person = {
+  '@type': 'Person',
+  '@id': `${siteConfig.url}/#person`,
+  name: siteConfig.author.name,
+  alternateName: ['Chandra Prakash Darji', 'Chandra'],
+  url: siteConfig.url,
+  image: 'https://github.com/Chandraprakash-Darji.png',
+  jobTitle: 'Software engineer',
+  email: 'mailto:me@elregaldo.com',
+  address: { '@type': 'PostalAddress', addressCountry: 'IN' },
+  knowsAbout: ['TypeScript', 'React', 'Go', 'Node.js', 'Bun', 'Kubernetes', 'Terraform', 'DevOps'],
+  sameAs: ['https://github.com/Chandraprakash-Darji', siteConfig.author.twitterUrl, 'https://x.com/chandra_7852'],
+};
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    person,
+    {
+      '@type': 'WebSite',
+      '@id': `${siteConfig.url}/#website`,
+      url: siteConfig.url,
+      name: 'elregaldo',
+      alternateName: siteConfig.author.name,
+      description: siteConfig.description,
+      inLanguage: 'en',
+      publisher: { '@id': `${siteConfig.url}/#person` },
+    },
+    ...(schema ? [schema] : []),
+  ],
+};
 ---
 
 <!doctype html>
@@ -64,14 +102,8 @@ const imageUrl = `${siteConfig.url}/og/${ogImage ?? 'home'}.webp`;
     />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={new URL(Astro.url.pathname, siteConfig.url).href} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org', '@type': 'Person',
-      name: siteConfig.author.name, description: siteConfig.description,
-      url: siteConfig.url, jobTitle: 'Software engineer',
-      email: 'me@elregaldo.com',
-      sameAs: ['https://github.com/Chandraprakash-Darji', siteConfig.author.twitterUrl],
-    }).replace(/</g, '\u003c')} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
     <link rel="icon" href="/favicon/favicon.ico" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
@@ -84,13 +116,17 @@ const imageUrl = `${siteConfig.url}/og/${ogImage ?? 'home'}.webp`;
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
+    <meta property="og:type" content={schema?.['@type'] === 'BlogPosting' ? 'article' : 'website'} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="elregaldo" />
+    <meta property="og:locale" content="en_IN" />
     {imageUrl && <meta property="og:image" content={imageUrl} />}
     {imageUrl && <meta property="og:image:width" content="1200" />}
     {imageUrl && <meta property="og:image:height" content="630" />}
 
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@chandra_7852" />
+    <meta name="twitter:creator" content="@chandra_7852" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {imageUrl && <meta name="twitter:image" content={imageUrl} />}

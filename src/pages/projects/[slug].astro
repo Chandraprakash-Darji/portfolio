@@ -25,12 +25,14 @@ if (!entry) {
 
 const { Content } = await render(entry);
 
-const { title, description, year, status, stack = [], repo, live } = entry.data;
+const { title, description, year, status, stack = [], repo, live, seoTitle, posts: postSlugs } = entry.data;
+const blogPosts = await getCollection('blog');
+const posts = postSlugs.flatMap((s) => blogPosts.filter((p) => p.id === s && p.data.published !== false));
 const ogRoute = `projects/${slug}`;
 ---
 
 <BaseLayout
-  title={`${title} — case study`}
+  title={`${seoTitle ?? title} | case study`}
   description={description}
   ogImage={ogRoute}
 >
@@ -71,6 +73,17 @@ const ogRoute = `projects/${slug}`;
     <article class="lg:prose-md prose dark:prose-invert relative w-full max-w-none py-4 prose-a:no-underline">
       <Content components={{ pre: Pre, a: CustomLink }} />
     </article>
+
+    {posts.length > 0 && (
+      <section class="mt-10">
+        <h2 class="font-mono text-xs uppercase tracking-widest text-muted-foreground/60">writing about {title}</h2>
+        <ul class="mt-3 space-y-2">
+          {posts.map((p) => (
+            <li><a href={`/writing/${p.id}`} class="text-muted-foreground transition-colors hover:text-foreground">{p.data.title}</a></li>
+          ))}
+        </ul>
+      </section>
+    )}
 
     {(repo || live) && (
       <div class="mt-10 flex flex-wrap gap-4 border-t border-border pt-6">

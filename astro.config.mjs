@@ -11,20 +11,14 @@ import remarkGfm from 'remark-gfm';
 
 import { siteConfig } from './src/site.config';
 
-const blogModules = import.meta.glob('./src/content/blog/*.mdx');
-const snippetModules = import.meta.glob('./src/content/snippets/*.mdx');
-
-const blogMdPages = Object.keys(blogModules).map((f) => {
-  const slug = f.split('/').pop().replace('.mdx', '');
-  return `${siteConfig.url}/writing/${slug}.md`;
-});
-const snippetMdPages = Object.keys(snippetModules).map((f) => {
-  const slug = f.split('/').pop().replace('.mdx', '');
-  return `${siteConfig.url}/snippet/${slug}.md`;
-});
-
 export default defineConfig({
   site: siteConfig.url,
+  // One URL per page: /about, never /about/. Vercel 308s the slash form, so sitemap and canonicals match.
+  trailingSlash: 'never',
+  // The Next.js site served snippets at /snippet/:slug; they live at /writing/:slug now.
+  redirects: {
+    '/snippet/[slug]': '/writing/[slug]',
+  },
 
   fonts: [
     {
@@ -52,9 +46,8 @@ export default defineConfig({
       },
     }),
     react(),
-    sitemap({
-      customPages: [...blogMdPages, ...snippetMdPages, `${siteConfig.url}/design.md`],
-    }),
+    // HTML pages only: the .md copies are duplicates of the posts and must not compete with them.
+    sitemap({ filter: (page) => !page.endsWith('.md') }),
     tailwind({
       applyBaseStyles: false,
     }),
