@@ -6,7 +6,10 @@ export const prerender = false;
 
 export async function GET({ params }: { params: { slug: string } }) {
   // Snippets share /writing, so their markdown lives here too; /snippet/* redirects to it.
-  const posts = [...(await getCollection('blog')), ...(await getCollection('snippets'))];
+  const posts = [
+    ...(await getCollection('blog')),
+    ...(await getCollection('snippets')),
+  ];
   const entry = posts.find((p) => p.id.replace(/\.mdx$/, '') === params.slug);
 
   if (!entry || entry.data.published === false || entry.body == null) {
