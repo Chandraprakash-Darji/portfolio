@@ -67,8 +67,24 @@ const next = currentIndex < sameCollectionPosts.length - 1
 
 const collectionPath = isSnippet ? 'snippets' : 'blog';
 const gitHubEditUrl = `https://github.com/Chandraprakash-Darji/portfolio/blob/main/src/content/${collectionPath}/${entry.id}.mdx`;
-const markdownUrl = `${siteConfig.url}/${isSnippet ? 'snippet' : 'writing'}/${slug}.md`;
-const postUrl = `${siteConfig.url}/${isSnippet ? 'snippet' : 'writing'}/${slug}`;
+const markdownUrl = `${siteConfig.url}/writing/${slug}.md`;
+// Snippets render here too, so /writing is the only public URL for every post.
+const postUrl = `${siteConfig.url}/writing/${slug}`;
+const project = (await getCollection('projects')).find((p) => p.data.published !== false && p.data.posts.includes(slug));
+const schema = {
+  '@type': 'BlogPosting',
+  '@id': `${postUrl}#post`,
+  headline: title,
+  description,
+  url: postUrl,
+  mainEntityOfPage: postUrl,
+  image: `${siteConfig.url}/og/writing/${slug}.webp`,
+  datePublished: publishedAt,
+  dateModified: updatedAt ?? publishedAt,
+  author: { '@id': `${siteConfig.url}/#person` },
+  publisher: { '@id': `${siteConfig.url}/#person` },
+  isPartOf: { '@id': `${siteConfig.url}/#website` },
+};
 
 ---
 
@@ -76,6 +92,7 @@ const postUrl = `${siteConfig.url}/${isSnippet ? 'snippet' : 'writing'}/${slug}`
   title={title}
   description={description}
   ogImage={`writing/${slug}`}
+  schema={schema}
 >
   <ReadingProgress client:load />
   <div class="mx-auto w-11/12 max-w-2xl py-10">
@@ -158,6 +175,12 @@ const postUrl = `${siteConfig.url}/${isSnippet ? 'snippet' : 'writing'}/${slug}`
         </svg>
         edit on github
       </a>
+
+      {project && (
+        <a href={`/projects/${project.id}`} class="mt-6 block font-mono text-xs text-muted-foreground transition-colors hover:text-foreground">
+          project: {project.data.title} →
+        </a>
+      )}
 
       {relatedPosts.length > 0 && (
         <div class="mt-6">

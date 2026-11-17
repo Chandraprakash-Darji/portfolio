@@ -1,19 +1,15 @@
 import { getCollection } from 'astro:content';
+import { siteConfig } from '../../site.config';
 
-export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts
-    .filter((p) => p.data.published !== false)
-    .map((entry) => ({
-      params: { slug: entry.id.replace(/\.mdx$/, '') },
-    }));
-}
+// On demand so the canonical Link header survives; Vercel drops headers from prerendered files.
+export const prerender = false;
 
 export async function GET({ params }: { params: { slug: string } }) {
-  const posts = await getCollection('blog');
+  // Snippets share /writing, so their markdown lives here too; /snippet/* redirects to it.
+  const posts = [...(await getCollection('blog')), ...(await getCollection('snippets'))];
   const entry = posts.find((p) => p.id.replace(/\.mdx$/, '') === params.slug);
 
-  if (!entry || entry.body == null) {
+  if (!entry || entry.data.published === false || entry.body == null) {
     return new Response('Not found', { status: 404 });
   }
 
@@ -21,6 +17,10 @@ export async function GET({ params }: { params: { slug: string } }) {
   const body = `# ${title}\n\n${entry.body}`;
 
   return new Response(body, {
-    headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
+    headers: {
+      'Content-Type': 'text/markdown; charset=utf-8',
+      // The HTML post is the page to index; this raw copy points at it.
+      Link: `<${siteConfig.url}/writing/${params.slug}>; rel="canonical"`,
+    },
   });
 }

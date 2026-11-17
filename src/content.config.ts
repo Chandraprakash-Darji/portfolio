@@ -56,6 +56,10 @@ const projects = defineCollection({
     live: z.string().url().optional(),
     featured: z.boolean().default(false),
     published: z.boolean().default(true),
+    // Search result title; `title` stays the short name shown on the site.
+    seoTitle: z.string().optional(),
+    // Blog slugs about this project. Linked both ways: project page lists them, each post links back.
+    posts: z.array(z.string()).default([]),
   }),
 });
 
