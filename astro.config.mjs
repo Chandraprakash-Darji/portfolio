@@ -13,9 +13,7 @@ import { siteConfig } from './src/site.config';
 
 export default defineConfig({
   site: siteConfig.url,
-  // One URL per page: /about, never /about/. Vercel 308s the slash form, so sitemap and canonicals match.
   trailingSlash: 'never',
-  // The Next.js site served snippets at /snippet/:slug; they live at /writing/:slug now.
   redirects: {
     '/snippet/[slug]': '/writing/[slug]',
   },
@@ -46,7 +44,6 @@ export default defineConfig({
       },
     }),
     react(),
-    // HTML pages only: the .md copies are duplicates of the posts and must not compete with them.
     sitemap({ filter: (page) => !page.endsWith('.md') }),
     tailwind({
       applyBaseStyles: false,

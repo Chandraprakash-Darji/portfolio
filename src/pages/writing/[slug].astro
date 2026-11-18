@@ -68,9 +68,8 @@ const next = currentIndex < sameCollectionPosts.length - 1
 const collectionPath = isSnippet ? 'snippets' : 'blog';
 const gitHubEditUrl = `https://github.com/Chandraprakash-Darji/portfolio/blob/main/src/content/${collectionPath}/${entry.id}.mdx`;
 const markdownUrl = `${siteConfig.url}/writing/${slug}.md`;
-// Snippets render here too, so /writing is the only public URL for every post.
 const postUrl = `${siteConfig.url}/writing/${slug}`;
-const project = (await getCollection('projects')).find((p) => p.data.published !== false && p.data.posts.includes(slug));
+const project = (await getCollection('projects')).find((p) => p.data.published !== false && p.data.postSlugs.includes(slug));
 const schema = {
   '@type': 'BlogPosting',
   '@id': `${postUrl}#post`,
