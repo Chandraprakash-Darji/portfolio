@@ -5,7 +5,6 @@ import { siteConfig } from '../../site.config';
 export const prerender = false;
 
 export async function GET({ params }: { params: { slug: string } }) {
-  // Snippets share /writing, so their markdown lives here too; /snippet/* redirects to it.
   const posts = [
     ...(await getCollection('blog')),
     ...(await getCollection('snippets')),
@@ -22,7 +21,6 @@ export async function GET({ params }: { params: { slug: string } }) {
   return new Response(body, {
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
-      // The HTML post is the page to index; this raw copy points at it.
       Link: `<${siteConfig.url}/writing/${params.slug}>; rel="canonical"`,
     },
   });

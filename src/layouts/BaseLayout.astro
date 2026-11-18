@@ -13,9 +13,7 @@ interface Props {
   description?: string;
   ogImage?: string;
   wideLayout?: boolean;
-  /** Keep the page out of search results (404). Also drops the canonical. */
   noindex?: boolean;
-  /** Extra schema.org node for this page, e.g. a BlogPosting. */
   schema?: Record<string, unknown>;
 }
 
@@ -29,7 +27,6 @@ const {
 } = Astro.props;
 
 const imageUrl = `${siteConfig.url}/og/${ogImage ?? 'home'}.webp`;
-// Same form as the sitemap: no trailing slash except the root.
 const canonical = new URL(Astro.url.pathname.replace(/(.)\/$/, '$1'), siteConfig.url).href;
 const person = {
   '@type': 'Person',
