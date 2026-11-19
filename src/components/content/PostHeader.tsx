@@ -164,7 +164,7 @@ function ViewOptions({
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 z-50 mt-1 w-fit rounded-md border border-border bg-popover py-1 shadow-lg">
+          <div className="absolute right-0 z-50 mt-1 w-fit rounded-none border border-border bg-popover py-1 shadow-lg">
             {items.map(({ title, href, icon: Icon }) => (
               <a
                 key={title}
@@ -227,7 +227,7 @@ function DocShareMenu({ title, url }: { title: string; url: string }) {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 z-50 mt-1 w-fit rounded-md border border-border bg-popover py-1 shadow-lg">
+          <div className="absolute right-0 z-50 mt-1 w-fit rounded-none border border-border bg-popover py-1 shadow-lg">
             <button
               className="flex w-full items-center gap-2 px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground transition-colors whitespace-nowrap"
               onClick={() => {
@@ -330,7 +330,7 @@ export function PostHeader({
         {previous && (
           <div className="relative group">
             <Button
-              className="size-7 border-none active:scale-none"
+              className="size-7 rounded-none border-none active:scale-none"
               variant="secondary"
               size="icon-xs"
               asChild
@@ -344,7 +344,7 @@ export function PostHeader({
                 <ArrowLeftIcon className="size-3.5" />
               </a>
             </Button>
-            <div className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 hidden group-hover:flex items-center gap-1.5 whitespace-nowrap rounded border border-border bg-popover px-2 py-1 text-[10px] text-muted-foreground shadow-lg z-50">
+            <div className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 hidden group-hover:flex items-center gap-1.5 whitespace-nowrap rounded-none border border-border bg-popover px-2 py-1 text-[10px] text-muted-foreground shadow-lg z-50">
               Previous Post
             </div>
           </div>
@@ -353,7 +353,7 @@ export function PostHeader({
         {next && (
           <div className="relative group">
             <Button
-              className="size-7 border-none active:scale-none"
+              className="size-7 rounded-none border-none active:scale-none"
               variant="secondary"
               size="icon-xs"
               asChild
@@ -367,7 +367,7 @@ export function PostHeader({
                 <ArrowRightIcon className="size-3.5" />
               </a>
             </Button>
-            <div className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 hidden group-hover:flex items-center gap-1.5 whitespace-nowrap rounded border border-border bg-popover px-2 py-1 text-[10px] text-muted-foreground shadow-lg z-50">
+            <div className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 hidden group-hover:flex items-center gap-1.5 whitespace-nowrap rounded-none border border-border bg-popover px-2 py-1 text-[10px] text-muted-foreground shadow-lg z-50">
               Next Post
             </div>
           </div>
