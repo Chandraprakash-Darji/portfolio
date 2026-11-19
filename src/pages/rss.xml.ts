@@ -12,6 +12,8 @@ export async function GET(context: APIContext) {
         b.data.publishedAt?.localeCompare(a.data.publishedAt ?? '') ?? 0,
     );
 
+  const origin = (context.site ?? siteConfig.url).toString().replace(/\/$/, '');
+
   return rss({
     title: siteConfig.title,
     description: siteConfig.description,
@@ -24,7 +26,8 @@ export async function GET(context: APIContext) {
         pubDate: post.data.publishedAt
           ? new Date(post.data.publishedAt)
           : new Date(),
-        link: `/writing/${slug}/`,
+        // Absolute, so @astrojs/rss does not append its default trailing slash.
+        link: `${origin}/writing/${slug}`,
       };
     }),
     customData: `<language>en-us</language>`,

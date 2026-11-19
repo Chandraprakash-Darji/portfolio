@@ -9,7 +9,11 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
+import { canonicalRedirectsIntegration } from './src/lib/canonical-redirects';
+import { applyLastmod, contentLastmod } from './src/lib/sitemap-lastmod';
 import { siteConfig } from './src/site.config';
+
+const lastmodByPath = contentLastmod();
 
 export default defineConfig({
   site: siteConfig.url,
@@ -44,7 +48,12 @@ export default defineConfig({
       },
     }),
     react(),
-    sitemap({ filter: (page) => !page.endsWith('.md') }),
+    sitemap({
+      filter: (page) => !page.endsWith('.md'),
+      serialize(item) {
+        return applyLastmod(item, lastmodByPath);
+      },
+    }),
     tailwind({
       applyBaseStyles: false,
     }),
@@ -53,6 +62,7 @@ export default defineConfig({
       endpointUrl: 'https://unami.rega.run',
       hostUrl: 'https://unami.rega.run',
     }),
+    canonicalRedirectsIntegration(),
   ],
   adapter: vercel(),
 });

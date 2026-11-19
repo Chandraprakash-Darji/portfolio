@@ -33,7 +33,7 @@ const person = {
   '@id': `${siteConfig.url}/#person`,
   name: siteConfig.author.name,
   alternateName: ['Chandra Prakash Darji', 'Chandra'],
-  url: siteConfig.url,
+  url: `${siteConfig.url}/`,
   image: 'https://github.com/Chandraprakash-Darji.png',
   jobTitle: 'Software engineer',
   email: 'mailto:me@elregaldo.com',
@@ -48,7 +48,7 @@ const jsonLd = {
     {
       '@type': 'WebSite',
       '@id': `${siteConfig.url}/#website`,
-      url: siteConfig.url,
+      url: `${siteConfig.url}/`,
       name: 'elregaldo',
       alternateName: siteConfig.author.name,
       description: siteConfig.description,
