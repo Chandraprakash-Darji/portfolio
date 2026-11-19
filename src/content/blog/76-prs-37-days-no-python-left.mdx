@@ -58,6 +58,25 @@ the PR count depends on where you draw the line. 76 counts only PRs whose job wa
 
 btw, it was 1,381 commits total across those PRs.
 
+## what brick did for us
+
+brick is my framework. i wrote about [building it](/writing/i-built-a-backend-framework-nobody-asked-for) and about [rewriting it from go](/writing/i-wrote-my-framework-in-go-then-rewrote-it-in-typescript). this move is where it grew up.
+
+we started on brick 0.2 on oct 8 and finished on 0.15. thirteen releases in 37 days, most of them because the crm needed something that didnt exist yet.
+
+what the crm gets from it today:
+
+- 517 typed actions. every one declares its input and output schema, and `bun run generate:client` turns them into a 12,424 line typed client. the frontend cant call an endpoint that doesnt exist. that is what made "one domain at a time" safe.
+- 70 mcp tools for the ai assistant and the connectors, built on the same service layer as the api. no second backend for ai.
+- 14 schedules that replaced the old cron jobs. one run per due time, even with more than one process running.
+- a typed realtime socket for cache invalidation. no polling.
+- a strict lint preset. every action has to declare who can call it, or the build fails.
+- a dashboard with requests, traces, logs, errors and a records page to inspect and fix a row, plus an mcp endpoint so an agent can read the same traces.
+
+that last one already paid off. this week an agent read the dashboard over mcp and found an endpoint failing on every call. the output schema check caught a response that didnt match its own contract and turned it into a loud 500 instead of bad data in the ui.
+
+errors should be loud. brick makes them loud by default.
+
 ## how i ran the agents
 
 agents wrote most of this code. i did not let one agent do everything.
