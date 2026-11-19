@@ -1,0 +1,162 @@
+---
+title: '76 PRs, 37 days, and no python left in our crm'
+description: 'We moved the whole Pixelwand CRM backend off a Python framework onto TypeScript with Bun and Brick, and the frontend from Vue to React, in the same 37 days. No big-bang rewrite. Median API time from 347 ms to 7 ms.'
+publishedAt: '2026-11-19'
+updatedAt: '2026-11-19'
+type: 'BLOG'
+published: true
+categories:
+  - name: 'Engineering'
+    slug: 'engineering'
+  - name: 'TypeScript'
+    slug: 'typescript'
+  - name: 'Brick'
+    slug: 'brick'
+---
+
+on nov 14 the last python request left our crm.
+
+the whole backend now runs on typescript. bun, brick, postgres. one api service, one deploy. it took 76 PRs and 37 days.
+
+## where we started
+
+pixelwand crm ran on a big python framework. it gave us a lot for free in the beginning. by october it was the slowest part of the product.
+
+500 requests from the old production log. median 347 ms. p95 1,134 ms. and most of those were not heavy work. they were capability checks. `is_sms_enabled` averaged 1,032 ms. a yes or no question, one second.
+
+the app fired those checks on every boot and every team switch. so the whole crm felt sluggish on every screen, not just on a few bad pages.
+
+167,894 lines of python across 1,075 files. that was the backend.
+
+on oct 8 the first commit landed in `apps/api`. 5,637 lines of typescript next to all that python.
+
+## no big-bang rewrite
+
+![timeline of the move: first brick commit oct 8, vue to react oct 22 to 24, 13-PR stack nov 4, 24-PR stack nov 7, auth and python deleted nov 11, production nov 14](/writing/76-prs-37-days-no-python-left/timeline.svg)
+
+a rewrite that ships on one day is a rewrite that breaks on one day. we didnt do that.
+
+the frontend talks to the backend through one generated, typed client. so the rule was simple: move one domain at a time behind the same api. the frontend never notices which language answered.
+
+every port also deleted the python it replaced. no "we will clean it up later". if brick served it, the python was gone in the same stack.
+
+first a 13-PR stack, merged nov 4:
+
+- telephony: sms, voice, power dialer, a2p, the ai call pipeline
+- notifications
+- the ai module
+- billing and credits
+- whatsapp, google calendar, slack, cal.com
+- analytics
+- a brick upgrade, then strict lint on every action
+
+then a 24-PR stack: records, settings, views, realtime, web forms, files, the external lead api. each PR small enough to read in one sitting.
+
+stacked PRs are annoying to rebase. they are also the only reason 76 PRs got real review instead of a thumbs up on a 40k line diff.
+
+the PR count depends on where you draw the line. 76 counts only PRs whose job was the move, not the product work that merged in the same weeks.
+
+btw, it was 1,381 commits total across those PRs.
+
+## how i ran the agents
+
+agents wrote most of this code. i did not let one agent do everything.
+
+one agent that reads the old code, writes the new code and reviews itself will happily agree with itself. so every job got its own agent, its own model and its own folder it was allowed to write to:
+
+| agent | model | job |
+| ----- | ----- | --- |
+| indexer | haiku | list every endpoint, table and caller of a domain |
+| analyzer | opus | write a behavior spec of how the old backend does it |
+| test engineer | sonnet | tests that pin the old behavior, then parity tests on the new one |
+| database engineer | opus | schema mapping, only when the schema changes |
+| implementer | sonnet | write the domain in `apps/api`, nothing else |
+| two reviewers | opus | one for spec vs code, one for security. read only |
+
+every domain went through the same eight steps. inventory, spec, i approve the spec, tests against the old behavior, implement, parity tests, two reviews, fix, review again.
+
+two rules did most of the work. the implementer never decides architecture: if the spec is wrong it reports and stops. and the reviewers cant edit code, they can only send findings back.
+
+that pipeline left 79 behavior specs and 5 decision records in `docs/migration`. the specs are boring to read. they are also why the move broke so little.
+
+my job was the same as before. approve specs, read diffs, say no. before the 24-PR stack merged, a separate review swarm read all 24 PRs again and found a guard bypass in one of them. the implementer agents had all passed their own reviews.
+
+## vue to react, in the middle of it
+
+we also threw away the frontend. the same 37 days.
+
+733 vue files, 141,472 lines. that was the app.
+
+vue is not a bad framework. it was the wrong one for us.
+
+the team knows react. we know where re-renders come from, how to profile them and how to make a slow screen fast. in vue we were guessing.
+
+vue was also harder for us to read. template, script and style in one file, and reactivity that updates things you cant see from the code you are reading.
+
+then ci. vue needs `vue-tsc`, which wraps the old javascript typescript compiler. tsx works with typescript 7, the native one. our typecheck went from `vue-tsc --build` to `bun check`, and every PR got faster checks.
+
+and the ecosystem. most component libraries ship react first. vue gets a port later, or never.
+
+same idea as the backend. no big switch. first react islands: single react screens mounted inside the vue app, talking to the new brick routes. then 44 shared ui components ported in one PR on oct 23.
+
+then oct 24, one PR: boot the react app, delete the vue app, file based tanstack routing. 3,385 files changed, +258k, −228k. 67 commits.
+
+that one PR is the opposite of everything i said above about small PRs. it worked because the islands had already moved almost every screen. the big PR mostly deleted things.
+
+i wouldnt do both migrations at once again. the frontend kept moving under the backend PRs and every stack needed rebases. but the typed client made it survivable: change an endpoint and the react build breaks, not production.
+
+## auth went last
+
+auth is the one you cant get wrong. if sign-in breaks, nobody can tell you that sign-in broke, because nobody can sign in.
+
+so it moved last, in 6 phases, on better-auth:
+
+1. trusted origins instead of csrf tokens
+2. sign-in
+3. sign-up, trials and the demo login
+4. password reset
+5. google sign-in
+6. our oauth provider, the one the mcp connectors and the mobile app use
+
+the hard part was not the new code. it was the people already signed in.
+
+we kept the old password hash format with a custom verify, so nobody had to reset a password. existing users were imported by a migration. and the readers for old session cookies and old bearer tokens stayed in, until those sessions expire on their own.
+
+nobody got logged out on switch day. thats the whole test.
+
+## deploy day
+
+nov 14. production moved in about 18 minutes. two things went wrong, and both were about the database, not the code.
+
+the night before: our deploy tool runs compose under its own project name. the production volumes had explicit names. a new project name meant a second postgres started on the same data directory as the live one. for 14 minutes, two postgres servers, one data dir.
+
+we caught it, stopped it, and later fixed the one corrupt stats row it left behind. lesson: match the project name to whats already running before the first deploy. not after.
+
+then deploy day itself. the production database was last migrated by the old framework on nov 5. our new baseline expected a newer schema. 29 columns and one table were missing. we added them by hand from the baseline before the migration could finish.
+
+if your database was last migrated by the old framework, diff its schema against the new baseline before you ship. it takes ten minutes. we did it at the worst possible time instead.
+
+## the numbers
+
+![api server time before and after: median 347 ms to 6.9 ms, p95 1,134 ms to 115 ms, onboarding status 851 ms to 8.8 ms, activation stats 707 ms to 14 ms](/writing/76-prs-37-days-no-python-left/speed.svg)
+
+|                       | before            | after                   |
+| --------------------- | ----------------- | ----------------------- |
+| python in the app     | 167,894 lines     | 0                       |
+| typescript api        | 5,637 lines       | 187,283 lines           |
+| api tests             | 501 lines         | 120,832 lines, 252 files |
+| vue                   | 733 files, 141,472 lines | 0                |
+| react (tsx)           | 1 file            | 921 files               |
+| median api time       | 347 ms            | 6.9 ms                  |
+| p95                   | 1,134 ms          | 115 ms                  |
+| onboarding status     | 851 ms avg        | 8.8 ms median           |
+| activation stats      | 707 ms avg        | 14 ms median            |
+| backend services      | python + typescript | one typescript service |
+
+be fair with that speed row. the before numbers are 500 requests from the old production log. the after numbers are a week of beta traffic, which is lighter. both are server time only, network not included.
+
+even with all that, its not close. 347 to 7.
+
+a month ago i wrote that brick had "no 10x benchmark story yet". this is about 50x. on a real crm, not a hello world.
+
+thats it.

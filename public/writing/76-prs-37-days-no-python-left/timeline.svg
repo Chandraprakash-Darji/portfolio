@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" width="100%" role="img" aria-labelledby="t" style="background:#0d1117">
+  <title id="t">37 days from the first Brick commit to production</title>
+  <style>text{font-family:system-ui,-apple-system,sans-serif}.l{fill:#e6edf3;font-size:15px;font-weight:600}.d{fill:#9198a1;font-size:13px}.h{fill:#9198a1;font-size:13px}</style>
+  <text x="40" y="34" class="h">oct 8 → nov 14 · 37 days · 76 PRs</text>
+  <line x1="60" y1="150" x2="940" y2="150" stroke="#3d444d" stroke-width="2"/>
+  <rect x="393" y="144" width="47" height="12" rx="3" fill="#7F77DD"/>
+  <g stroke="#3d444d" stroke-width="1.5">
+    <line x1="60" y1="150" x2="60" y2="104"/><line x1="559" y1="150" x2="559" y2="104"/><line x1="773" y1="150" x2="773" y2="104"/><line x1="940" y1="150" x2="940" y2="104"/>
+    <line x1="416" y1="156" x2="416" y2="200"/><line x1="702" y1="150" x2="702" y2="200"/><line x1="869" y1="150" x2="869" y2="200"/>
+  </g>
+  <g fill="#1D9E75"><circle cx="60" cy="150" r="7"/><circle cx="559" cy="150" r="7"/><circle cx="702" cy="150" r="7"/><circle cx="773" cy="150" r="7"/><circle cx="869" cy="150" r="7"/></g>
+  <circle cx="940" cy="150" r="8" fill="#E24B4A"/>
+  <text x="60" y="78" class="l">first brick commit</text><text x="60" y="96" class="d">oct 8</text>
+  <text x="559" y="78" class="l" text-anchor="middle">telephony, billing, email</text><text x="559" y="96" class="d" text-anchor="middle">oct 29</text>
+  <text x="773" y="60" class="l" text-anchor="middle">24-PR stack</text><text x="773" y="78" class="d" text-anchor="middle">nov 7</text>
+  <text x="940" y="78" class="l" text-anchor="end">production</text><text x="940" y="96" class="d" text-anchor="end">nov 14</text>
+  <text x="416" y="222" class="l" text-anchor="middle" style="fill:#b5b0f0">vue → react</text><text x="416" y="240" class="d" text-anchor="middle">oct 22–24</text>
+  <text x="702" y="222" class="l" text-anchor="middle">13-PR stack</text><text x="702" y="240" class="d" text-anchor="middle">nov 4</text>
+  <text x="940" y="262" class="l" text-anchor="end">auth in 6 phases, python deleted</text><text x="940" y="280" class="d" text-anchor="end">nov 11</text>
+  <line x1="869" y1="200" x2="869" y2="244" stroke="#3d444d" stroke-width="1.5"/>
+</svg>
