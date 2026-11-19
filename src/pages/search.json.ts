@@ -13,6 +13,8 @@ export async function GET() {
     { type: 'page', title: 'snippets', href: '/snippet' },
     { type: 'page', title: 'frames', href: '/frames' },
     { type: 'page', title: 'about', href: '/about' },
+    { type: 'page', title: 'contact', href: '/contact' },
+    { type: 'page', title: 'privacy', href: '/privacy' },
     ...blog
       .filter((p) => p.data.published !== false)
       .map((p) => ({

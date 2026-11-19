@@ -1,4 +1,6 @@
 export const links = [
+  { name: 'contact', href: '/contact' },
+  { name: 'privacy', href: '/privacy' },
   {
     name: 'source code',
     href: 'https://github.com/Chandraprakash-Darji/portfolio',
