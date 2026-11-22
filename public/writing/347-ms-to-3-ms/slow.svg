@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" width="100%" role="img" aria-labelledby="w" style="background:#0d1117">
+  <title id="w">slowest endpoints in the last 7 days all call another company, 3.2 to 6.4 seconds on average, against a 4.6 ms median for everything else</title>
+  <style>text{font-family:system-ui,-apple-system,sans-serif}.r{fill:#e6edf3;font-size:15px;font-weight:600}.v{fill:#9198a1;font-size:13px}.k{fill:#9198a1;font-size:13px}.b{fill:#e6edf3;font-size:14px;font-weight:600}.m{fill:#e6edf3;font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</style>
+  <rect x="40" y="22" width="14" height="14" rx="2" fill="#888780"/><text x="62" y="34" class="k">waits on a provider</text>
+  <rect x="240" y="22" width="14" height="14" rx="2" fill="#1D9E75"/><text x="262" y="34" class="k">the rest of the app</text>
+  <text x="960" y="34" class="k" text-anchor="end">average, ms, last 7 days</text>
+  <text x="40" y="86" class="m">sending domains, bulk quote</text><rect x="360" y="72" width="600" height="18" rx="3" fill="#888780"/><text x="950" y="86" class="v" text-anchor="end" style="fill:#0d1117">6,377</text>
+  <text x="40" y="130" class="m">sending domains, connect</text><rect x="360" y="116" width="482" height="18" rx="3" fill="#888780"/><text x="850" y="130" class="v">5,122</text>
+  <text x="40" y="174" class="m">prewarmed inbox search</text><rect x="360" y="160" width="395" height="18" rx="3" fill="#888780"/><text x="763" y="174" class="v">4,196</text>
+  <text x="40" y="218" class="m">sending domains, quote</text><rect x="360" y="204" width="341" height="18" rx="3" fill="#888780"/><text x="709" y="218" class="v">3,620</text>
+  <text x="40" y="262" class="m">whatsapp template message</text><rect x="360" y="248" width="305" height="18" rx="3" fill="#888780"/><text x="673" y="262" class="v">3,242</text>
+  <text x="40" y="306" class="m">everything else, median</text><rect x="360" y="292" width="3" height="18" rx="1" fill="#1D9E75"/><text x="372" y="306" class="v">4.6</text>
+</svg>

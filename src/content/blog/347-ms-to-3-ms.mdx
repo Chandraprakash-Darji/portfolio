@@ -18,6 +18,8 @@ in september our crm api had a median of 347 ms. p95 1,134 ms.
 
 last 24 hours on production: 17.9k requests. median 3.4 ms. p95 69 ms. 0 server errors in the last 24 hours.
 
+![api server time: median 347 ms to 3.4 ms, p95 1,134 ms to 69 ms](/writing/347-ms-to-3-ms/speed.svg)
+
 a 3 ms median will get "thats just cache hits" replies. fair. most of our traffic is small reads. so look at the p95 instead: 95 out of 100 requests finish in 69 ms or less, heavy ones included.
 
 the full week is a bit worse and i'd rather say it than have you find it. 26.6k requests, 4.6 ms median, 115 ms p95.
@@ -29,6 +31,8 @@ last week i wrote about [moving the backend off python](/writing/76-prs-37-days-
 ## 1. one query per relation, never one per row
 
 the old notifications endpoint loaded 100 rows. then for each row: the sender's name, the target record, a full document load. about 300 extra queries per call.
+
+![queries per notifications call: about 300 before, 4 now](/writing/347-ms-to-3-ms/queries.svg)
 
 now its 4 queries. a real production trace, 22 ms end to end:
 
@@ -51,6 +55,8 @@ those reads (capabilities, flags, schema) now go through one `cachedRead` helper
 - errors are never cached
 - a write bumps a version counter, so a settings change shows up right away instead of after a ttl
 - authorization runs before the cache, so a hit can never leak across teams
+
+![how a cached read works: team check, then redis, then one shared load on a miss; a write bumps a version so the next read misses](/writing/347-ms-to-3-ms/cache.svg)
 
 the signed-in user is cached too. a page load fires 25 to 40 calls, and each one used to spend 5 queries finding out who you are. logout still works instantly, the cache checks the session is still live.
 
@@ -91,6 +97,8 @@ the five things above are our own code. brick didnt make the crm fast. it made i
 ## what is still slow
 
 the slowest endpoints this week all call another company. sending domain quotes and connects, prewarmed inbox search, whatsapp template messages. 3 to 13 seconds, because a registrar or a provider answers slowly.
+
+![slowest endpoints in the last 7 days, all waiting on a provider, against a 4.6 ms median for the rest](/writing/347-ms-to-3-ms/slow.svg)
 
 all 5 server errors this week were domain connects. thats why the day shows 0 and the week shows 5.
 

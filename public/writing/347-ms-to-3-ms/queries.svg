@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 170" width="100%" role="img" aria-labelledby="q" style="background:#0d1117">
+  <title id="q">SQL queries per notifications call: about 300 before, 4 now</title>
+  <style>text{font-family:system-ui,-apple-system,sans-serif}.r{fill:#e6edf3;font-size:15px;font-weight:600}.v{fill:#9198a1;font-size:13px}.k{fill:#9198a1;font-size:13px}.b{fill:#e6edf3;font-size:14px;font-weight:600}.m{fill:#e6edf3;font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</style>
+  <text x="960" y="34" class="k" text-anchor="end">queries per call, 100 notifications</text>
+  <g>
+    <text x="40" y="82" class="r">before</text>
+    <rect x="250" y="68" width="700" height="18" rx="3" fill="#888780"/><text x="940" y="82" class="v" text-anchor="end" style="fill:#0d1117">~300, 3 per row</text>
+  </g>
+  <g>
+    <text x="40" y="132" class="r">now</text>
+    <rect x="250" y="118" width="9" height="18" rx="2" fill="#1D9E75"/><text x="268" y="132" class="v">4, no matter how many rows</text>
+  </g>
+</svg>

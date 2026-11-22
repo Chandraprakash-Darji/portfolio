@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" width="100%" role="img" aria-labelledby="c" style="background:#0d1117">
+  <title id="c">how a cached read works: the team check runs first, then redis, then one shared load on a miss; a write bumps a version so the next read misses</title>
+  <style>text{font-family:system-ui,-apple-system,sans-serif}.r{fill:#e6edf3;font-size:15px;font-weight:600}.v{fill:#9198a1;font-size:13px}.k{fill:#9198a1;font-size:13px}.b{fill:#e6edf3;font-size:14px;font-weight:600}.m{fill:#e6edf3;font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</style>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#9198a1"/></marker></defs>
+  <g fill="none" stroke="#30363d" stroke-width="1.5">
+    <rect x="40" y="70" width="140" height="56" rx="6"/>
+    <rect x="230" y="70" width="180" height="56" rx="6"/>
+    <rect x="460" y="70" width="170" height="56" rx="6" stroke="#1D9E75"/>
+    <rect x="690" y="24" width="270" height="56" rx="6"/>
+    <rect x="690" y="116" width="270" height="56" rx="6"/>
+    <rect x="460" y="220" width="170" height="56" rx="6"/>
+  </g>
+  <text x="110" y="103" class="b" text-anchor="middle">request</text>
+  <text x="320" y="96" class="b" text-anchor="middle">team check</text>
+  <text x="320" y="114" class="k" text-anchor="middle">before any cache</text>
+  <text x="545" y="96" class="b" text-anchor="middle">cachedRead</text>
+  <text x="545" y="114" class="k" text-anchor="middle">key = every input</text>
+  <text x="825" y="50" class="b" text-anchor="middle">redis hit</text>
+  <text x="825" y="68" class="k" text-anchor="middle">shared by every process</text>
+  <text x="825" y="142" class="b" text-anchor="middle">miss: one shared load</text>
+  <text x="825" y="160" class="k" text-anchor="middle">same key waits, errors never cached</text>
+  <text x="545" y="246" class="b" text-anchor="middle">a write</text>
+  <text x="545" y="264" class="k" text-anchor="middle">bumps a version</text>
+  <g stroke="#9198a1" stroke-width="1.5" fill="none" marker-end="url(#a)">
+    <path d="M180 98H226"/>
+    <path d="M410 98H456"/>
+    <path d="M630 90L686 58"/>
+    <path d="M630 106L686 138"/>
+    <path d="M545 218V130" stroke-dasharray="4 4"/>
+  </g>
+  <text x="555" y="182" class="v">next read misses</text>
+</svg>
